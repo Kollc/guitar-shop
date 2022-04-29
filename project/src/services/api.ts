@@ -1,4 +1,4 @@
-import { TIMEOUT_SERVER, BASE_URL } from './../consts';
+import { TIMEOUT_SERVER, BASE_URL, APIRoutes } from './../consts';
 import axios, { AxiosInstance } from 'axios';
 
 export const createAPI = (): AxiosInstance => {
@@ -8,4 +8,15 @@ export const createAPI = (): AxiosInstance => {
   });
 
   return api;
+};
+
+export const getGuitarById = async (id: number) => {
+  const api = createAPI();
+
+  try {
+    const { data } = await api.get(`${APIRoutes.Guitars}/${id}`);
+    return data;
+  } catch (error) {
+    // console.log(error);
+  }
 };
