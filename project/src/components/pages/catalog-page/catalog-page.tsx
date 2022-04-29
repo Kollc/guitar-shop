@@ -6,8 +6,7 @@ import { borderCountShowGuitarsByPagination } from '../../../utils/utils';
 import Breadcrumbs from '../../breadcrumbs/breadcrumbs';
 import CardsList from '../../cards-list/cards-list';
 import Filter from '../../filter/filter';
-import Footer from '../../footer/footer';
-import Header from '../../header/header';
+import MainLayout from '../../main-layout/main-layout';
 import Pagination from '../../pagination/pagination';
 import Sort from '../../sort/sort';
 
@@ -28,8 +27,7 @@ function CatalogPage(): JSX.Element {
   }
 
   return (
-    <>
-      <Header/>
+    <MainLayout>
       <main className="page-content">
         <div className="container">
           <h1 className="page-content__title title title--bigger">Каталог гитар</h1>
@@ -42,8 +40,7 @@ function CatalogPage(): JSX.Element {
           </div>
         </div>
       </main>
-      <Footer/>
-    </>
+    </MainLayout>
   );
 }
 

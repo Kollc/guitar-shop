@@ -7,8 +7,7 @@ import Breadcrumbs from '../../breadcrumbs/breadcrumbs';
 import GuitarRating from '../../cuitar-rating/guitar-rating';
 import GuitarReview from '../../guitar-review/guitar-review';
 import GuitarTabs from '../../guitar-tabs/guitar-tabs';
-import Header from '../../header/header';
-import Footer from '../../footer/footer';
+import MainLayout from '../../main-layout/main-layout';
 
 function GuitarDetailPage(): JSX.Element {
   const [guitar, setGuitar] = useState<GuitarType | null>(null);
@@ -40,8 +39,7 @@ function GuitarDetailPage(): JSX.Element {
   }
 
   return (
-    <>
-      <Header/>
+    <MainLayout>
       <main className="page-content">
         <div className="container">
           <h1 className="page-content__title title title--bigger">{guitar.name}</h1>
@@ -69,8 +67,7 @@ function GuitarDetailPage(): JSX.Element {
           <GuitarReview/>
         </div>
       </main>
-      <Footer/>
-    </>
+    </MainLayout>
   );
 }
 
