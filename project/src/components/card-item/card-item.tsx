@@ -1,5 +1,7 @@
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { GuitarType, ImagenDataType } from '../../types/types';
+import { getGuitarCommentsById } from '../../services/api';
+import { ReviewsType, GuitarType, ImagenDataType } from '../../types/types';
 import { getImagenData } from '../../utils/utils';
 import GuitarRating from '../cuitar-rating/guitar-rating';
 
@@ -9,6 +11,21 @@ type CardItemProps = {
 
 function CardItem({guitar}: CardItemProps): JSX.Element {
   const imagenData: ImagenDataType = getImagenData(guitar.previewImg);
+  const [loaded, setLoaded] = useState(false);
+  const [reviews, setReviews] = useState<ReviewsType[] | null>(null);
+
+  useEffect(() => {
+    getGuitarCommentsById(guitar.id).then((data) => {
+      if(data) {
+        setReviews(data);
+        setLoaded(true);
+      }
+    });
+  }, [guitar]);
+
+  if(!loaded || reviews === null) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="product-card">
@@ -21,7 +38,7 @@ function CardItem({guitar}: CardItemProps): JSX.Element {
       />
 
       <div className="product-card__info">
-        <GuitarRating guitar={guitar}/>
+        <GuitarRating guitar={guitar} countReviews={reviews.length}/>
         <p className="product-card__title">{guitar.name}</p>
         <p className="product-card__price"><span className="visually-hidden">Цена:</span>{guitar.price} ₽
         </p>

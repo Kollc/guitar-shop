@@ -20,3 +20,14 @@ export const getGuitarById = async (id: number) => {
     // console.log(error);
   }
 };
+
+export const getGuitarCommentsById = async (id: number) => {
+  const api = createAPI();
+
+  try {
+    const { data } = await api.get(`${APIRoutes.Guitars}/${id}${APIRoutes.Comments}`);
+    return data;
+  } catch (error) {
+    // console.log(error);
+  }
+};

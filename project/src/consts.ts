@@ -6,6 +6,7 @@ export enum AppRoutes {
 
 export enum APIRoutes {
   Guitars = '/guitars',
+  Comments = '/comments',
 }
 
 export const BASE_URL = 'https://guitar-shop.accelerator.pages.academy';
@@ -20,3 +21,8 @@ export const COUNT_SHOW_GUITARS_IN_PAGE = 9;
 export const FIRST_PAGE_INDEX = 1;
 
 export const COUNT_RATING_STARS = 5;
+
+export enum GuitarTabsList {
+  Characteristics = 'characteristics',
+  Description = 'description',
+}

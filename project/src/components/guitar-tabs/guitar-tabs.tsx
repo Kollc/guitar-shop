@@ -1,30 +1,48 @@
+import { useState } from 'react';
 import { GuitarType } from '../../types/types';
+import { GuitarTabsList } from '../../consts';
 
 type GuitarTabsProps = {
   guitar: GuitarType,
 };
 
 function GuitarTabs({guitar}: GuitarTabsProps): JSX.Element {
+  const [activeTab, setActiveTab] = useState(GuitarTabsList.Characteristics);
+
   return (
     <div className="tabs">
-      <a className="button button--medium tabs__button" href="#characteristics">Характеристики</a>
-      <a className="button button--black-border button--medium tabs__button" href="#description">Описание</a>
+      <button
+        className={`button button--medium tabs__button ${activeTab !== GuitarTabsList.Characteristics && 'button--black-border'}`}
+        onClick={() => setActiveTab(GuitarTabsList.Characteristics)}
+      >
+        Характеристики
+      </button>
+
+      <button
+        className={`button button--medium tabs__button ${activeTab !== GuitarTabsList.Description && 'button--black-border'}`}
+        onClick={() => setActiveTab(GuitarTabsList.Description)}
+      >
+        Описание
+      </button>
+
       <div className="tabs__content" id="characteristics">
-        <table className="tabs__table">
-          <tr className="tabs__table-row">
-            <td className="tabs__title">Артикул:</td>
-            <td className="tabs__value">{guitar.vendorCode}</td>
-          </tr>
-          <tr className="tabs__table-row">
-            <td className="tabs__title">Тип:</td>
-            <td className="tabs__value">Электрогитара</td>
-          </tr>
-          <tr className="tabs__table-row">
-            <td className="tabs__title">Количество струн:</td>
-            <td className="tabs__value">{guitar.stringCount} струнная</td>
-          </tr>
+        <table className={`tabs__table ${activeTab !== GuitarTabsList.Characteristics && 'hidden'}`}>
+          <tbody>
+            <tr className="tabs__table-row">
+              <td className="tabs__title">Артикул:</td>
+              <td className="tabs__value">{guitar.vendorCode}</td>
+            </tr>
+            <tr className="tabs__table-row">
+              <td className="tabs__title">Тип:</td>
+              <td className="tabs__value">Электрогитара</td>
+            </tr>
+            <tr className="tabs__table-row">
+              <td className="tabs__title">Количество струн:</td>
+              <td className="tabs__value">{guitar.stringCount} струнная</td>
+            </tr>
+          </tbody>
         </table>
-        <p className="tabs__product-description hidden">{guitar.description}</p>
+        <p className={`tabs__product-description ${activeTab !== GuitarTabsList.Description && 'hidden'}`}>{guitar.description}</p>
       </div>
     </div>
   );
