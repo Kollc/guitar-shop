@@ -1,5 +1,7 @@
+import { useRef, useState } from 'react';
+import { COUNT_SHOW_REVIEWS } from '../../consts';
 import { ReviewsType } from '../../types/types';
-import { getFormatedDate } from '../../utils/utils';
+import { getFormatedDate, sortReviewsByDate } from '../../utils/utils';
 import RatingStarsList from '../rating-stars-list/rating-stars-list';
 
 type GuitarReviewProps = {
@@ -7,11 +9,23 @@ type GuitarReviewProps = {
 }
 
 function GuitarReview({reviews}: GuitarReviewProps): JSX.Element {
+  const [countShowReviews, SetCountShowReviews] = useState(COUNT_SHOW_REVIEWS);
+  const showMoreButtonRef = useRef<HTMLButtonElement | null>(null);
+
+  window.addEventListener('scroll', () => {
+    const scrollPosition = window.scrollY;
+    const showMoreButton = showMoreButtonRef.current;
+
+    if((showMoreButtonRef !== null && showMoreButton) && (scrollPosition >= showMoreButton.offsetTop + showMoreButton.scrollHeight)) {
+      SetCountShowReviews((count) => count + COUNT_SHOW_REVIEWS);
+    }
+  });
+
   return (
     <section className="reviews">
       <h3 className="reviews__title title title--bigger">Отзывы</h3>
       <button className="button button--red-border button--big reviews__sumbit-button">Оставить отзыв</button>
-      {reviews.map((review) => (
+      {sortReviewsByDate(reviews).slice(0, countShowReviews).map((review) => (
         <div className="review" key={review.id}>
           <div className="review__wrapper">
             <h4 className="review__title review__title--author title title--lesser">{review.userName}</h4>
@@ -29,7 +43,7 @@ function GuitarReview({reviews}: GuitarReviewProps): JSX.Element {
           <p className="review__value">{review.comment}</p>
         </div>
       ))}
-      <button className="button button--medium reviews__more-button">Показать еще отзывы</button>
+      {countShowReviews < reviews.length && <button className="button button--medium reviews__more-button" ref={showMoreButtonRef} onClick={() => SetCountShowReviews((count) => count + COUNT_SHOW_REVIEWS)}>Показать еще отзывы</button>}
       <a className="button button--up button--red-border button--big reviews__up-button" href="#header">Наверх</a>
     </section>
   );

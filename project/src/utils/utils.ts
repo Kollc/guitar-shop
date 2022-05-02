@@ -1,6 +1,6 @@
 import { COUNT_RATING_STARS, COUNT_SHOW_GUITARS_IN_PAGE } from './../consts';
 import { DEFAULT_PATH_TO_GUITAR_IMAGENS } from '../consts';
-import { ImagenDataType, RatingStars } from '../types/types';
+import { ImagenDataType, RatingStars, ReviewsType } from '../types/types';
 
 export const getImagenData = (pathImg: string): ImagenDataType => {
   const nameFileWithFormat = pathImg.split('/')[1];
@@ -40,3 +40,13 @@ export const getFormatedDate = (date: string): string => {
   const newDate = new Date(date);
   return newDate.toLocaleString('ru-RU', {month: 'long', day: 'numeric'});
 };
+
+
+export const sortReviewsByDate = (reviews: ReviewsType[]) => (
+  reviews.sort((prev, next) => {
+    const prevDate = new Date(prev.createAt);
+    const nextDate = new Date(next.createAt);
+
+    return Number(nextDate) - Number(prevDate);
+  })
+);

@@ -18,6 +18,8 @@ export enum NameSpace {
 
 export const DEFAULT_PATH_TO_GUITAR_IMAGENS = 'img/content/';
 export const COUNT_SHOW_GUITARS_IN_PAGE = 9;
+export const COUNT_SHOW_REVIEWS = 3;
+
 export const FIRST_PAGE_INDEX = 1;
 
 export const COUNT_RATING_STARS = 5;
