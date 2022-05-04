@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getGuitarById, getGuitarCommentsById } from '../../../services/api';
-import { ReviewsType, GuitarType, ImagenDataType } from '../../../types/types';
+import { ReviewType, GuitarType, ImagenDataType } from '../../../types/types';
 import { getImagenData } from '../../../utils/utils';
 import Breadcrumbs from '../../breadcrumbs/breadcrumbs';
 import GuitarRating from '../../cuitar-rating/guitar-rating';
@@ -14,7 +14,7 @@ function GuitarDetailPage(): JSX.Element {
   const [loaded, setLoaded] = useState(false);
   const {id} = useParams<{id?: string}>();
   const [imagenData, setImagenData] = useState<ImagenDataType | null>(null);
-  const [reviews, setReviews] = useState<ReviewsType[] | null>(null);
+  const [reviews, setReviews] = useState<ReviewType[] | null>(null);
 
   useEffect(() => {
     setLoaded(false);
@@ -78,7 +78,7 @@ function GuitarDetailPage(): JSX.Element {
               <a className="button button--red button--big product-container__button" href="#">Добавить в корзину</a>
             </div>
           </div>
-          <GuitarReview  reviews={reviews}/>
+          <GuitarReview  reviews={reviews} guitar={guitar}/>
         </div>
       </main>
     </MainLayout>

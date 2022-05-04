@@ -1,6 +1,6 @@
-import { COUNT_RATING_STARS, COUNT_SHOW_GUITARS_IN_PAGE } from './../consts';
+import { COUNT_RATING_STARS, COUNT_SHOW_GUITARS_IN_PAGE, RatingName, RatingValue } from './../consts';
 import { DEFAULT_PATH_TO_GUITAR_IMAGENS } from '../consts';
-import { ImagenDataType, RatingStars, ReviewsType } from '../types/types';
+import { ImagenDataType, RatingStars, ReviewType } from '../types/types';
 
 export const getImagenData = (pathImg: string): ImagenDataType => {
   const nameFileWithFormat = pathImg.split('/')[1];
@@ -42,7 +42,7 @@ export const getFormatedDate = (date: string): string => {
 };
 
 
-export const sortReviewsByDate = (reviews: ReviewsType[]) => (
+export const sortReviewsByDate = (reviews: ReviewType[]) => (
   reviews.sort((prev, next) => {
     const prevDate = new Date(prev.createAt);
     const nextDate = new Date(next.createAt);
@@ -50,3 +50,18 @@ export const sortReviewsByDate = (reviews: ReviewsType[]) => (
     return Number(nextDate) - Number(prevDate);
   })
 );
+
+export const getRatingNameValue = (rating: number): string => {
+  switch (rating) {
+    case RatingValue.Terrible:
+      return RatingName.Terrible;
+    case RatingValue.Badly:
+      return RatingName.Badly;
+    case RatingValue.Good:
+      return RatingName.Good;
+    case RatingValue.Fine:
+      return RatingName.Fine;
+    default:
+      return RatingName.Great;
+  }
+};
