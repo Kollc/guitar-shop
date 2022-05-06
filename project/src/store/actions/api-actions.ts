@@ -2,7 +2,7 @@ import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../../types/state';
 import { APIRoutes } from '../../consts';
-import { addReviewType, GuitarType } from '../../types/types';
+import { GuitarType } from '../../types/types';
 import { setGuitars } from '../guitars-process/guitars-process';
 
 
@@ -16,21 +16,6 @@ export const fetchGuitarsAction = createAsyncThunk<void, undefined, {
     try {
       const { data } = await api.get<GuitarType[]>(APIRoutes.Guitars);
       dispatch(setGuitars(data));
-    } catch (error) {
-      // errorHandle(error, dispatch);
-    }
-  },
-);
-
-export const addNewReviewAction = createAsyncThunk<void, addReviewType, {
-  dispatch: AppDispatch,
-  state: State,
-  extra: AxiosInstance
-}>(
-  'data/addNewReview',
-  async (review: addReviewType, {dispatch, extra: api}) => {
-    try {
-      await api.post(APIRoutes.Comments, review);
     } catch (error) {
       // errorHandle(error, dispatch);
     }

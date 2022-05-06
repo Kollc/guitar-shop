@@ -1,19 +1,76 @@
-import { useRef, useState } from 'react';
-import { COUNT_SHOW_REVIEWS } from '../../consts';
+import { useEffect, useRef, useState } from 'react';
+import { COUNT_SHOW_REVIEWS, ESCAPE_BUTTON_KEY } from '../../consts';
+import { getGuitarCommentsById } from '../../services/api';
 import { GuitarType, ReviewType } from '../../types/types';
-import { getFormatedDate, getRatingNameValue, sortReviewsByDate } from '../../utils/utils';
+import { addStyleBodyWithCloseModal, addStyleBodyWithOpenModal, getFormatedDate, getRatingNameValue, sortReviewsByDate } from '../../utils/utils';
+import AddReviewSuccess from '../add-review-modal/add-review-success/add-review-success';
 import RatingStarsList from '../rating-stars-list/rating-stars-list';
 import AddReviewModal from './../add-review-modal/add-review-modal';
 
 type GuitarReviewProps = {
-  reviews: ReviewType[],
   guitar: GuitarType,
 }
 
-function GuitarReview({reviews, guitar}: GuitarReviewProps): JSX.Element {
+function GuitarReview({guitar}: GuitarReviewProps): JSX.Element {
   const [countShowReviews, SetCountShowReviews] = useState(COUNT_SHOW_REVIEWS);
   const showMoreButtonRef = useRef<HTMLButtonElement | null>(null);
   const [openModalAddReview, setOpenModalAddReview] = useState(false);
+  const [reviews, setReviews] = useState<ReviewType[] | null>(null);
+  const [isAddedReview, setIsAddedReview] = useState(false);
+  const [loaded, setLoaded] = useState(false);
+
+  const handleKeydownEscCloseModal = (evt: KeyboardEvent): void => {
+    if(evt.key === ESCAPE_BUTTON_KEY) {
+      handleClickCloseModalAddReview();
+      handleClickCloseModalSuccessAddReview();
+    }
+  };
+
+  const handleClickOpenModalAddReview = () => {
+    setOpenModalAddReview(true);
+    addStyleBodyWithOpenModal();
+    document.addEventListener('keydown', handleKeydownEscCloseModal);
+  };
+
+  const handleClickCloseModalAddReview = () => {
+    setOpenModalAddReview(false);
+    addStyleBodyWithCloseModal();
+    document.removeEventListener('keydown', handleKeydownEscCloseModal);
+  };
+
+  const handleClickOpenModalSuccessAddReview = () => {
+    setIsAddedReview(true);
+    addStyleBodyWithOpenModal();
+    document.addEventListener('keydown', handleKeydownEscCloseModal);
+  };
+
+  const handleClickCloseModalSuccessAddReview = () => {
+    setIsAddedReview(false);
+    addStyleBodyWithCloseModal();
+    document.removeEventListener('keydown', handleKeydownEscCloseModal);
+    fetchReviews();
+  };
+
+  const fetchReviews = () => {
+    setLoaded(false);
+
+    getGuitarCommentsById(guitar.id).then((data) => {
+      if(data) {
+        setReviews(data);
+        setLoaded(true);
+      }
+    });
+  };
+
+  useEffect(() => {
+    if(isAddedReview) {
+      setOpenModalAddReview(false);
+    }
+  }, [isAddedReview]);
+
+  useEffect(() => {
+    fetchReviews();
+  }, [guitar]);
 
   window.addEventListener('scroll', () => {
     const scrollPosition = window.scrollY;
@@ -24,11 +81,15 @@ function GuitarReview({reviews, guitar}: GuitarReviewProps): JSX.Element {
     }
   });
 
+  if(!loaded || reviews === null) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <>
       <section className="reviews">
         <h3 className="reviews__title title title--bigger">Отзывы</h3>
-        <button className="button button--red-border button--big reviews__sumbit-button" onClick={() => setOpenModalAddReview(true)}>Оставить отзыв</button>
+        <button className="button button--red-border button--big reviews__sumbit-button" onClick={handleClickOpenModalAddReview}>Оставить отзыв</button>
         {sortReviewsByDate(reviews).slice(0, countShowReviews).map((review) => (
           <div className="review" key={review.id}>
             <div className="review__wrapper">
@@ -50,7 +111,8 @@ function GuitarReview({reviews, guitar}: GuitarReviewProps): JSX.Element {
         {countShowReviews < reviews.length && <button className="button button--medium reviews__more-button" ref={showMoreButtonRef} onClick={() => SetCountShowReviews((count) => count + COUNT_SHOW_REVIEWS)}>Показать еще отзывы</button>}
         <a className="button button--up button--red-border button--big reviews__up-button" href="#header">Наверх</a>
       </section>
-      <AddReviewModal guitar={guitar} open={openModalAddReview} onOpen={setOpenModalAddReview}/>
+      <AddReviewModal guitar={guitar} open={openModalAddReview} onClose={handleClickCloseModalAddReview} onOpenSuccessAddReview={handleClickOpenModalSuccessAddReview}/>
+      <AddReviewSuccess open={isAddedReview} onClose={handleClickCloseModalSuccessAddReview}/>
     </>
   );
 }

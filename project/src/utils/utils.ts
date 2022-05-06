@@ -43,7 +43,7 @@ export const getFormatedDate = (date: string): string => {
 
 
 export const sortReviewsByDate = (reviews: ReviewType[]) => (
-  reviews.sort((prev, next) => {
+  [...reviews].sort((prev, next) => {
     const prevDate = new Date(prev.createAt);
     const nextDate = new Date(next.createAt);
 
@@ -64,4 +64,15 @@ export const getRatingNameValue = (rating: number): string => {
     default:
       return RatingName.Great;
   }
+};
+
+
+export const addStyleBodyWithOpenModal = () => {
+  const bodyElement = document.querySelector('body') as HTMLBodyElement;
+  bodyElement.style.overflow = 'hidden';
+};
+
+export const addStyleBodyWithCloseModal = () => {
+  const bodyElement = document.querySelector('body') as HTMLBodyElement;
+  bodyElement.style.overflow = 'visible';
 };

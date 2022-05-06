@@ -1,14 +1,16 @@
 import { ChangeEvent, FormEvent, useRef, useState } from 'react';
 import { COUNT_ROWS_IN_TEXT_AREA, DEFAULT_RATING_VALUE, errorTypeList } from '../../../consts';
+import { addNewReview } from '../../../services/api';
 import { GuitarType } from '../../../types/types';
 import { valudateRatingInput, valudateTextInput } from '../../../utils/validate';
 import AddReviewRating from '../add-review-rating/add-review-rating';
 
 type AddReviewFormProps = {
   guitar: GuitarType,
+  onOpenSuccessAddReview: () => void,
 }
 
-function AddReviewForm({guitar}: AddReviewFormProps): JSX.Element {
+function AddReviewForm({guitar, onOpenSuccessAddReview}: AddReviewFormProps): JSX.Element {
   const [rating, setRating] = useState(DEFAULT_RATING_VALUE);
   const nameRef = useRef<HTMLInputElement>(null);
   const advantagesRef = useRef<HTMLInputElement>(null);
@@ -75,10 +77,23 @@ function AddReviewForm({guitar}: AddReviewFormProps): JSX.Element {
 
   const handleClickSubmitButton = (evt: FormEvent) => {
     evt.preventDefault();
-    const isHaveError = checkValidateElementsField();
+    if(nameRef.current && advantagesRef.current && disadvantagesRef.current && commentRef.current) {
+      const isHaveError = checkValidateElementsField();
 
-    if(!isHaveError) {
-      // console.log('Submit');
+      if(!isHaveError) {
+        addNewReview({
+          guitarId: guitar.id,
+          userName: nameRef.current.value,
+          advantage: advantagesRef.current.value,
+          disadvantage: disadvantagesRef.current.value,
+          comment: commentRef.current.value,
+          rating: rating,
+        }).then((data) => {
+          if(data) {
+            onOpenSuccessAddReview();
+          }
+        });
+      }
     }
   };
 

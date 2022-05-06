@@ -1,7 +1,7 @@
 export enum AppRoutes {
   Main = '/',
-  Catalog = '/catalog/page_:page',
-  Guitar = '/catalog/:id',
+  Catalog = '/catalog/:page',
+  Guitar = '/guitar/:id',
 }
 
 export enum APIRoutes {
@@ -53,3 +53,5 @@ export enum RatingValue {
   Good = 4,
   Great = 5,
 }
+
+export const ESCAPE_BUTTON_KEY = 'Escape';
