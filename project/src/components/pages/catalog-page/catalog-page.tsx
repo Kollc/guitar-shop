@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
-import { useAppSelector } from '../../../hooks/hooks';
+import { useParams } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
+import { fetchGuitarsWithParamsAction } from '../../../store/actions/api-actions';
 import { getGuitars, getStatusLoaded } from '../../../store/guitars-process/selector';
-import { GuitarType } from '../../../types/types';
-import { borderCountShowGuitarsByPagination } from '../../../utils/utils';
+import { getCountStartShowGuitars } from '../../../utils/utils';
 import Breadcrumbs from '../../breadcrumbs/breadcrumbs';
 import CardsList from '../../cards-list/cards-list';
 import Filter from '../../filter/filter';
@@ -11,18 +12,24 @@ import Pagination from '../../pagination/pagination';
 import Sort from '../../sort/sort';
 
 function CatalogPage(): JSX.Element {
+  const dispatch = useAppDispatch();
   const guitars = useAppSelector(getGuitars);
   const loaded = useAppSelector(getStatusLoaded);
-  const [showGuitars, setShowGuitars] = useState<GuitarType[]>([]);
+  const {page} = useParams<{page: string}>();
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    const border = borderCountShowGuitarsByPagination(currentPage);
+    if(page) {
+      setCurrentPage(Number(page));
+    }
+  }, [page]);
 
-    setShowGuitars(guitars.slice(border.min, border.max));
-  }, [guitars, currentPage]);
+  useEffect(() => {
+    const start = getCountStartShowGuitars(Number(currentPage));
+    dispatch(fetchGuitarsWithParamsAction({start}));
+  }, [currentPage]);
 
-  if(!loaded && showGuitars) {
+  if(!loaded && guitars) {
     return <div>Loading...</div>;
   }
 
@@ -35,8 +42,8 @@ function CatalogPage(): JSX.Element {
           <div className="catalog">
             <Filter/>
             <Sort/>
-            <CardsList guitars={showGuitars}/>
-            <Pagination currentPage={currentPage} countGuitars={guitars.length} setCurrentPage={setCurrentPage}/>
+            <CardsList guitars={guitars}/>
+            <Pagination currentPage={currentPage}/>
           </div>
         </div>
       </main>

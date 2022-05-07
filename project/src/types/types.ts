@@ -33,6 +33,7 @@ export type ReviewType = {
 export type GuitarsProcessType = {
   guitars: GuitarType[],
   isLoadedGuitars: boolean,
+  countGuitars: number,
 }
 
 export type ImagenDataType = {
@@ -44,4 +45,8 @@ export type ImagenDataType = {
 export type RatingStars = {
   value: boolean,
   key: number
+}
+
+export type ParamsType = {
+  start?:  number,
 }

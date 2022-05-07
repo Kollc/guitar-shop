@@ -1,17 +1,17 @@
 import { useEffect, useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { COUNT_SHOW_GUITARS_IN_PAGE, FIRST_PAGE_INDEX } from '../../consts';
+import { useAppSelector } from '../../hooks/hooks';
+import { getCountGuitars } from '../../store/guitars-process/selector';
 import { getNumberArrayByCount } from '../../utils/utils';
 
 type PaginationProps = {
-  countGuitars: number,
   currentPage: number,
-  setCurrentPage: (page: number) => void,
 }
 
-function Pagination({countGuitars, setCurrentPage, currentPage}: PaginationProps): JSX.Element {
+function Pagination({currentPage = 1}: PaginationProps): JSX.Element {
   const [pages, setPages] = useState<number[]>([]);
-  const history = useHistory();
+  const countGuitars = useAppSelector(getCountGuitars);
 
   useEffect(() => {
     const pageCount = Math.ceil(countGuitars/COUNT_SHOW_GUITARS_IN_PAGE);
@@ -20,16 +20,6 @@ function Pagination({countGuitars, setCurrentPage, currentPage}: PaginationProps
     setPages(pagesNumberList);
   }, [countGuitars]);
 
-  const handleClickNextButton = () => {
-    setCurrentPage(currentPage + 1);
-    history.push(`/catalog/page_${currentPage + 1}`);
-  };
-
-  const handleClickBackButton = () => {
-    setCurrentPage(currentPage - 1);
-    history.push(`/catalog/page_${currentPage - 1}`);
-  };
-
   return (
     <div className="pagination page-content__pagination">
       <ul className="pagination__list">
@@ -37,19 +27,19 @@ function Pagination({countGuitars, setCurrentPage, currentPage}: PaginationProps
           currentPage > FIRST_PAGE_INDEX
         &&
           <li className="pagination__page pagination__page--prev" id="prev">
-            <a className="link pagination__page-link" onClick={handleClickBackButton}>Назад</a>
+            <Link to={`/catalog/page/${currentPage - 1}`} className="link pagination__page-link">Назад</Link>
           </li>
         }
         {pages.map((page) => (
           <li className={`pagination__page ${currentPage === page && 'pagination__page--active'}`} key={page}>
-            <Link to={`/catalog/page_${page}`} className="link pagination__page-link" href={'/'} onClick={() => setCurrentPage(page)}>{page}</Link>
+            <Link to={`/catalog/page/${page}`} className="link pagination__page-link" href={'/'}>{page}</Link>
           </li>
         ))}
         {
           currentPage !== pages.length
         &&
           <li className="pagination__page pagination__page--next" id="next">
-            <a className="link pagination__page-link" onClick={handleClickNextButton}>Далее</a>
+            <Link to={`/catalog/page/${currentPage + 1}`} className="link pagination__page-link">Далее</Link>
           </li>
         }
       </ul>

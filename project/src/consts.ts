@@ -1,6 +1,6 @@
 export enum AppRoutes {
   Main = '/',
-  Catalog = '/catalog/:page',
+  CatalogPage = '/catalog/page/:page',
   Guitar = '/guitar/:id',
 }
 
@@ -55,3 +55,4 @@ export enum RatingValue {
 }
 
 export const ESCAPE_BUTTON_KEY = 'Escape';
+export const TOTAL_COUNT_GUITARS_HEADERS = 'x-total-count';

@@ -12,11 +12,10 @@ export const getImagenData = (pathImg: string): ImagenDataType => {
   return {index, format, path: DEFAULT_PATH_TO_GUITAR_IMAGENS};
 };
 
-export const borderCountShowGuitarsByPagination = (currentPage: number): {min: number, max: number} => {
+export const getCountStartShowGuitars = (currentPage: number): number => {
   const min = COUNT_SHOW_GUITARS_IN_PAGE * currentPage - COUNT_SHOW_GUITARS_IN_PAGE;
-  const max = COUNT_SHOW_GUITARS_IN_PAGE * currentPage;
 
-  return {min, max};
+  return min;
 };
 
 
