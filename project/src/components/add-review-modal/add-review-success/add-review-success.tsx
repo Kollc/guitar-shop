@@ -5,7 +5,7 @@ type AddReviewSuccessProps = {
 
 function AddReviewSuccess({open, onClose}: AddReviewSuccessProps ): JSX.Element {
   return (
-    <div style={{position: 'relative', width: '550px', height: '410px', marginBottom: '50px'}}>
+    <div style={{position: 'relative', width: '550px', height: '410px', marginBottom: '50px', display: open ? 'flex' : 'none'}}>
       <div className={`modal modal--success modal-for-ui-kit ${open && 'is-active'}`}>
         <div className="modal__wrapper">
           <div className="modal__overlay" data-close-modal onClick={onClose}></div>

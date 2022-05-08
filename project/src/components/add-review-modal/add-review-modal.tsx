@@ -10,7 +10,7 @@ type AddReviewModalProps = {
 
 function AddReviewModal({guitar, open, onClose, onOpenSuccessAddReview}: AddReviewModalProps): JSX.Element {
   return (
-    <div style={{position: 'relative', width: '550px', height: '610px', marginBottom: '50px'}}>
+    <div style={{position: 'relative', width: '550px', height: '610px', marginBottom: '50px', display: open ? 'flex' : 'none'}}>
       <div className={`modal modal--review modal-for-ui-kit ${open && 'is-active'}`}>
         <div className="modal__wrapper">
           <div className="modal__overlay" data-close-modal onClick={onClose}></div>
