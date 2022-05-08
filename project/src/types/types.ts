@@ -34,6 +34,7 @@ export type GuitarsProcessType = {
   guitars: GuitarType[],
   isLoadedGuitars: boolean,
   countGuitars: number,
+  errorMessage: string,
 }
 
 export type ImagenDataType = {
@@ -50,3 +51,5 @@ export type RatingStars = {
 export type ParamsType = {
   start?:  number,
 }
+
+export type ErrorType = unknown;

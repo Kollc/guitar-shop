@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { TypeRequests } from '../../../consts';
 import { getGuitarById } from '../../../services/api';
 import { GuitarType, ImagenDataType } from '../../../types/types';
 import { getImagenData } from '../../../utils/utils';
 import Breadcrumbs from '../../breadcrumbs/breadcrumbs';
 import GuitarRating from '../../cuitar-rating/guitar-rating';
+import ErrorMessage from '../../error-message/error-message';
 import GuitarReview from '../../guitar-review/guitar-review';
 import GuitarTabs from '../../guitar-tabs/guitar-tabs';
 import MainLayout from '../../main-layout/main-layout';
@@ -15,11 +17,12 @@ function GuitarDetailPage(): JSX.Element {
   const [loaded, setLoaded] = useState(false);
   const {id} = useParams<{id?: string}>();
   const [imagenData, setImagenData] = useState<ImagenDataType | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     setLoaded(false);
 
-    getGuitarById(Number(id)).then((data) => {
+    getGuitarById(Number(id), setError).then((data) => {
       setGuitar(data);
       setLoaded(true);
     });
@@ -67,6 +70,7 @@ function GuitarDetailPage(): JSX.Element {
           </div>
           <GuitarReview guitar={guitar}/>
         </div>
+        {error && <ErrorMessage error={error} type={TypeRequests.Guitars}/>}
       </main>
     </MainLayout>
   );

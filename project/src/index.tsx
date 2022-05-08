@@ -8,6 +8,7 @@ import { store } from './store/store';
 
 store.dispatch(fetchGuitarsWithParamsAction({}));
 
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>

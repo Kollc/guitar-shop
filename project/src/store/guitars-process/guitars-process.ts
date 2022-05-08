@@ -6,6 +6,7 @@ const initialState: GuitarsProcessType = {
   guitars: [],
   isLoadedGuitars: false,
   countGuitars: 0,
+  errorMessage: '',
 };
 
 export const guitarsProcess = createSlice({
@@ -19,7 +20,14 @@ export const guitarsProcess = createSlice({
     setCountGuitars: (state, action) => {
       state.countGuitars = action.payload;
     },
+    setErrorMessage: (state, action) => {
+      state.errorMessage = action.payload;
+      state.isLoadedGuitars = true;
+    },
+    resetErrorMessage: (state) => {
+      state.errorMessage ='';
+    },
   },
 });
 
-export const {setGuitars, setCountGuitars} = guitarsProcess.actions;
+export const {setGuitars, setCountGuitars, setErrorMessage, resetErrorMessage} = guitarsProcess.actions;

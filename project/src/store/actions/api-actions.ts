@@ -2,9 +2,10 @@ import { ParamsType } from './../../types/types';
 import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../../types/state';
-import { APIRoutes, COUNT_SHOW_GUITARS_IN_PAGE, TOTAL_COUNT_GUITARS_HEADERS } from '../../consts';
+import { APIRoutes, COUNT_SHOW_GUITARS_IN_PAGE, TIMEOUT_RESET_ERROR, TOTAL_COUNT_GUITARS_HEADERS } from '../../consts';
 import { GuitarType } from '../../types/types';
-import { setCountGuitars, setGuitars } from '../guitars-process/guitars-process';
+import { resetErrorMessage, setCountGuitars, setErrorMessage, setGuitars } from '../guitars-process/guitars-process';
+import { errorHandle } from '../../services/error-handler';
 
 
 export const fetchGuitarsWithParamsAction = createAsyncThunk<void, ParamsType, {
@@ -19,7 +20,10 @@ export const fetchGuitarsWithParamsAction = createAsyncThunk<void, ParamsType, {
       dispatch(setCountGuitars(Number(headers[TOTAL_COUNT_GUITARS_HEADERS])));
       dispatch(setGuitars(data));
     } catch (error) {
-      // errorHandle(error, dispatch);
+      dispatch(setErrorMessage(errorHandle(error)));
+      setTimeout(() => {
+        dispatch(resetErrorMessage());
+      }, TIMEOUT_RESET_ERROR);
     }
   },
 );

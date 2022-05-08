@@ -56,3 +56,10 @@ export enum RatingValue {
 
 export const ESCAPE_BUTTON_KEY = 'Escape';
 export const TOTAL_COUNT_GUITARS_HEADERS = 'x-total-count';
+
+export const TIMEOUT_RESET_ERROR = 5000;
+
+export enum TypeRequests {
+  Guitars = 'guitars request',
+  Reviews = 'reviews request',
+}

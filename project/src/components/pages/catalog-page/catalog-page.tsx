@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { TypeRequests } from '../../../consts';
 import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
 import { fetchGuitarsWithParamsAction } from '../../../store/actions/api-actions';
-import { getGuitars, getStatusLoaded } from '../../../store/guitars-process/selector';
+import { getFetchGuitarsError, getGuitars, getStatusLoaded } from '../../../store/guitars-process/selector';
 import { getCountStartShowGuitars } from '../../../utils/utils';
 import Breadcrumbs from '../../breadcrumbs/breadcrumbs';
 import CardsList from '../../cards-list/cards-list';
+import ErrorMessage from '../../error-message/error-message';
 import Filter from '../../filter/filter';
 import MainLayout from '../../main-layout/main-layout';
 import Pagination from '../../pagination/pagination';
@@ -17,6 +19,7 @@ function CatalogPage(): JSX.Element {
   const loaded = useAppSelector(getStatusLoaded);
   const {page} = useParams<{page: string}>();
   const [currentPage, setCurrentPage] = useState(1);
+  const error = useAppSelector(getFetchGuitarsError);
 
   useEffect(() => {
     if(page) {
@@ -46,6 +49,7 @@ function CatalogPage(): JSX.Element {
             <Pagination currentPage={currentPage}/>
           </div>
         </div>
+        {error && <ErrorMessage error={error} type={TypeRequests.Guitars}/>}
       </main>
     </MainLayout>
   );

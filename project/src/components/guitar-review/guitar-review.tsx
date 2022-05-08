@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
-import { COUNT_SHOW_REVIEWS, ESCAPE_BUTTON_KEY } from '../../consts';
+import { COUNT_SHOW_REVIEWS, ESCAPE_BUTTON_KEY, TypeRequests } from '../../consts';
 import { getGuitarCommentsById } from '../../services/api';
 import { GuitarType, ReviewType } from '../../types/types';
 import { addStyleBodyWithCloseModal, addStyleBodyWithOpenModal, getFormatedDate, getRatingNameValue, sortReviewsByDate } from '../../utils/utils';
 import AddReviewSuccess from '../add-review-modal/add-review-success/add-review-success';
+import ErrorMessage from '../error-message/error-message';
 import RatingStarsList from '../rating-stars-list/rating-stars-list';
 import AddReviewModal from './../add-review-modal/add-review-modal';
 
@@ -18,6 +19,7 @@ function GuitarReview({guitar}: GuitarReviewProps): JSX.Element {
   const [reviews, setReviews] = useState<ReviewType[] | null>(null);
   const [isAddedReview, setIsAddedReview] = useState(false);
   const [loaded, setLoaded] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleKeydownEscCloseModal = (evt: KeyboardEvent): void => {
     if(evt.key === ESCAPE_BUTTON_KEY) {
@@ -54,7 +56,7 @@ function GuitarReview({guitar}: GuitarReviewProps): JSX.Element {
   const fetchReviews = () => {
     setLoaded(false);
 
-    getGuitarCommentsById(guitar.id).then((data) => {
+    getGuitarCommentsById(guitar.id, setError).then((data) => {
       if(data) {
         setReviews(data);
         setLoaded(true);
@@ -113,6 +115,7 @@ function GuitarReview({guitar}: GuitarReviewProps): JSX.Element {
       </section>
       <AddReviewModal guitar={guitar} open={openModalAddReview} onClose={handleClickCloseModalAddReview} onOpenSuccessAddReview={handleClickOpenModalSuccessAddReview}/>
       <AddReviewSuccess open={isAddedReview} onClose={handleClickCloseModalSuccessAddReview}/>
+      {error && <ErrorMessage error={error} type={TypeRequests.Reviews}/>}
     </>
   );
 }
