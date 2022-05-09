@@ -19,9 +19,9 @@ export const getCountStartShowGuitars = (currentPage: number): number => {
 };
 
 
-export const getNumberArrayByCount = (count: number): number[] => Array.from({length: count}, (v, k) => k+1);
+export const getNumberArrayByCount = (count: number): number[] => [...Array(count).keys()].map((key) => key + 1);
 
-export const getRatingByStars = (rating: number):RatingStars[] => {
+export const getRatingByStars = (rating: number): RatingStars[] => {
   const ratingStarsList: RatingStars[] = [];
 
   for(let i  = 1; i <= COUNT_RATING_STARS; i++) {
@@ -40,7 +40,6 @@ export const getFormatedDate = (date: string): string => {
   return newDate.toLocaleString('ru-RU', {month: 'long', day: 'numeric'});
 };
 
-
 export const sortReviewsByDate = (reviews: ReviewType[]) => (
   [...reviews].sort((prev, next) => {
     const prevDate = new Date(prev.createAt);
@@ -50,7 +49,7 @@ export const sortReviewsByDate = (reviews: ReviewType[]) => (
   })
 );
 
-export const getRatingNameValue = (rating: number): string => {
+export const getRatingNameValue = (rating: number): RatingName => {
   switch (rating) {
     case RatingValue.Terrible:
       return RatingName.Terrible;
