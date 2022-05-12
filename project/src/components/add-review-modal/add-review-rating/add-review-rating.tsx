@@ -26,7 +26,7 @@ function AddReviewRating({handleChangeRating, ratingError}: AddReviewRatingProps
         <input className="visually-hidden" id={`star-${RatingValue.Terrible}`} name="rate" type="radio" value={RatingValue.Terrible} onChange={handleChangeRating}/>
         <label className="rate__label" htmlFor={`star-${RatingValue.Terrible}`} title={RatingName.Terrible}></label>
 
-        {ratingError !== null && <p className="rate__message">{ratingError}</p>}
+        {ratingError !== null && <p className="rate__message" data-testid='rate-error-message'>{ratingError}</p>}
       </div>
     </div>
   );

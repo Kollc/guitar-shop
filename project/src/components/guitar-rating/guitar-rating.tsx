@@ -32,7 +32,7 @@ function GuitarRating({guitar}: GuitarRatingProps): JSX.Element {
     <div className="rate product-card__rate">
       <RatingStarsList rating={guitar.rating}/>
       <p className="visually-hidden">Рейтинг: {getRatingNameValue(guitar.rating)}</p>
-      <p className="rate__count"><span className="visually-hidden">Всего оценок:</span>{reviews ? reviews.length : null}</p>
+      <p className="rate__count"><span className="visually-hidden">Всего оценок:</span>{reviews.length > 0 ? reviews.length : 0}</p>
       {error && <ErrorMessage error={error} type={TypeRequests.Reviews}/>}
     </div>
   );

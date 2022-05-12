@@ -19,6 +19,7 @@ function GuitarTabs({guitar}: GuitarTabsProps): JSX.Element {
       </button>
 
       <button
+        data-testid='description-button'
         className={`button button--medium tabs__button ${activeTab !== GuitarTabsList.Description && 'button--black-border'}`}
         onClick={() => setActiveTab(GuitarTabsList.Description)}
       >
@@ -26,7 +27,7 @@ function GuitarTabs({guitar}: GuitarTabsProps): JSX.Element {
       </button>
 
       <div className="tabs__content" id="characteristics">
-        <table className={`tabs__table ${activeTab !== GuitarTabsList.Characteristics && 'hidden'}`}>
+        <table data-testid='characteristics' className={`tabs__table ${activeTab !== GuitarTabsList.Characteristics && 'hidden'}`}>
           <tbody>
             <tr className="tabs__table-row">
               <td className="tabs__title">Артикул:</td>
@@ -42,7 +43,7 @@ function GuitarTabs({guitar}: GuitarTabsProps): JSX.Element {
             </tr>
           </tbody>
         </table>
-        <p className={`tabs__product-description ${activeTab !== GuitarTabsList.Description && 'hidden'}`}>{guitar.description}</p>
+        <p data-testid='description' className={`tabs__product-description ${activeTab !== GuitarTabsList.Description && 'hidden'}`}>{guitar.description}</p>
       </div>
     </div>
   );

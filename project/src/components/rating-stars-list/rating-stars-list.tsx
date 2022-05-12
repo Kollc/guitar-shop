@@ -16,7 +16,7 @@ function RatingStarsList({rating}: RatingStarsListProps): JSX.Element {
   return (
     <>
       {ratingStars.map((star) => (
-        <svg key={star.key} width="12" height="11" aria-hidden="true">
+        <svg key={star.key} width="12" height="11" aria-hidden="true" data-testid='star'>
           <use xlinkHref={star.value ? '#icon-full-star' : '#icon-star'}></use>
         </svg>
       ))}

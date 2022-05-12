@@ -101,7 +101,7 @@ function AddReviewForm({guitar, onOpenSuccessAddReview}: AddReviewFormProps): JS
 
   return (
     <>
-      <form className="form-review">
+      <form className="form-review" data-testid="form-review">
         <div className="form-review__wrapper">
           <div className="form-review__name-wrapper">
             <label className="form-review__label form-review__label--required" htmlFor="user-name">Ваше Имя</label>
@@ -122,7 +122,7 @@ function AddReviewForm({guitar, onOpenSuccessAddReview}: AddReviewFormProps): JS
         <textarea className="form-review__input form-review__input--textarea" id="comment" ref={commentRef} rows={COUNT_ROWS_IN_TEXT_AREA} autoComplete="off" onChange={() => setCommentError(null)}></textarea>
         {commentError && <p className="form-review__warning">{commentError}</p>}
 
-        <button className="button button--medium-20 form-review__button" type="submit" onClick={handleClickSubmitButton}>Отправить отзыв</button>
+        <button data-testid='submit-button' className="button button--medium-20 form-review__button" type="submit" onClick={handleClickSubmitButton}>Отправить отзыв</button>
       </form>
       {errorRequest && <ErrorMessage error={errorRequest} type={TypeRequests.Reviews}/>}
     </>

@@ -7,7 +7,7 @@ type CardsListProps = {
 
 function CardsList({guitars}: CardsListProps): JSX.Element {
   return (
-    <div className="cards catalog__cards">
+    <div className="cards catalog__cards" data-testid='guitars-list'>
       {guitars.map((guitar) => <CardItem key={guitar.id} guitar={guitar}/>)}
     </div>
   );

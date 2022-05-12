@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { GuitarType, ImagenDataType } from '../../types/types';
 import { getImagenData } from '../../utils/utils';
-import GuitarRating from '../cuitar-rating/guitar-rating';
+import GuitarRating from '../guitar-rating/guitar-rating';
 
 type CardItemProps = {
   guitar: GuitarType,

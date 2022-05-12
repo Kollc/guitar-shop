@@ -5,7 +5,7 @@ import { getGuitarById } from '../../../services/api';
 import { GuitarType, ImagenDataType } from '../../../types/types';
 import { getImagenData } from '../../../utils/utils';
 import Breadcrumbs from '../../breadcrumbs/breadcrumbs';
-import GuitarRating from '../../cuitar-rating/guitar-rating';
+import GuitarRating from '../../guitar-rating/guitar-rating';
 import ErrorMessage from '../../error-message/error-message';
 import GuitarReview from '../../guitar-review/guitar-review';
 import GuitarTabs from '../../guitar-tabs/guitar-tabs';
@@ -34,19 +34,19 @@ function GuitarDetailPage(): JSX.Element {
     }
   }, [guitar]);
 
-  if(guitar === undefined) {
-    return <ErrorPage/>;
+  if(!loaded || imagenData === null || guitar === null) {
+    return <div data-testif='loading'>Loading...</div>;
   }
 
-  if(!loaded || imagenData === null || guitar === null) {
-    return <div>Loading...</div>;
+  if(guitar === undefined) {
+    return <ErrorPage/>;
   }
 
   return (
     <MainLayout>
       <main className="page-content">
         <div className="container">
-          <h1 className="page-content__title title title--bigger">{guitar.name}</h1>
+          <h1 data-testid='guitar-title-detail' className="page-content__title title title--bigger">{guitar.name}</h1>
           <Breadcrumbs guitarName={guitar.name}/>
           <div className="product-container">
             <img

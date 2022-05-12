@@ -74,14 +74,17 @@ function GuitarReview({guitar}: GuitarReviewProps): JSX.Element {
     fetchReviews();
   }, [guitar]);
 
-  window.addEventListener('scroll', () => {
-    const scrollPosition = window.scrollY;
-    const showMoreButton = showMoreButtonRef.current;
+  useEffect(() => {
+    window.addEventListener('scroll', () => {
+      const scrollPosition = window.scrollY;
+      const showMoreButton = showMoreButtonRef.current;
 
-    if((showMoreButtonRef !== null && showMoreButton) && (scrollPosition >= showMoreButton.offsetTop + showMoreButton.scrollHeight)) {
-      SetCountShowReviews((count) => count + COUNT_SHOW_REVIEWS);
-    }
-  });
+      if((showMoreButtonRef !== null && showMoreButton) && (scrollPosition >= showMoreButton.offsetTop + showMoreButton.scrollHeight)) {
+        SetCountShowReviews((count) => count + COUNT_SHOW_REVIEWS);
+      }
+    });
+  }, []);
+
 
   if(!loaded || reviews === null) {
     return <div>Loading...</div>;

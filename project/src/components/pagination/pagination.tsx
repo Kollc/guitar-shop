@@ -21,17 +21,17 @@ function Pagination({currentPage = 1}: PaginationProps): JSX.Element {
   }, [countGuitars]);
 
   return (
-    <div className="pagination page-content__pagination">
+    <div className="pagination page-content__pagination" data-testid='pagination'>
       <ul className="pagination__list">
         {
           currentPage > FIRST_PAGE_INDEX
         &&
           <li className="pagination__page pagination__page--prev" id="prev">
-            <Link to={`/catalog/page/${currentPage - 1}`} className="link pagination__page-link">Назад</Link>
+            <Link to={`/catalog/page/${currentPage - 1}`} className="link pagination__page-link" data-testid='page-back'>Назад</Link>
           </li>
         }
         {pages.map((page) => (
-          <li className={`pagination__page ${currentPage === page && 'pagination__page--active'}`} key={page}>
+          <li data-testid={`page-${page}`} className={`pagination__page ${currentPage === page && 'pagination__page--active'}`} key={page}>
             <Link to={`/catalog/page/${page}`} className="link pagination__page-link" href={'/'}>{page}</Link>
           </li>
         ))}
