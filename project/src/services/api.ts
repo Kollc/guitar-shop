@@ -12,17 +12,6 @@ export const createAPI = (): AxiosInstance => {
   return api;
 };
 
-export const getGuitarById = async (id: number, setError: (value: string | null) => void) => {
-  const api = createAPI();
-
-  try {
-    const { data } = await api.get(`${APIRoutes.Guitars}/${id}`);
-    return data;
-  } catch (error) {
-    setError(errorHandle(error));
-  }
-};
-
 export const getGuitarCommentsById = async (id: number, setError: (value: string | null) => void) => {
   const api = createAPI();
 

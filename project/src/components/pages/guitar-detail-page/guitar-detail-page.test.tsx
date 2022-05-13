@@ -1,19 +1,39 @@
 /* eslint-disable testing-library/no-unnecessary-act */
-import { render, screen, waitFor } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
+import { configureMockStore } from '@jedmao/redux-mock-store';
+import { render, screen } from '@testing-library/react';
+import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
+import { testGuitars } from '../../../mock/mock';
+import { createAPI } from '../../../services/api';
 import GuitarDetailPage from './guitar-detail-page';
+import thunk from 'redux-thunk';
+import { createMemoryHistory } from 'history';
 
 describe('GuitarDetailPage component', () => {
+  const api = createAPI();
+  const middlewares = [thunk.withExtraArgument(api)];
 
-  const fakeApp = (
-    <MemoryRouter initialEntries={['/guitar/2']}>
-      <GuitarDetailPage/>
-    </MemoryRouter>
-  );
+  const mockStore = configureMockStore(middlewares);
 
-  it('should render GuitarDetailPage when user navigate to "/guitar/:id"', async () => {
-    render(fakeApp);
+  const fakeStore = mockStore({
+    GUITAR_DETAIL: {
+      errorMessage: '',
+      isLoadedGuitarDetail: true,
+      guitarDetail: testGuitars[0],
+    },
+  });
 
-    await waitFor(() => {expect(screen.getByTestId('guitar-title-detail')).toBeInTheDocument();});
+  const history = createMemoryHistory();
+
+  it('should render GuitarDetailPage when user navigate to "/guitar/:id"', () => {
+    history.push('/guitar/1');
+    render(
+      <Provider store={fakeStore}>
+        <BrowserRouter>
+          <GuitarDetailPage/>
+        </BrowserRouter>
+      </Provider>);
+
+    expect(screen.getByTestId('guitar-title-detail')).toBeInTheDocument();
   });
 });

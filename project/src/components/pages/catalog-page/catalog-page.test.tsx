@@ -15,6 +15,6 @@ describe('CatalogPage component', () => {
 
     await waitFor(() => {
       expect(screen.getByText(/каталог гитар/i)).toBeInTheDocument();
-    });
-  });
+    }, {timeout: 3000});
+  }, 5000);
 });

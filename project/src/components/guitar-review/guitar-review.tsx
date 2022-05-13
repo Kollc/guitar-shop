@@ -5,6 +5,7 @@ import { GuitarType, ReviewType } from '../../types/types';
 import { addStyleBodyWithCloseModal, addStyleBodyWithOpenModal, getFormatedDate, getRatingNameValue, sortReviewsByDate } from '../../utils/utils';
 import AddReviewSuccess from '../add-review-modal/add-review-success/add-review-success';
 import ErrorMessage from '../error-message/error-message';
+import LoadingScreen from '../loading-screen/loading-sceen';
 import RatingStarsList from '../rating-stars-list/rating-stars-list';
 import AddReviewModal from './../add-review-modal/add-review-modal';
 
@@ -87,7 +88,7 @@ function GuitarReview({guitar}: GuitarReviewProps): JSX.Element {
 
 
   if(!loaded || reviews === null) {
-    return <div>Loading...</div>;
+    return <LoadingScreen/>;
   }
 
   return (

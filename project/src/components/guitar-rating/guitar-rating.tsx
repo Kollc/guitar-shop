@@ -4,6 +4,7 @@ import { getGuitarCommentsById } from '../../services/api';
 import { GuitarType, ReviewType } from '../../types/types';
 import { getRatingNameValue } from '../../utils/utils';
 import ErrorMessage from '../error-message/error-message';
+import LoadingScreen from '../loading-screen/loading-sceen';
 import RatingStarsList from '../rating-stars-list/rating-stars-list';
 
 type GuitarRatingProps = {
@@ -25,7 +26,7 @@ function GuitarRating({guitar}: GuitarRatingProps): JSX.Element {
   }, [guitar]);
 
   if(!loaded) {
-    return <div>Loading...</div>;
+    return <LoadingScreen/>;
   }
 
   return (

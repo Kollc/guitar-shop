@@ -14,6 +14,7 @@ export const TIMEOUT_SERVER = 5000;
 
 export enum NameSpace {
   Guitars ='GUITARS',
+  GuitarDetail ='GUITAR_DETAIL',
 }
 
 export enum errorTypeList {
@@ -63,3 +64,5 @@ export enum TypeRequests {
   Guitars = 'guitars request',
   Reviews = 'reviews request',
 }
+
+export const MOCK_IMG = {index: 1, format: 'jpg', path: 'img/content/'};

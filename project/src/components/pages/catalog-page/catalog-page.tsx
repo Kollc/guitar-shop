@@ -3,12 +3,13 @@ import { useParams } from 'react-router-dom';
 import { TypeRequests } from '../../../consts';
 import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
 import { fetchGuitarsWithParamsAction } from '../../../store/actions/api-actions';
-import { getFetchGuitarsError, getGuitars, getStatusLoaded } from '../../../store/guitars-process/selector';
+import { getGuitars, getGuitarsError, getStatusLoaded } from '../../../store/guitars-process/selector';
 import { getCountStartShowGuitars } from '../../../utils/utils';
 import Breadcrumbs from '../../breadcrumbs/breadcrumbs';
 import CardsList from '../../cards-list/cards-list';
 import ErrorMessage from '../../error-message/error-message';
 import Filter from '../../filter/filter';
+import LoadingScreen from '../../loading-screen/loading-sceen';
 import MainLayout from '../../main-layout/main-layout';
 import Pagination from '../../pagination/pagination';
 import Sort from '../../sort/sort';
@@ -19,7 +20,7 @@ function CatalogPage(): JSX.Element {
   const loaded = useAppSelector(getStatusLoaded);
   const {page} = useParams<{page: string}>();
   const [currentPage, setCurrentPage] = useState(1);
-  const error = useAppSelector(getFetchGuitarsError);
+  const error = useAppSelector(getGuitarsError);
 
   useEffect(() => {
     if(page) {
@@ -33,7 +34,7 @@ function CatalogPage(): JSX.Element {
   }, [currentPage]);
 
   if(!loaded && guitars) {
-    return <div>Loading...</div>;
+    return <LoadingScreen/>;
   }
 
   return (

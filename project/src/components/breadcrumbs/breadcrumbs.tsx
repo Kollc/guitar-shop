@@ -11,7 +11,7 @@ function Breadcrumbs({guitarName}: BreadcrumbsProps): JSX.Element {
         <Link className="link" to="/">Главная</Link>
       </li>
       <li className="breadcrumbs__item">
-        <Link className="link" to="/catalog">Каталог</Link>
+        <Link className="link" to="/">Каталог</Link>
       </li>
       {
         guitarName

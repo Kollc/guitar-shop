@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { TypeRequests } from '../../../consts';
-import { getGuitarById } from '../../../services/api';
-import { GuitarType, ImagenDataType } from '../../../types/types';
+import { ImagenDataType } from '../../../types/types';
 import { getImagenData } from '../../../utils/utils';
 import Breadcrumbs from '../../breadcrumbs/breadcrumbs';
 import GuitarRating from '../../guitar-rating/guitar-rating';
@@ -11,21 +10,22 @@ import GuitarReview from '../../guitar-review/guitar-review';
 import GuitarTabs from '../../guitar-tabs/guitar-tabs';
 import MainLayout from '../../main-layout/main-layout';
 import ErrorPage from '../error-page/error-page';
+import { useAppDispatch } from '../../../hooks/hooks';
+import { fetchGuitarByIdAction } from '../../../store/actions/api-actions';
+import { useSelector } from 'react-redux';
+import { getGuitarDetail, getStatusLoadedGuitarDetail, getErrorGuitarDetail } from '../../../store/guitar-detail-process/selector';
+import LoadingScreen from '../../loading-screen/loading-sceen';
 
 function GuitarDetailPage(): JSX.Element {
-  const [guitar, setGuitar] = useState<GuitarType | null>(null);
-  const [loaded, setLoaded] = useState(false);
   const {id} = useParams<{id?: string}>();
   const [imagenData, setImagenData] = useState<ImagenDataType | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const dispatch = useAppDispatch();
+  const guitar = useSelector(getGuitarDetail);
+  const loaded = useSelector(getStatusLoadedGuitarDetail);
+  const error = useSelector(getErrorGuitarDetail);
 
   useEffect(() => {
-    setLoaded(false);
-
-    getGuitarById(Number(id), setError).then((data) => {
-      setGuitar(data);
-      setLoaded(true);
-    });
+    dispatch(fetchGuitarByIdAction(Number(id)));
   }, [id]);
 
   useEffect(() => {
@@ -35,7 +35,7 @@ function GuitarDetailPage(): JSX.Element {
   }, [guitar]);
 
   if(!loaded || imagenData === null || guitar === null) {
-    return <div data-testif='loading'>Loading...</div>;
+    return <LoadingScreen/>;
   }
 
   if(guitar === undefined) {

@@ -37,6 +37,12 @@ export type GuitarsProcessType = {
   errorMessage: string,
 }
 
+export type GuitarDetailProcessType = {
+  errorMessage: string,
+  isLoadedGuitarDetail: boolean,
+  guitarDetail: null | GuitarType,
+}
+
 export type ImagenDataType = {
   index: number,
   format: string,
