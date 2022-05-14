@@ -54,27 +54,27 @@ function AddReviewForm({guitar, onOpenSuccessAddReview}: AddReviewFormProps): JS
   };
 
   const checkValidateElementsField = (): boolean => {
-    let isHaveError = false;
+    const isHaveError: boolean[] = [];
 
     if(nameRef.current) {
-      isHaveError = checkValidateFiled(nameRef.current, setNameError);
+      isHaveError.push(checkValidateFiled(nameRef.current, setNameError));
     }
 
     if(advantagesRef.current) {
-      isHaveError = checkValidateFiled(advantagesRef.current, setAdvantagesError);
+      isHaveError.push(checkValidateFiled(advantagesRef.current, setAdvantagesError));
     }
 
     if(disadvantagesRef.current) {
-      isHaveError = checkValidateFiled(disadvantagesRef.current, setDisadvantagesError);
+      isHaveError.push(checkValidateFiled(disadvantagesRef.current, setDisadvantagesError));
     }
 
     if(commentRef.current) {
-      isHaveError = checkValidateFiled(commentRef.current, setCommentError);
+      isHaveError.push(checkValidateFiled(commentRef.current, setCommentError));
     }
 
-    isHaveError = checkValidateFiledRating(rating, setRatingError);
+    isHaveError.push(checkValidateFiledRating(rating, setRatingError));
 
-    return isHaveError;
+    return isHaveError.includes(true);
   };
 
   const handleClickSubmitButton = (evt: FormEvent) => {
