@@ -17,7 +17,7 @@ export enum NameSpace {
   GuitarDetail ='GUITAR_DETAIL',
 }
 
-export enum errorTypeList {
+export enum ErrorTypeList {
   Empty = 'Заполните поле',
   NotChangeRating = 'Поставьте оценку',
 }
@@ -66,3 +66,6 @@ export enum TypeRequests {
 }
 
 export const MOCK_IMG = {index: 1, format: 'jpg', path: 'img/content/'};
+
+export const COUNT_EMPTY_REVIEWS_LIST = 0;
+export const MIN_COUNT_STARS = 1;

@@ -1,7 +1,7 @@
 import request from 'axios';
 import { ErrorType } from '../types/types';
 
-export const errorHandle = (error: ErrorType): string | null => {
+export const errorHandler = (error: ErrorType): string | null => {
   if (!request.isAxiosError(error)) {
     throw error;
   }

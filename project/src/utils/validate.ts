@@ -1,16 +1,16 @@
-import { DEFAULT_RATING_VALUE, errorTypeList } from '../consts';
+import { DEFAULT_RATING_VALUE, ErrorTypeList } from '../consts';
 
-export const valudateTextInput = (value: string): errorTypeList | null => {
+export const valudateTextInput = (value: string): ErrorTypeList | null => {
   if(!value) {
-    return errorTypeList.Empty;
+    return ErrorTypeList.Empty;
   }
 
   return null;
 };
 
-export const valudateRatingInput = (value: number): errorTypeList | null => {
+export const valudateRatingInput = (value: number): ErrorTypeList | null => {
   if(value === DEFAULT_RATING_VALUE) {
-    return errorTypeList.NotChangeRating;
+    return ErrorTypeList.NotChangeRating;
   }
 
   return null;

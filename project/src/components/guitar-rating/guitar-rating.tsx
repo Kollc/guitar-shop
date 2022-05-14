@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { TypeRequests } from '../../consts';
+import { COUNT_EMPTY_REVIEWS_LIST, TypeRequests } from '../../consts';
 import { getGuitarCommentsById } from '../../services/api';
 import { GuitarType, ReviewType } from '../../types/types';
 import { getRatingNameValue } from '../../utils/utils';
@@ -33,7 +33,7 @@ function GuitarRating({guitar}: GuitarRatingProps): JSX.Element {
     <div className="rate product-card__rate">
       <RatingStarsList rating={guitar.rating}/>
       <p className="visually-hidden">Рейтинг: {getRatingNameValue(guitar.rating)}</p>
-      <p className="rate__count"><span className="visually-hidden">Всего оценок:</span>{reviews.length > 0 ? reviews.length : 0}</p>
+      <p className="rate__count"><span className="visually-hidden">Всего оценок:</span>{reviews.length > COUNT_EMPTY_REVIEWS_LIST ? reviews.length : COUNT_EMPTY_REVIEWS_LIST}</p>
       {error && <ErrorMessage error={error} type={TypeRequests.Reviews}/>}
     </div>
   );

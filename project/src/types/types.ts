@@ -10,7 +10,7 @@ export type GuitarType = {
   price: number,
 }
 
-export type addReviewType = {
+export type AddReviewType = {
   guitarId: number,
   userName: string,
   advantage: string,

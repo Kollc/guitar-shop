@@ -1,7 +1,7 @@
 import {render, screen} from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
-import { errorTypeList } from '../../../consts';
+import { ErrorTypeList } from '../../../consts';
 import { store } from '../../../store/store';
 import AddReviewRating from './add-review-rating';
 
@@ -25,7 +25,7 @@ describe('AddReviewRating component', () => {
     render(
       <Provider store={store}>
         <BrowserRouter>
-          <AddReviewRating ratingError={errorTypeList.NotChangeRating} handleChangeRating={handleChangeRating}/>
+          <AddReviewRating ratingError={ErrorTypeList.NotChangeRating} handleChangeRating={handleChangeRating}/>
         </BrowserRouter>
       </Provider>);
 

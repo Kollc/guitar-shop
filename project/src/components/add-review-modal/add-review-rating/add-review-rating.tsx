@@ -1,9 +1,9 @@
 import { ChangeEvent } from 'react';
-import { errorTypeList, RatingName, RatingValue } from '../../../consts';
+import { ErrorTypeList, RatingName, RatingValue } from '../../../consts';
 
 type AddReviewRatingProps = {
   handleChangeRating: (evt: ChangeEvent<HTMLInputElement>) => void,
-  ratingError: errorTypeList | null,
+  ratingError: ErrorTypeList | null,
 }
 
 function AddReviewRating({handleChangeRating, ratingError}: AddReviewRatingProps): JSX.Element {

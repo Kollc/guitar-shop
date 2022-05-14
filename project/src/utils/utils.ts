@@ -1,4 +1,4 @@
-import { COUNT_RATING_STARS, COUNT_SHOW_GUITARS_IN_PAGE, MOCK_IMG, RatingName, RatingValue } from './../consts';
+import { COUNT_RATING_STARS, COUNT_SHOW_GUITARS_IN_PAGE, MIN_COUNT_STARS, MOCK_IMG, RatingName, RatingValue } from './../consts';
 import { DEFAULT_PATH_TO_GUITAR_IMAGENS } from '../consts';
 import { ImagenDataType, RatingStars, ReviewType } from '../types/types';
 
@@ -28,7 +28,7 @@ export const getNumberArrayByCount = (count: number): number[] => [...Array(coun
 export const getRatingByStars = (rating: number): RatingStars[] => {
   const ratingStarsList: RatingStars[] = [];
 
-  for(let i  = 1; i <= COUNT_RATING_STARS; i++) {
+  for(let i  = MIN_COUNT_STARS; i <= COUNT_RATING_STARS; i++) {
     if(i <= rating) {
       ratingStarsList.push({value: true, key: i});
     } else {

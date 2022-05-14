@@ -1,5 +1,5 @@
 import { ChangeEvent, FormEvent, useRef, useState } from 'react';
-import { COUNT_ROWS_IN_TEXT_AREA, DEFAULT_RATING_VALUE, errorTypeList, TypeRequests } from '../../../consts';
+import { COUNT_ROWS_IN_TEXT_AREA, DEFAULT_RATING_VALUE, ErrorTypeList, TypeRequests } from '../../../consts';
 import { addNewReview } from '../../../services/api';
 import { GuitarType } from '../../../types/types';
 import { valudateRatingInput, valudateTextInput } from '../../../utils/validate';
@@ -19,18 +19,18 @@ function AddReviewForm({guitar, onOpenSuccessAddReview}: AddReviewFormProps): JS
   const commentRef = useRef<HTMLTextAreaElement>(null);
   const [errorRequest, setErrorRequest] = useState<string | null>(null);
 
-  const [ratingError, setRatingError] = useState<errorTypeList | null>(null);
-  const [nameError, setNameError] = useState<errorTypeList | null>(null);
-  const [advantagesError, setAdvantagesError] = useState<errorTypeList | null>(null);
-  const [disadvantagesError, setDisadvantagesError] = useState<errorTypeList | null>(null);
-  const [commentError, setCommentError] = useState<errorTypeList | null>(null);
+  const [ratingError, setRatingError] = useState<ErrorTypeList | null>(null);
+  const [nameError, setNameError] = useState<ErrorTypeList | null>(null);
+  const [advantagesError, setAdvantagesError] = useState<ErrorTypeList | null>(null);
+  const [disadvantagesError, setDisadvantagesError] = useState<ErrorTypeList | null>(null);
+  const [commentError, setCommentError] = useState<ErrorTypeList | null>(null);
 
   const handleChangeRating = (evt: ChangeEvent<HTMLInputElement>) => {
     setRating(Number(evt.target.value));
     setRatingError(null);
   };
 
-  const checkValidateFiled = (element: HTMLInputElement | HTMLTextAreaElement, setError: (value: errorTypeList | null) => void): boolean => {
+  const checkValidateFiled = (element: HTMLInputElement | HTMLTextAreaElement, setError: (value: ErrorTypeList | null) => void): boolean => {
     const validateResult = valudateTextInput(element.value);
     setError(validateResult);
 
@@ -42,7 +42,7 @@ function AddReviewForm({guitar, onOpenSuccessAddReview}: AddReviewFormProps): JS
   };
 
 
-  const checkValidateFiledRating = (value: number, setError: (value: errorTypeList | null) => void): boolean => {
+  const checkValidateFiledRating = (value: number, setError: (value: ErrorTypeList | null) => void): boolean => {
     const validateResult = valudateRatingInput(value);
     setError(validateResult);
 
