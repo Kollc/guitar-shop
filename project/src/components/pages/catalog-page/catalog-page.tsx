@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { TypeRequests } from '../../../consts';
+import { COUNT_SHOW_GUITARS_IN_PAGE, FETCH_GUITARS_LIMIT, TypeRequests } from '../../../consts';
 import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
 import { fetchGuitarsWithParamsAction } from '../../../store/actions/api-actions';
 import { getGuitars, getGuitarsError, getStatusLoaded } from '../../../store/guitars-process/selector';
@@ -30,7 +30,11 @@ function CatalogPage(): JSX.Element {
 
   useEffect(() => {
     const start = getCountStartShowGuitars(Number(currentPage));
-    dispatch(fetchGuitarsWithParamsAction({start}));
+    const end = start + COUNT_SHOW_GUITARS_IN_PAGE;
+
+    if(end <= FETCH_GUITARS_LIMIT) {
+      dispatch(fetchGuitarsWithParamsAction({start, end}));
+    }
   }, [currentPage]);
 
   if(!loaded && guitars) {

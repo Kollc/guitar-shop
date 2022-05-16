@@ -56,6 +56,7 @@ export type RatingStars = {
 
 export type ParamsType = {
   start?:  number,
+  end?: number,
 }
 
 export type ErrorType = unknown;

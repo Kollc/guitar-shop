@@ -69,3 +69,4 @@ export const MOCK_IMG = {index: 1, format: 'jpg', path: 'img/content/'};
 
 export const COUNT_EMPTY_REVIEWS_LIST = 0;
 export const MIN_COUNT_STARS = 1;
+export const FETCH_GUITARS_LIMIT = 27;
