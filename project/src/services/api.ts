@@ -1,6 +1,6 @@
-import { TIMEOUT_SERVER, BASE_URL, APIRoutes } from './../consts';
+import { TIMEOUT_SERVER, BASE_URL, APIRoutes, FETCH_GUITARS_LIMIT } from './../consts';
 import axios, { AxiosInstance } from 'axios';
-import { AddReviewType } from '../types/types';
+import { AddReviewType, GuitarType } from '../types/types';
 import { errorHandler } from './error-handler';
 
 export const createAPI = (): AxiosInstance => {
@@ -10,6 +10,17 @@ export const createAPI = (): AxiosInstance => {
   });
 
   return api;
+};
+
+export const getAllGuitars = async (setError: (value: string | null) => void) => {
+  const api = createAPI();
+
+  try {
+    const { data } = await api.get<GuitarType[]>(APIRoutes.Guitars, {params: {_limit: FETCH_GUITARS_LIMIT}});
+    return data;
+  } catch (error) {
+    setError(errorHandler(error));
+  }
 };
 
 export const getGuitarCommentsById = async (id: number, setError: (value: string | null) => void) => {

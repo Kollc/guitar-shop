@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { COUNT_SHOW_GUITARS_IN_PAGE, FETCH_GUITARS_LIMIT, TypeRequests } from '../../../consts';
 import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
@@ -18,24 +18,17 @@ function CatalogPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const guitars = useAppSelector(getGuitars);
   const loaded = useAppSelector(getStatusLoaded);
-  const {page} = useParams<{page: string}>();
-  const [currentPage, setCurrentPage] = useState(1);
+  const {page = 1} = useParams<{page: string}>();
   const error = useAppSelector(getGuitarsError);
 
   useEffect(() => {
-    if(page) {
-      setCurrentPage(Number(page));
-    }
-  }, [page]);
-
-  useEffect(() => {
-    const start = getCountStartShowGuitars(Number(currentPage));
+    const start = getCountStartShowGuitars(Number(page));
     const end = start + COUNT_SHOW_GUITARS_IN_PAGE;
 
     if(end <= FETCH_GUITARS_LIMIT) {
       dispatch(fetchGuitarsWithParamsAction({start, end}));
     }
-  }, [currentPage]);
+  }, [page]);
 
   if(!loaded && guitars) {
     return <LoadingScreen/>;
@@ -51,7 +44,7 @@ function CatalogPage(): JSX.Element {
             <Filter/>
             <Sort/>
             <CardsList guitars={guitars}/>
-            <Pagination currentPage={currentPage}/>
+            <Pagination currentPage={Number(page)}/>
           </div>
         </div>
         {error && <ErrorMessage error={error} type={TypeRequests.Guitars}/>}

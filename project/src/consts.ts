@@ -55,6 +55,14 @@ export enum RatingValue {
   Great = 5,
 }
 
+export const RatingStarsList: {name: RatingName, value: RatingValue}[] = [
+  {name: RatingName.Great, value: RatingValue.Great},
+  {name: RatingName.Good, value: RatingValue.Good},
+  {name: RatingName.Fine, value: RatingValue.Fine},
+  {name: RatingName.Badly, value: RatingValue.Badly},
+  {name: RatingName.Terrible, value: RatingValue.Terrible},
+];
+
 export const ESCAPE_BUTTON_KEY = 'Escape';
 
 export const TIMEOUT_RESET_ERROR = 5000;

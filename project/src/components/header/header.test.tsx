@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import Header from './header';
 
@@ -9,8 +9,16 @@ describe('Header component', () => {
         <Header/>
       </BrowserRouter>);
 
-    expect(screen.getByText(/Каталог/i)).toBeInTheDocument();
-    expect(screen.getByText(/О компании/i)).toBeInTheDocument();
-    expect(screen.getByText(/Где купить/i)).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByText(/Каталог/i)).toBeInTheDocument();
+    });
+
+    await waitFor(() => {
+      expect(screen.getByText(/О компании/i)).toBeInTheDocument();
+    });
+
+    await waitFor(() => {
+      expect(screen.getByText(/Где купить/i)).toBeInTheDocument();
+    });
   });
 });

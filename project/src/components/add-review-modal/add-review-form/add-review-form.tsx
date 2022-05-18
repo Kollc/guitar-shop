@@ -34,11 +34,7 @@ function AddReviewForm({guitar, onOpenSuccessAddReview}: AddReviewFormProps): JS
     const validateResult = valudateTextInput(element.value);
     setError(validateResult);
 
-    if(validateResult !== null) {
-      return true;
-    }
-
-    return false;
+    return validateResult !== null;
   };
 
 
@@ -46,43 +42,27 @@ function AddReviewForm({guitar, onOpenSuccessAddReview}: AddReviewFormProps): JS
     const validateResult = valudateRatingInput(value);
     setError(validateResult);
 
-    if(validateResult !== null) {
-      return true;
-    }
-
-    return false;
+    return validateResult !== null;
   };
 
   const checkValidateElementsField = (): boolean => {
-    const isHaveError: boolean[] = [];
+    const isInvalid: boolean[] = [
+      checkValidateFiled(nameRef.current!, setNameError),
+      checkValidateFiled(advantagesRef.current!, setAdvantagesError),
+      checkValidateFiled(disadvantagesRef.current!, setDisadvantagesError),
+      checkValidateFiled(commentRef.current!, setCommentError),
+      checkValidateFiledRating(rating, setRatingError),
+    ];
 
-    if(nameRef.current) {
-      isHaveError.push(checkValidateFiled(nameRef.current, setNameError));
-    }
-
-    if(advantagesRef.current) {
-      isHaveError.push(checkValidateFiled(advantagesRef.current, setAdvantagesError));
-    }
-
-    if(disadvantagesRef.current) {
-      isHaveError.push(checkValidateFiled(disadvantagesRef.current, setDisadvantagesError));
-    }
-
-    if(commentRef.current) {
-      isHaveError.push(checkValidateFiled(commentRef.current, setCommentError));
-    }
-
-    isHaveError.push(checkValidateFiledRating(rating, setRatingError));
-
-    return isHaveError.includes(true);
+    return isInvalid.includes(true);
   };
 
   const handleClickSubmitButton = (evt: FormEvent) => {
     evt.preventDefault();
     if(nameRef.current && advantagesRef.current && disadvantagesRef.current && commentRef.current) {
-      const isHaveError = checkValidateElementsField();
+      const isInvalid = checkValidateElementsField();
 
-      if(!isHaveError) {
+      if(!isInvalid) {
         addNewReview({
           guitarId: guitar.id,
           userName: nameRef.current.value,
@@ -130,5 +110,3 @@ function AddReviewForm({guitar, onOpenSuccessAddReview}: AddReviewFormProps): JS
 }
 
 export default AddReviewForm;
-
-
