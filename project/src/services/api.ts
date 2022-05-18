@@ -23,12 +23,12 @@ export const getAllGuitars = async (setError: (value: string | null) => void) =>
   }
 };
 
-export const getGuitarCommentsById = async (id: number, setError: (value: string | null) => void) => {
+export const getGuitarCommentsCountById = async (id: number, setError: (value: string | null) => void) => {
   const api = createAPI();
 
   try {
     const { data } = await api.get(`${APIRoutes.Guitars}/${id}${APIRoutes.Comments}`);
-    return data;
+    return data.length;
   } catch (error) {
     setError(errorHandler(error));
   }

@@ -13,8 +13,9 @@ export const BASE_URL = 'https://guitar-shop.accelerator.pages.academy';
 export const TIMEOUT_SERVER = 5000;
 
 export enum NameSpace {
-  Guitars ='GUITARS',
-  GuitarDetail ='GUITAR_DETAIL',
+  Guitars = 'GUITARS',
+  GuitarDetail = 'GUITAR_DETAIL',
+  Reviews = 'REVIEWS',
 }
 
 export enum ErrorTypeList {
@@ -74,6 +75,6 @@ export enum TypeRequests {
 
 export const MOCK_IMG = {index: 1, format: 'jpg', path: 'img/content/'};
 
-export const COUNT_EMPTY_REVIEWS_LIST = 0;
 export const MIN_COUNT_STARS = 1;
 export const FETCH_GUITARS_LIMIT = 27;
+export const MARGIN_BOTTOM_WITHOUT_ERROR_MESSAGE = '15px';

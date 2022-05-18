@@ -4,17 +4,18 @@ import { TypeRequests } from '../../../consts';
 import { ImagenDataType } from '../../../types/types';
 import { getImagenData } from '../../../utils/utils';
 import Breadcrumbs from '../../breadcrumbs/breadcrumbs';
-import GuitarRating from '../../guitar-rating/guitar-rating';
 import ErrorMessage from '../../error-message/error-message';
 import GuitarReview from '../../guitar-review/guitar-review';
 import GuitarTabs from '../../guitar-tabs/guitar-tabs';
 import MainLayout from '../../main-layout/main-layout';
 import ErrorPage from '../error-page/error-page';
-import { useAppDispatch } from '../../../hooks/hooks';
-import { fetchGuitarByIdAction } from '../../../store/actions/api-actions';
+import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
+import { fetchGuitarByIdAction, fetchReviewsGuitarByIdAction } from '../../../store/actions/api-actions';
 import { useSelector } from 'react-redux';
 import { getGuitarDetail, getStatusLoadedGuitarDetail, getErrorGuitarDetail } from '../../../store/guitar-detail-process/selector';
 import LoadingScreen from '../../loading-screen/loading-sceen';
+import { getDetailReviews } from '../../../store/reviews-process/selector';
+import GuitarRatingDetail from './guitar-rating-detail/guitar-rating-detail';
 
 function GuitarDetailPage(): JSX.Element {
   const {id} = useParams<{id?: string}>();
@@ -23,8 +24,10 @@ function GuitarDetailPage(): JSX.Element {
   const guitar = useSelector(getGuitarDetail);
   const loaded = useSelector(getStatusLoadedGuitarDetail);
   const error = useSelector(getErrorGuitarDetail);
+  const reviews = useAppSelector(getDetailReviews);
 
   useEffect(() => {
+    dispatch(fetchReviewsGuitarByIdAction(Number(id)));
     dispatch(fetchGuitarByIdAction(Number(id)));
   }, [id]);
 
@@ -34,7 +37,7 @@ function GuitarDetailPage(): JSX.Element {
     }
   }, [guitar]);
 
-  if(!loaded || imagenData === null || guitar === null) {
+  if(!loaded || imagenData === null || guitar === null || !reviews) {
     return <LoadingScreen/>;
   }
 
@@ -59,7 +62,7 @@ function GuitarDetailPage(): JSX.Element {
             />
             <div className="product-container__info-wrapper">
               <h2 className="product-container__title title title--big title--uppercase">{guitar.name}</h2>
-              <GuitarRating guitar={guitar}/>
+              <GuitarRatingDetail guitar={guitar} reviewsCount={reviews.length}/>
               <GuitarTabs guitar={guitar}/>
             </div>
             <div className="product-container__price-wrapper">
@@ -68,7 +71,7 @@ function GuitarDetailPage(): JSX.Element {
               <a className="button button--red button--big product-container__button" href="#">Добавить в корзину</a>
             </div>
           </div>
-          <GuitarReview guitar={guitar}/>
+          <GuitarReview guitar={guitar} reviews={reviews}/>
         </div>
         {error && <ErrorMessage error={error} type={TypeRequests.Guitars}/>}
       </main>

@@ -1,5 +1,5 @@
 import { ChangeEvent, FormEvent, useRef, useState } from 'react';
-import { COUNT_ROWS_IN_TEXT_AREA, DEFAULT_RATING_VALUE, ErrorTypeList, TypeRequests } from '../../../consts';
+import { COUNT_ROWS_IN_TEXT_AREA, DEFAULT_RATING_VALUE, ErrorTypeList, MARGIN_BOTTOM_WITHOUT_ERROR_MESSAGE, TypeRequests } from '../../../consts';
 import { addNewReview } from '../../../services/api';
 import { GuitarType } from '../../../types/types';
 import { valudateRatingInput, valudateTextInput } from '../../../utils/validate';
@@ -85,21 +85,21 @@ function AddReviewForm({guitar, onOpenSuccessAddReview}: AddReviewFormProps): JS
         <div className="form-review__wrapper">
           <div className="form-review__name-wrapper">
             <label className="form-review__label form-review__label--required" htmlFor="user-name">Ваше Имя</label>
-            <input className="form-review__input form-review__input--name" id="user-name" type="text" autoComplete="off" ref={nameRef} onChange={() => setNameError(null)}/>
+            <input style={{marginBottom: nameError ? 0 : MARGIN_BOTTOM_WITHOUT_ERROR_MESSAGE}} className="form-review__input form-review__input--name" id="user-name" type="text" autoComplete="off" ref={nameRef} onChange={() => setNameError(null)}/>
             {nameError && <p className="form-review__warning">{nameError}</p>}
           </div>
           <AddReviewRating handleChangeRating={handleChangeRating} ratingError={ratingError}/>
         </div>
         <label className="form-review__label form-review__label--required" htmlFor="adv">Достоинства</label>
-        <input className="form-review__input" id="adv" type="text" autoComplete="off" ref={advantagesRef} onChange={() => setAdvantagesError(null)}/>
+        <input style={{marginBottom: advantagesError ? 0 : MARGIN_BOTTOM_WITHOUT_ERROR_MESSAGE}} className="form-review__input" id="adv" type="text" autoComplete="off" ref={advantagesRef} onChange={() => setAdvantagesError(null)}/>
         {advantagesError && <p className="form-review__warning">{advantagesError}</p>}
 
         <label className="form-review__label form-review__label--required" htmlFor="disadv">Недостатки</label>
-        <input className="form-review__input" id="disadv" type="text" autoComplete="off" ref={disadvantagesRef} onChange={() => setDisadvantagesError(null)}/>
+        <input style={{marginBottom: disadvantagesError ? 0 : MARGIN_BOTTOM_WITHOUT_ERROR_MESSAGE}} className="form-review__input" id="disadv" type="text" autoComplete="off" ref={disadvantagesRef} onChange={() => setDisadvantagesError(null)}/>
         {disadvantagesError && <p className="form-review__warning">{disadvantagesError}</p>}
 
         <label className="form-review__label form-review__label--required" htmlFor="comment">Комментарий</label>
-        <textarea className="form-review__input form-review__input--textarea" id="comment" ref={commentRef} rows={COUNT_ROWS_IN_TEXT_AREA} autoComplete="off" onChange={() => setCommentError(null)}></textarea>
+        <textarea style={{marginBottom: commentError ? 0 : MARGIN_BOTTOM_WITHOUT_ERROR_MESSAGE}} className="form-review__input form-review__input--textarea" id="comment" ref={commentRef} rows={COUNT_ROWS_IN_TEXT_AREA} autoComplete="off" onChange={() => setCommentError(null)}></textarea>
         {commentError && <p className="form-review__warning">{commentError}</p>}
 
         <button data-testid='submit-button' className="button button--medium-20 form-review__button" type="submit" onClick={handleClickSubmitButton}>Отправить отзыв</button>

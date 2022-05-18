@@ -2,7 +2,7 @@ import { configureMockStore } from '@jedmao/redux-mock-store';
 import { render, screen, waitFor } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
 import { Provider } from 'react-redux';
-import { testGuitars } from '../../mock/mock';
+import { testComments, testGuitars } from '../../mock/mock';
 import { createAPI } from '../../services/api';
 import App from './app';
 import thunk from 'redux-thunk';
@@ -25,6 +25,11 @@ describe('App compoennt', () => {
       errorMessage: '',
       isLoadedGuitarDetail: true,
       guitarDetail: testGuitars[0],
+    },
+    REVIEWS: {
+      reviews: testComments,
+      isLoadedReviews: true,
+      errorMessage: '',
     },
   });
 

@@ -37,6 +37,12 @@ export type GuitarsProcessType = {
   errorMessage: string,
 }
 
+export type ReviewsProcessType = {
+  reviews: ReviewType[],
+  isLoadedReviews: boolean,
+  errorMessage: string,
+}
+
 export type GuitarDetailProcessType = {
   errorMessage: string,
   isLoadedGuitarDetail: boolean,

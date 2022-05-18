@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { GuitarType, ImagenDataType } from '../../types/types';
 import { getImagenData } from '../../utils/utils';
-import GuitarRating from '../guitar-rating/guitar-rating';
+import GuitarRatingCard from './guitar-rating-card/guitar-rating-card';
 
 type CardItemProps = {
   guitar: GuitarType,
@@ -21,7 +21,7 @@ function CardItem({guitar}: CardItemProps): JSX.Element {
       />
 
       <div className="product-card__info">
-        <GuitarRating guitar={guitar}/>
+        <GuitarRatingCard guitar={guitar}/>
         <p className="product-card__title">{guitar.name}</p>
         <p className="product-card__price"><span className="visually-hidden">Цена:</span>{guitar.price} ₽
         </p>
