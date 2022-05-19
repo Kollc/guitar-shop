@@ -24,7 +24,7 @@ function GuitarRatingDetail({reviewsCount, guitar}: GuitarRatingDetailProps): JS
     <div className='rate product-container__rating'>
       <RatingStarsList rating={guitar.rating} isDetail/>
       <p className="visually-hidden">Рейтинг: {getRatingNameValue(guitar.rating)}</p>
-      <p className="rate__count"><span className="visually-hidden">Всего оценок:</span>{reviewsCount}</p>
+      <p className="rate__count" style={{marginLeft: '5px'}}><span className="visually-hidden">Всего оценок:</span>{reviewsCount}</p>
       {error && <ErrorMessage error={error} type={TypeRequests.Reviews}/>}
     </div>
   );
