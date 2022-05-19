@@ -4,9 +4,10 @@ import { getRatingByStars } from '../../utils/utils';
 
 type RatingStarsListProps = {
   rating: number,
+  isDetail?: boolean,
 }
 
-function RatingStarsList({rating}: RatingStarsListProps): JSX.Element {
+function RatingStarsList({rating, isDetail = false}: RatingStarsListProps): JSX.Element {
   const [ratingStars, setRatingStars] = useState<RatingStars[]>([]);
 
   useEffect(() => {
@@ -16,7 +17,7 @@ function RatingStarsList({rating}: RatingStarsListProps): JSX.Element {
   return (
     <>
       {ratingStars.map((star) => (
-        <svg key={star.key} width="12" height="11" aria-hidden="true" data-testid='star'>
+        <svg key={star.key} width={isDetail ? 14 : 12} height={isDetail ? 14 : 11} aria-hidden="true" data-testid='star'>
           <use xlinkHref={star.value ? '#icon-full-star' : '#icon-star'}></use>
         </svg>
       ))}
