@@ -1,9 +1,9 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { COUNT_SHOW_GUITARS_IN_PAGE, FETCH_GUITARS_LIMIT, TypeRequests } from '../../../consts';
-import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
-import { fetchGuitarsWithParamsAction } from '../../../store/actions/api-actions';
-import { getGuitars, getGuitarsError, getStatusLoaded } from '../../../store/guitars-process/selector';
+import { COUNT_SHOW_GUITARS_IN_PAGE, TypeRequests } from '../../../consts';
+import { useAppSelector } from '../../../hooks/hooks';
+import { getCountGuitars, getGuitars, getGuitarsError, getStatusLoaded } from '../../../store/guitars-process/selector';
+import { GuitarType } from '../../../types/types';
 import { getCountStartShowGuitars } from '../../../utils/utils';
 import Breadcrumbs from '../../breadcrumbs/breadcrumbs';
 import CardsList from '../../cards-list/cards-list';
@@ -15,22 +15,24 @@ import Pagination from '../../pagination/pagination';
 import Sort from '../../sort/sort';
 
 function CatalogPage(): JSX.Element {
-  const dispatch = useAppDispatch();
-  const guitars = useAppSelector(getGuitars);
+  const allGuitars = useAppSelector(getGuitars);
   const loaded = useAppSelector(getStatusLoaded);
+  const countGuitars = useAppSelector(getCountGuitars);
   const {page = 1} = useParams<{page: string}>();
   const error = useAppSelector(getGuitarsError);
+  const [showerGuitars, setShowerGuitars] = useState<GuitarType[]>([]);
 
   useEffect(() => {
     const start = getCountStartShowGuitars(Number(page));
     const end = start + COUNT_SHOW_GUITARS_IN_PAGE;
 
-    if(end <= FETCH_GUITARS_LIMIT) {
-      dispatch(fetchGuitarsWithParamsAction({start, end}));
+    if(end <= countGuitars) {
+      setShowerGuitars(allGuitars.slice(start, end));
     }
-  }, [page]);
+  }, [page, loaded]);
 
-  if(!loaded && guitars) {
+
+  if(!loaded && showerGuitars) {
     return <LoadingScreen/>;
   }
 
@@ -43,7 +45,7 @@ function CatalogPage(): JSX.Element {
           <div className="catalog">
             <Filter/>
             <Sort/>
-            <CardsList guitars={guitars}/>
+            <CardsList guitars={showerGuitars}/>
             <Pagination currentPage={Number(page)}/>
           </div>
         </div>

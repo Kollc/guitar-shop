@@ -1,4 +1,4 @@
-import { fetchGuitarsWithParamsAction } from './api-actions';
+import { fetchGuitarsAction } from './api-actions';
 import { testGuitars } from './../../mock/mock';
 import { Action } from 'redux';
 import thunk, { ThunkDispatch } from 'redux-thunk';
@@ -29,7 +29,7 @@ describe('Async actions', () => {
 
     const store = mockStore();
 
-    await store.dispatch(fetchGuitarsWithParamsAction({}));
+    await store.dispatch(fetchGuitarsAction());
 
     const actions = store.getActions().map(({type}) => type);
 
@@ -45,7 +45,7 @@ describe('Async actions', () => {
 
     const store = mockStore();
 
-    await store.dispatch(fetchGuitarsWithParamsAction({}));
+    await store.dispatch(fetchGuitarsAction());
 
     const actions = store.getActions().map(({type}) => type);
 

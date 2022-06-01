@@ -60,9 +60,4 @@ export type RatingStars = {
   key: number
 }
 
-export type ParamsType = {
-  start?:  number,
-  end?: number,
-}
-
 export type ErrorType = unknown;
