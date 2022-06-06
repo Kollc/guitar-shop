@@ -1,4 +1,4 @@
-import { ReviewType } from './../../types/types';
+import { ReviewType, SortParams } from './../../types/types';
 import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../../types/state';
@@ -10,15 +10,15 @@ import * as guitarDetailProcess from '../guitar-detail-process/guitar-detail-pro
 import * as reviewsProcess from '../reviews-process/reviews-process';
 
 
-export const fetchGuitarsAction = createAsyncThunk<void, undefined, {
+export const fetchGuitarsWithParamsAction = createAsyncThunk<void, SortParams, {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance
 }>(
-  'dataGuitars/fetchGuitarsAction',
-  async (_arg, {dispatch, extra: api}) => {
+  'dataGuitars/fetchGuitarsWithParamsAction',
+  async ({sort, order}, {dispatch, extra: api}) => {
     try {
-      const { data } = await api.get<GuitarType[]>(APIRoutes.Guitars, {params: {_limit: FETCH_GUITARS_LIMIT}});
+      const { data } = await api.get<GuitarType[]>(APIRoutes.Guitars, {params: {_limit: FETCH_GUITARS_LIMIT, _sort: sort, _order: order}});
       dispatch(guitarProcess.setCountGuitars(FETCH_GUITARS_LIMIT));
       dispatch(guitarProcess.setGuitars(data));
     } catch (error) {

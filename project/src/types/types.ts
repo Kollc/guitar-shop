@@ -61,3 +61,18 @@ export type RatingStars = {
 }
 
 export type ErrorType = unknown;
+
+export enum SortTypes {
+  Price = 'price',
+  Rating = 'rating',
+}
+
+export enum OrderTypes {
+  Asc = 'asc',
+  Desc = 'desc',
+}
+
+export type SortParams = {
+  sort?: string,
+  order?: string,
+}

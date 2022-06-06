@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import { AppRoutes } from '../../../consts';
 import MainLayout from '../../main-layout/main-layout';
 
 function ErrorPage(): JSX.Element {
@@ -8,7 +7,7 @@ function ErrorPage(): JSX.Element {
       <main className="page-content">
         <div className="container">
           <h1 className="page-content__title title title--bigger page-not-found__title">404 Page Not Found</h1>
-          <Link className='button button--red-border button--big' to={AppRoutes.Main}>Вернуться на главную страницу</Link>
+          <Link className='button button--red-border button--big' to={'/'}>Вернуться на главную страницу</Link>
         </div>
       </main>
     </MainLayout>
