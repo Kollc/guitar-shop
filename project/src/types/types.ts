@@ -75,4 +75,8 @@ export enum OrderTypes {
 export type SortParams = {
   sort?: string,
   order?: string,
+  priceStart?: string,
+  priceEnd?: string,
+  count?: string[],
+  type?: string[],
 }

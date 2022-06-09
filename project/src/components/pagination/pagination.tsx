@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { COUNT_SHOW_GUITARS_IN_PAGE, FIRST_PAGE_INDEX } from '../../consts';
-import { useAppSelector, useQuery } from '../../hooks/hooks';
+import { useAppSelector, useUpdateUrlWithParams } from '../../hooks/hooks';
 import { getCountGuitars } from '../../store/guitars-process/selector';
 import { getNumberArrayByCount } from '../../utils/utils';
 
@@ -9,13 +9,10 @@ type PaginationProps = {
   currentPage: number,
 }
 
-function Pagination({currentPage = 1}: PaginationProps): JSX.Element {
+function Pagination({currentPage = 1}: PaginationProps): JSX.Element | null {
   const [pages, setPages] = useState<number[]>([]);
   const countGuitars = useAppSelector(getCountGuitars);
-  const queryParams = useQuery();
-  const sort = queryParams.get('sort');
-  const order = queryParams.get('order');
-
+  const {queryParams} = useUpdateUrlWithParams();
 
   useEffect(() => {
     const pageCount = Math.ceil(countGuitars/COUNT_SHOW_GUITARS_IN_PAGE);
@@ -31,37 +28,19 @@ function Pagination({currentPage = 1}: PaginationProps): JSX.Element {
           currentPage > FIRST_PAGE_INDEX
         &&
           <li className="pagination__page pagination__page--prev" id="prev">
-            {
-              sort && order
-                ?
-                <Link to={`/catalog/page/${currentPage - 1}/?sort=${sort}&order=${order}`} className="link pagination__page-link" data-testid='page-back'>Назад</Link>
-                :
-                <Link to={`/catalog/page/${currentPage - 1}/`} className="link pagination__page-link" data-testid='page-back'>Назад</Link>
-            }
+            <Link to={`/catalog/page/${currentPage - 1}/?${queryParams.toString()}`} className="link pagination__page-link" data-testid='page-back'>Назад</Link>
           </li>
         }
         {pages.map((page) => (
           <li data-testid={`page-${page}`} className={`pagination__page ${currentPage === page && 'pagination__page--active'}`} key={page}>
-            {
-              sort && order
-                ?
-                <Link to={`/catalog/page/${page}/?sort=${sort}&order=${order}`} className="link pagination__page-link" href={'/'}>{page}</Link>
-                :
-                <Link to={`/catalog/page/${page}`} className="link pagination__page-link" href={'/'}>{page}</Link>
-            }
+            <Link to={`/catalog/page/${page}/?${queryParams.toString()}`} className="link pagination__page-link" href={'/'}>{page}</Link>
           </li>
         ))}
         {
           currentPage !== pages.length
         &&
           <li className="pagination__page pagination__page--next" id="next">
-            {
-              sort && order
-                ?
-                <Link to={`/catalog/page/${currentPage + 1}/?sort=${sort}&order=${order}`} className="link pagination__page-link">Далее</Link>
-                :
-                <Link to={`/catalog/page/${currentPage + 1}`} className="link pagination__page-link">Далее</Link>
-            }
+            <Link to={`/catalog/page/${currentPage + 1}/?${queryParams.toString()}`} className="link pagination__page-link">Далее</Link>
           </li>
         }
       </ul>

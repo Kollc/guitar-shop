@@ -1,40 +1,42 @@
-import { useHistory } from 'react-router-dom';
-import { useQuery } from '../../hooks/hooks';
+import { useUpdateUrlWithParams } from '../../hooks/hooks';
 import { OrderTypes, SortTypes } from '../../types/types';
 
 function Sort(): JSX.Element {
-  const history = useHistory();
-  const queryParams = useQuery();
+  const {queryParams, updateUrlWithParams} = useUpdateUrlWithParams();
 
   const handlePriceSortClick = () => {
-    if(queryParams.get('order')) {
-      history.push(`?sort=${SortTypes.Price}&order=${queryParams.get('order')}`);
+    if(queryParams.has('order')) {
+      updateUrlWithParams('sort', SortTypes.Price);
     } else {
-      history.push(`?sort=${SortTypes.Price}&order=${OrderTypes.Asc}`);
+      updateUrlWithParams('sort', SortTypes.Price);
+      updateUrlWithParams('order', OrderTypes.Asc);
     }
   };
 
   const handleRatingSortClick = () => {
-    if(queryParams.get('order')) {
-      history.push(`?sort=${SortTypes.Rating}&order=${queryParams.get('order')}`);
+    if(queryParams.has('order')) {
+      updateUrlWithParams('sort', SortTypes.Rating);
     } else {
-      history.push(`?sort=${SortTypes.Rating}&order=${OrderTypes.Asc}`);
+      updateUrlWithParams('sort', SortTypes.Rating);
+      updateUrlWithParams('order', OrderTypes.Asc);
     }
   };
 
   const handleAscOrderClick = () => {
-    if(queryParams.get('sort')) {
-      history.push(`?sort=${queryParams.get('sort')}&order=${OrderTypes.Asc}`);
+    if(queryParams.has('sort')) {
+      updateUrlWithParams('order', OrderTypes.Asc);
     } else {
-      history.push(`?sort=${SortTypes.Price}&order=${OrderTypes.Asc}`);
+      updateUrlWithParams('sort', SortTypes.Price);
+      updateUrlWithParams('order', OrderTypes.Asc);
     }
   };
 
   const handleDescOrderClick = () => {
-    if(queryParams.get('sort')) {
-      history.push(`?sort=${queryParams.get('sort')}&order=${OrderTypes.Desc}`);
+    if(queryParams.has('sort')) {
+      updateUrlWithParams('order', OrderTypes.Desc);
     } else {
-      history.push(`?sort=${SortTypes.Price}&order=${OrderTypes.Desc}`);
+      updateUrlWithParams('sort', SortTypes.Price);
+      updateUrlWithParams('order', OrderTypes.Desc);
     }
   };
 

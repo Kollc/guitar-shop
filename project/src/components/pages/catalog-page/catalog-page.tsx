@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { COUNT_SHOW_GUITARS_IN_PAGE, TypeRequests } from '../../../consts';
-import { useAppDispatch, useAppSelector, useQuery } from '../../../hooks/hooks';
+import { useHistory, useParams } from 'react-router-dom';
+import { COUNT_SHOW_GUITARS_IN_PAGE, QueryParamsList, TypeRequests } from '../../../consts';
+import { useAppDispatch, useAppSelector, useUpdateUrlWithParams } from '../../../hooks/hooks';
 import { fetchGuitarsWithParamsAction } from '../../../store/actions/api-actions';
 import { getCountGuitars, getGuitars, getGuitarsError, getStatusLoaded } from '../../../store/guitars-process/selector';
-import { GuitarType } from '../../../types/types';
+import { GuitarType, SortParams } from '../../../types/types';
 import { getCountStartShowGuitars } from '../../../utils/utils';
 import Breadcrumbs from '../../breadcrumbs/breadcrumbs';
 import CardsList from '../../cards-list/cards-list';
@@ -16,6 +16,7 @@ import Pagination from '../../pagination/pagination';
 import Sort from '../../sort/sort';
 
 function CatalogPage(): JSX.Element {
+  const history = useHistory();
   const dispatch = useAppDispatch();
   const allGuitars = useAppSelector(getGuitars);
   const loaded = useAppSelector(getStatusLoaded);
@@ -23,24 +24,42 @@ function CatalogPage(): JSX.Element {
   const {page = 1} = useParams<{page: string, sort: string, order: string}>();
   const error = useAppSelector(getGuitarsError);
   const [showerGuitars, setShowerGuitars] = useState<GuitarType[]>([]);
-  const queryParams = useQuery();
+  const {queryParams} = useUpdateUrlWithParams();
 
   useEffect(() => {
-    const sort = queryParams.get('sort');
-    const order = queryParams.get('order');
+    const params: SortParams = {};
 
-    if(sort && order) {
-      dispatch(fetchGuitarsWithParamsAction({sort, order}));
-    }
+    const sort = queryParams.get(QueryParamsList.Sort);
+    sort && (params[QueryParamsList.Sort] = sort);
+
+    const order = queryParams.get(QueryParamsList.Order);
+    order && (params[QueryParamsList.Order] = order);
+
+    const minPrice = queryParams.get(QueryParamsList.PriceStart);
+    minPrice && (params[QueryParamsList.PriceStart] = minPrice);
+
+    const maxPrice = queryParams.get(QueryParamsList.PriceEnd);
+    maxPrice && (params[QueryParamsList.PriceEnd] = maxPrice);
+
+    const type = queryParams.getAll(QueryParamsList.Type);
+    type && (params[QueryParamsList.Type] = type);
+
+    const count = queryParams.getAll(QueryParamsList.Count);
+    count && (params[QueryParamsList.Count] = count);
+
+    dispatch(fetchGuitarsWithParamsAction(params));
   }, [queryParams]);
 
   useEffect(() => {
     const start = getCountStartShowGuitars(Number(page));
     const end = start + COUNT_SHOW_GUITARS_IN_PAGE;
 
-    if(end <= countGuitars) {
-      setShowerGuitars(allGuitars.slice(start, end));
+    if(end > countGuitars && countGuitars > 0) {
+      const currentPage = (Math.ceil(countGuitars/COUNT_SHOW_GUITARS_IN_PAGE));
+      history.push(`/catalog/page/${currentPage}/?${queryParams.toString()}`);
     }
+
+    setShowerGuitars(allGuitars.slice(start, end));
   }, [page, allGuitars]);
 
   if(!loaded && showerGuitars) {

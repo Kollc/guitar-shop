@@ -78,3 +78,59 @@ export const MOCK_IMG = {index: 1, format: 'jpg', path: 'img/content/'};
 export const MIN_COUNT_STARS = 1;
 export const FETCH_GUITARS_LIMIT = 27;
 export const MARGIN_BOTTOM_WITHOUT_ERROR_MESSAGE = '15px';
+
+
+export enum QueryParamsList {
+  PriceEnd = 'priceEnd',
+  PriceStart = 'priceStart',
+  Order = 'order',
+  Sort = 'sort',
+  Type = 'type',
+  Count = 'count',
+}
+
+export enum GuitarTypesList {
+  Acoustic = 'acoustic',
+  Electric = 'electric',
+  Ukulele = 'ukulele',
+}
+
+export const GuitarTypesListData = [
+  {
+    title: 'Акустические гитары',
+    id: GuitarTypesList.Acoustic,
+  },
+  {
+    title: 'Электрогитары',
+    id: GuitarTypesList.Electric,
+  },
+  {
+    title: 'Укулеле',
+    id: GuitarTypesList.Ukulele,
+  },
+];
+
+export const GuitarCountStringsList = [
+  {
+    title: '4',
+    id: '4-strings',
+  },
+  {
+    title: '6',
+    id: '6-strings',
+  },
+  {
+    title: '7',
+    id: '7-strings',
+  },
+  {
+    title: '12',
+    id: '12-strings',
+  },
+];
+
+export const GuitarsTypeCountStrings = new Map([
+  ['acoustic', [6, 7, 12]],
+  ['electric', [4, 6, 7]],
+  ['ukulele', [4]],
+]);

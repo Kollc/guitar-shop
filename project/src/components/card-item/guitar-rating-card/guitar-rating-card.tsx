@@ -17,12 +17,19 @@ function GuitarRatingCard({guitar}: GuitarRatingCardProps): JSX.Element {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    let isMounted = true;
     setLoaded(false);
 
     getGuitarCommentsCountById(guitar.id, setError).then((data) => {
-      setReviewsCount(data);
-      setLoaded(true);
+      if(isMounted) {
+        setReviewsCount(data);
+        setLoaded(true);
+      }
     });
+
+    return () => {
+      isMounted = false;
+    };
   }, [guitar]);
 
   if(!loaded) {

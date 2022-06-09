@@ -1,3 +1,4 @@
+import { GuitarType } from './../types/types';
 import { COUNT_RATING_STARS, COUNT_SHOW_GUITARS_IN_PAGE, MIN_COUNT_STARS, MOCK_IMG, RatingName, RatingValue } from './../consts';
 import { DEFAULT_PATH_TO_GUITAR_IMAGENS } from '../consts';
 import { ImagenDataType, RatingStars, ReviewType } from '../types/types';
@@ -77,4 +78,28 @@ export const addStyleBodyWithOpenModal = () => {
 export const addStyleBodyWithCloseModal = () => {
   const bodyElement = document.querySelector('body') as HTMLBodyElement;
   bodyElement.style.overflow = 'visible';
+};
+
+export const getMinGuitarsPrice = (guitars: GuitarType[]): number => {
+  let min = guitars[0].price;
+
+  guitars.forEach((guitar) => {
+    if(min > guitar.price) {
+      min = guitar.price;
+    }
+  });
+
+  return min;
+};
+
+export const getMaxGuitarsPrice = (guitars: GuitarType[]): number => {
+  let max = guitars[0].price;
+
+  guitars.forEach((guitar) => {
+    if(max < guitar.price) {
+      max = guitar.price;
+    }
+  });
+
+  return max;
 };
