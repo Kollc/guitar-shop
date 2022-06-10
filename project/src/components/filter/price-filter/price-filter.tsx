@@ -1,23 +1,15 @@
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { QueryParamsList } from '../../../consts';
 import { useAppSelector, useUpdateUrlWithParams } from '../../../hooks/hooks';
-import { getGuitars } from '../../../store/guitars-process/selector';
-import { getMaxGuitarsPrice, getMinGuitarsPrice } from '../../../utils/utils';
+import { getMaxGuitarsPrice, getMinGuitarsPrice } from '../../../store/guitars-process/selector';
 
 function PriceFilter(): JSX.Element {
-  const allGuitars = useAppSelector(getGuitars);
-
-  const [minPriceInGuitars, setMinPriceInGuitars] = useState(0);
-  const [maxPriceInGuitars, setMaxPriceInGuitars] = useState(0);
+  const minPriceInGuitars = useAppSelector(getMaxGuitarsPrice);
+  const maxPriceInGuitars = useAppSelector(getMinGuitarsPrice);
 
   const [minPrice, setMinPrice] = useState<number | ''>('');
   const [maxPrice, setMaxPrice] = useState<number | ''>('');
   const {queryParams, updateUrlWithParams} = useUpdateUrlWithParams();
-
-  useEffect(() => {
-    setMinPriceInGuitars(getMinGuitarsPrice(allGuitars));
-    setMaxPriceInGuitars(getMaxGuitarsPrice(allGuitars));
-  }, []);
 
   const handleMinPriceFilterChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const minPriceValue = Number(evt.target.value);

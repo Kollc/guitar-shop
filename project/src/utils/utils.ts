@@ -80,7 +80,7 @@ export const addStyleBodyWithCloseModal = () => {
   bodyElement.style.overflow = 'visible';
 };
 
-export const getMinGuitarsPrice = (guitars: GuitarType[]): number => {
+export const calcMinGuitarsPrice = (guitars: GuitarType[]): number => {
   let min = guitars[0].price;
 
   guitars.forEach((guitar) => {
@@ -92,7 +92,7 @@ export const getMinGuitarsPrice = (guitars: GuitarType[]): number => {
   return min;
 };
 
-export const getMaxGuitarsPrice = (guitars: GuitarType[]): number => {
+export const calcMaxGuitarsPrice = (guitars: GuitarType[]): number => {
   let max = guitars[0].price;
 
   guitars.forEach((guitar) => {
