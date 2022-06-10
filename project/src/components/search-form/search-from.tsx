@@ -1,11 +1,11 @@
 import { ChangeEvent, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/hooks';
-import { getGuitars, getStatusLoaded } from '../../store/guitars-process/selector';
+import { getOriginalGuitars, getStatusLoaded } from '../../store/guitars-process/selector';
 import LoadingScreen from '../loading-screen/loading-sceen';
 
 function SearchForm(): JSX.Element {
-  const allGuitars = useAppSelector(getGuitars);
+  const allGuitars = useAppSelector(getOriginalGuitars);
   const loaded = useAppSelector(getStatusLoaded);
   const [searchQuery, setSearchQuery] = useState('');
   const history = useHistory();

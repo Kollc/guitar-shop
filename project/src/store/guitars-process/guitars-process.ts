@@ -3,6 +3,7 @@ import { NameSpace } from '../../consts';
 import { GuitarsProcessType } from '../../types/types';
 
 const initialState: GuitarsProcessType = {
+  originalGuitars: [],
   guitars: [],
   isLoadedGuitars: false,
   countGuitars: 0,
@@ -15,6 +16,9 @@ export const guitarsProcess = createSlice({
   initialState,
   name: NameSpace.Guitars,
   reducers: {
+    setOriginalGuitars: (state, action) => {
+      state.originalGuitars = action.payload;
+    },
     setGuitars: (state, action) => {
       state.guitars = action.payload;
       state.isLoadedGuitars = true;
@@ -38,4 +42,4 @@ export const guitarsProcess = createSlice({
   },
 });
 
-export const {setGuitars, setCountGuitars, setErrorMessage, resetErrorMessage, setMinPriceGuitar, setMaxPriceGuitar} = guitarsProcess.actions;
+export const {setGuitars, setCountGuitars, setErrorMessage, resetErrorMessage, setMinPriceGuitar, setMaxPriceGuitar, setOriginalGuitars} = guitarsProcess.actions;

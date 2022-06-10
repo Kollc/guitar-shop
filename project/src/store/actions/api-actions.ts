@@ -10,16 +10,16 @@ import * as guitarDetailProcess from '../guitar-detail-process/guitar-detail-pro
 import * as reviewsProcess from '../reviews-process/reviews-process';
 import { calcMinGuitarsPrice, calcMaxGuitarsPrice } from '../../utils/utils';
 
-export const fetchMaxAndMinGuitarsPrice = createAsyncThunk<void, undefined, {
+export const fetchGuitarsWithoutParams = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance
 }>(
-  'dataGuitars/fetchGuitarsWithParamsAction',
+  'dataGuitars/fetchGuitarsWithoutParams',
   async (_arg, {dispatch, extra: api}) => {
     try {
       const { data } = await api.get<GuitarType[]>(APIRoutes.Guitars);
-
+      dispatch(guitarProcess.setOriginalGuitars(data));
       dispatch(guitarProcess.setMaxPriceGuitar(calcMaxGuitarsPrice(data)));
       dispatch(guitarProcess.setMinPriceGuitar(calcMinGuitarsPrice(data)));
     } catch (error) {

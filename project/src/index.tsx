@@ -3,11 +3,11 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import App from './components/app/app';
-import { fetchGuitarsWithParamsAction, fetchMaxAndMinGuitarsPrice } from './store/actions/api-actions';
+import { fetchGuitarsWithParamsAction, fetchGuitarsWithoutParams } from './store/actions/api-actions';
 import { store } from './store/store';
 
 store.dispatch(fetchGuitarsWithParamsAction({}));
-store.dispatch(fetchMaxAndMinGuitarsPrice());
+store.dispatch(fetchGuitarsWithoutParams());
 
 
 ReactDOM.render(

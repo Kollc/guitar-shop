@@ -10,7 +10,8 @@ describe('SearchForm component', () => {
 
   const fakeStore = mockStore({
     GUITARS: {
-      guitars: testGuitars,
+      originalGuitars: testGuitars,
+      guitars: [],
       isLoadedGuitars: true,
       countGuitars: 18,
       errorMessage: '',

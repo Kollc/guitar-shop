@@ -10,6 +10,7 @@ describe('Header component', () => {
 
   const fakeStore = mockStore({
     GUITARS: {
+      originalGuitars: testGuitars,
       guitars: testGuitars,
       isLoadedGuitars: true,
       countGuitars: 18,

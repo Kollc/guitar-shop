@@ -31,6 +31,7 @@ export type ReviewType = {
 }
 
 export type GuitarsProcessType = {
+  originalGuitars: GuitarType[],
   guitars: GuitarType[],
   isLoadedGuitars: boolean,
   countGuitars: number,
