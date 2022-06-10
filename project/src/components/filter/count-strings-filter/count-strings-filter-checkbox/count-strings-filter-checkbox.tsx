@@ -24,7 +24,7 @@ function CountStringsFilterCheckbox({title, id}: CountStringsFilterCheckboxProps
     setDisabledCheckboxCountStrings(countStringsList);
     setCheckedCheckboxCountStrings();
 
-  }, [queryParams]);
+  }, [queryParams.getAll(QueryParamsList.Type)]);
 
   const setCheckedCheckboxCountStrings = (): void => {
     if(queryParams.getAll(QueryParamsList.Count).includes(title)) {

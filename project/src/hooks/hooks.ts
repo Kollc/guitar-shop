@@ -21,12 +21,8 @@ export const useUpdateUrlWithParams = () => {
   };
 
   const updateUrlWithParams = (key: string, value: string): void => {
-    if(queryParams.toString() !== '') {
-      if(queryParams.has(key)) {
-        queryParams.set(key, value);
-      } else {
-        queryParams.append(key, value);
-      }
+    if(queryParams.toString() !== '' && queryParams.has(key)) {
+      queryParams.set(key, value);
     } else {
       queryParams.append(key, value);
     }

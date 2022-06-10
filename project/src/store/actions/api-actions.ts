@@ -21,8 +21,8 @@ export const fetchGuitarsWithParamsAction = createAsyncThunk<void, SortParams, {
       const { data } = await api.get<GuitarType[]>(APIRoutes.Guitars,
         {
           params: {
-            _sort: sort,
-            _order: order,
+            '_sort': sort,
+            '_order': order,
             'price_gte': priceStart,
             'price_lte': priceEnd,
             'type': type,
