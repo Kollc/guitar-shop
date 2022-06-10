@@ -45,7 +45,7 @@ function SearchForm(): JSX.Element {
         <label className="visually-hidden" htmlFor="search">Поиск</label>
       </form>
       <ul className={`form-search__select-list ${!searchQuery && 'hidden'}`}>
-        {allGuitars.filter((item) => item.name.includes(searchQuery)).map((guitar) => (<li key={guitar.id} className="form-search__select-item" tabIndex={0} onClick={() => history.push(`/guitar/${guitar.id}`)}>{guitar.name}</li>))}
+        {allGuitars.filter((item) => item.name.toLowerCase().includes(searchQuery.toLowerCase())).map((guitar) => (<li key={guitar.id} className="form-search__select-item" tabIndex={0} onClick={() => history.push(`/guitar/${guitar.id}`)}>{guitar.name}</li>))}
       </ul>
       <button style={{display: hiddenCloseButton ? 'none' : 'block'}} className="form-search__reset" type="reset" form="form-search" onClick={handleCloseSearchButtonClick}>
         <svg className="form-search__icon" width="14" height="15" aria-hidden="true">
