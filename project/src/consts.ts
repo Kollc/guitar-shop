@@ -134,3 +134,9 @@ export const GuitarsTypeCountStrings = new Map([
   ['electric', [4, 6, 7]],
   ['ukulele', [4]],
 ]);
+
+export const GuitarTypeList = new Map([
+  ['acoustic', 'Акустическая гитара'],
+  ['electric', 'Электрогитара'],
+  ['ukulele', 'Укулеле'],
+]);

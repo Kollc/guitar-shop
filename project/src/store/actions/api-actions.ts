@@ -25,8 +25,8 @@ export const fetchGuitarsWithParamsAction = createAsyncThunk<void, SortParams, {
             _order: order,
             'price_gte': priceStart,
             'price_lte': priceEnd,
-            type,
-            count,
+            'type': type,
+            'stringCount': count,
           }});
       dispatch(guitarProcess.setCountGuitars(data.length));
       dispatch(guitarProcess.setGuitars(data));

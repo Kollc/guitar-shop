@@ -47,9 +47,12 @@ export const useUpdateUrlWithParams = () => {
     history.push(`?${queryParams.toString()}`);
   };
 
-  const deleteAllUrlParams = (key: string): void => {
+  const deleteAllUrlParams = (keys: string[]): void => {
     if(queryParams.toString() !== '') {
-      queryParams.delete(key);
+      keys.forEach((key) => {
+        queryParams.delete(key);
+      });
+
       history.push(`?${queryParams.toString()}`);
     }
   };

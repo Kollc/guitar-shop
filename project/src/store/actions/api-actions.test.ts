@@ -21,7 +21,7 @@ describe('Async actions', () => {
     >(middlewares);
 
 
-  it('should dispatch load guitars when GET /films', async () => {
+  it('should dispatch load guitars when GET /', async () => {
     const mockGuitars = testGuitars;
     mockAPI
       .onGet(APIRoutes.Guitars)
@@ -37,7 +37,7 @@ describe('Async actions', () => {
     expect(actions).toContain(setCountGuitars.toString());
   });
 
-  it('should dispatch set error when GET /films', async () => {
+  it('should dispatch set error when GET /', async () => {
     const mockGuitars = testGuitars;
     mockAPI
       .onGet(APIRoutes.Guitars)

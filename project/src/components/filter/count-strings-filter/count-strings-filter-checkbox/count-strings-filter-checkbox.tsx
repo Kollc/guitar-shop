@@ -10,6 +10,7 @@ type CountStringsFilterCheckboxProps = {
 function CountStringsFilterCheckbox({title, id}: CountStringsFilterCheckboxProps): JSX.Element {
   const {queryParams, deleteUrlParam, addUrlWithParams} = useUpdateUrlWithParams();
   const [disabledCheckbox, setDisabledCheckbox] = useState(false);
+  const [checkedCheckbox, setCheckedCheckbox] = useState(false);
 
   useEffect(() => {
     let countStringsList: number[] = [];
@@ -20,25 +21,45 @@ function CountStringsFilterCheckbox({title, id}: CountStringsFilterCheckboxProps
       }
     });
 
-    if([...new Set(countStringsList)].includes(Number(title))) {
+    setDisabledCheckboxCountStrings(countStringsList);
+    setCheckedCheckboxCountStrings();
+
+  }, [queryParams]);
+
+  const setCheckedCheckboxCountStrings = (): void => {
+    if(queryParams.getAll(QueryParamsList.Count).includes(title)) {
+      setCheckedCheckbox(true);
+    } else {
+      setCheckedCheckbox(false);
+    }
+  };
+
+  const setDisabledCheckboxCountStrings = (countStringsList: number[]): void => {
+    if(![...new Set(countStringsList)].includes(Number(title))) {
       setDisabledCheckbox(true);
+    } else {
+      setDisabledCheckbox(false);
     }
 
     if(!queryParams.has(QueryParamsList.Type)) {
       setDisabledCheckbox(false);
     }
-  }, [queryParams]);
+
+    if(queryParams.getAll(QueryParamsList.Count).includes(title)) {
+      setCheckedCheckbox(true);
+    }
+  };
 
   const handleCheckboxGuitarsCountStringsChange = (evt: ChangeEvent<HTMLInputElement>) => {
     if(evt.target.checked) {
-      addUrlWithParams(QueryParamsList.Count, id);
+      addUrlWithParams(QueryParamsList.Count, title);
     } else {
-      deleteUrlParam(QueryParamsList.Count, id);
+      deleteUrlParam(QueryParamsList.Count, title);
     }
   };
 
   return (
-    <div className="form-checkbox catalog-filter__block-item">
+    <div className="form-checkbox catalog-filter__block-item" data-testid='strings-coutn-filter-item'>
       <input
         className="visually-hidden"
         type="checkbox"
@@ -46,6 +67,7 @@ function CountStringsFilterCheckbox({title, id}: CountStringsFilterCheckboxProps
         name={id}
         onChange={handleCheckboxGuitarsCountStringsChange}
         disabled={disabledCheckbox}
+        checked={checkedCheckbox}
       />
       <label htmlFor={id}>{title}</label>
     </div>

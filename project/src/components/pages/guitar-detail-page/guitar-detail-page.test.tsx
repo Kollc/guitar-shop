@@ -16,6 +16,12 @@ describe('GuitarDetailPage component', () => {
   const mockStore = configureMockStore(middlewares);
 
   const fakeStore = mockStore({
+    GUITARS: {
+      guitars: testGuitars,
+      isLoadedGuitars: true,
+      countGuitars: 18,
+      errorMessage: '',
+    },
     GUITAR_DETAIL: {
       errorMessage: '',
       isLoadedGuitarDetail: true,

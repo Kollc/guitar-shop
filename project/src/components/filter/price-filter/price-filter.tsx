@@ -10,19 +10,13 @@ function PriceFilter(): JSX.Element {
   const [minPriceInGuitars, setMinPriceInGuitars] = useState(0);
   const [maxPriceInGuitars, setMaxPriceInGuitars] = useState(0);
 
-  const [minPrice, setMinPrice] = useState(0);
-  const [maxPrice, setMaxPrice] = useState(0);
-  const {updateUrlWithParams} = useUpdateUrlWithParams();
+  const [minPrice, setMinPrice] = useState<number | ''>('');
+  const [maxPrice, setMaxPrice] = useState<number | ''>('');
+  const {queryParams, updateUrlWithParams} = useUpdateUrlWithParams();
 
   useEffect(() => {
-    const guitarsMinPrice = getMinGuitarsPrice(allGuitars);
-    const guitarMaxPrice = getMaxGuitarsPrice(allGuitars);
-
-    setMinPrice(guitarsMinPrice);
-    setMaxPrice(guitarMaxPrice);
-
-    setMinPriceInGuitars(guitarsMinPrice);
-    setMaxPriceInGuitars(guitarMaxPrice);
+    setMinPriceInGuitars(getMinGuitarsPrice(allGuitars));
+    setMaxPriceInGuitars(getMaxGuitarsPrice(allGuitars));
   }, []);
 
   const handleMinPriceFilterChange = (evt: ChangeEvent<HTMLInputElement>) => {
@@ -34,14 +28,18 @@ function PriceFilter(): JSX.Element {
   };
 
   const handleMinPriceFilterBlur = () => {
-    if(minPrice < minPriceInGuitars) {
+    const currentMaxPrice = maxPrice || maxPriceInGuitars;
+
+    if(minPrice < minPriceInGuitars || minPrice >= currentMaxPrice) {
       setMinPrice(minPriceInGuitars);
       updateUrlWithParams(QueryParamsList.PriceStart, String(minPriceInGuitars));
     } else {
       updateUrlWithParams(QueryParamsList.PriceStart, String(minPrice));
     }
 
-    updateUrlWithParams(QueryParamsList.PriceEnd, String(maxPrice));
+    if(!maxPrice) {
+      updateUrlWithParams(QueryParamsList.PriceEnd, String(maxPriceInGuitars));
+    }
   };
 
   const handleMaxPriceFilterChange = (evt: ChangeEvent<HTMLInputElement>) => {
@@ -53,27 +51,29 @@ function PriceFilter(): JSX.Element {
   };
 
   const handleMaxPriceFilterBlur = () => {
-    if(maxPrice <= minPrice && maxPrice >= maxPriceInGuitars) {
+    if(maxPrice <= minPrice || maxPrice >= maxPriceInGuitars) {
       setMaxPrice(maxPriceInGuitars);
       updateUrlWithParams(QueryParamsList.PriceEnd, String(maxPriceInGuitars));
     } else {
       updateUrlWithParams(QueryParamsList.PriceEnd, String(maxPrice));
     }
 
-    updateUrlWithParams(QueryParamsList.PriceStart, String(minPrice));
+    if(!minPrice) {
+      updateUrlWithParams(QueryParamsList.PriceStart, String(minPriceInGuitars));
+    }
   };
 
   return (
-    <fieldset className="catalog-filter__block">
+    <fieldset className="catalog-filter__block" data-testid='price-filter'>
       <legend className="catalog-filter__block-title">Цена, ₽</legend>
       <div className="catalog-filter__price-range">
         <div className="form-input">
           <label className="visually-hidden">Минимальная цена</label>
-          <input id="priceMin" name="от" placeholder={String(minPriceInGuitars)} value={minPrice} onChange={handleMinPriceFilterChange} onBlur={handleMinPriceFilterBlur}/>
+          <input id="priceMin" name="от" placeholder={String(minPriceInGuitars)} value={minPrice ?? queryParams.get(QueryParamsList.PriceStart)} onChange={handleMinPriceFilterChange} onBlur={handleMinPriceFilterBlur}/>
         </div>
         <div className="form-input">
           <label className="visually-hidden">Максимальная цена</label>
-          <input id="priceMax" name="до" placeholder={String(maxPriceInGuitars)} value={maxPrice} onChange={handleMaxPriceFilterChange} onBlur={handleMaxPriceFilterBlur}/>
+          <input id="priceMax" name="до" placeholder={String(maxPriceInGuitars)} value={maxPrice ?? queryParams.get(QueryParamsList.PriceEnd)} onChange={handleMaxPriceFilterChange} onBlur={handleMaxPriceFilterBlur}/>
         </div>
       </div>
     </fieldset>

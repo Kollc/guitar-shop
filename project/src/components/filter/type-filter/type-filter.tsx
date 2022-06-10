@@ -13,4 +13,3 @@ function TypeFilter(): JSX.Element {
 }
 
 export default TypeFilter;
-

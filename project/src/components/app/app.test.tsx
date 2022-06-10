@@ -59,7 +59,7 @@ describe('App compoennt', () => {
     render(fakeApp);
 
     await waitFor(() => {
-      expect(screen.getByText(/CURT T300 SecondPage/i)).toBeInTheDocument();
+      expect(screen.getAllByText(/CURT T300 SecondPage/i)[0]).toBeInTheDocument();
     });
   });
 

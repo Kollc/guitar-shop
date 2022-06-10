@@ -1,11 +1,11 @@
 import { configureMockStore } from '@jedmao/redux-mock-store';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { testComments, testGuitars } from '../../mock/mock';
-import Header from './header';
+import SearchForm from './search-from';
 
-describe('Header component', () => {
+describe('SearchForm component', () => {
   const mockStore = configureMockStore();
 
   const fakeStore = mockStore({
@@ -27,24 +27,14 @@ describe('Header component', () => {
     },
   });
 
-  it('should Header render is success', async () => {
+  it('should MainLayout render is succes', () => {
     render(
       <Provider store={fakeStore}>
         <BrowserRouter>
-          <Header/>
+          <SearchForm/>
         </BrowserRouter>
       </Provider>);
 
-    await waitFor(() => {
-      expect(screen.getByText(/Каталог/i)).toBeInTheDocument();
-    });
-
-    await waitFor(() => {
-      expect(screen.getByText(/О компании/i)).toBeInTheDocument();
-    });
-
-    await waitFor(() => {
-      expect(screen.getByText(/Где купить/i)).toBeInTheDocument();
-    });
+    expect(screen.getByTestId('form-search')).toBeInTheDocument();
   });
 });

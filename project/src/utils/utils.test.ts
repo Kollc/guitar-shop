@@ -1,6 +1,6 @@
-import { testComments, testSortedComments } from '../mock/mock';
+import { testComments, testGuitars, testSortedComments } from '../mock/mock';
 import { DEFAULT_PATH_TO_GUITAR_IMAGENS, COUNT_SHOW_GUITARS_IN_PAGE, RatingName } from './../consts';
-import { getCountStartShowGuitars, getFormatedDate, getImagenData, getNumberArrayByCount, getRatingByStars, sortReviewsByDate, getRatingNameValue, addStyleBodyWithOpenModal, addStyleBodyWithCloseModal } from './utils';
+import { getCountStartShowGuitars, getFormatedDate, getImagenData, getNumberArrayByCount, getRatingByStars, sortReviewsByDate, getRatingNameValue, addStyleBodyWithOpenModal, addStyleBodyWithCloseModal, getMinGuitarsPrice, getMaxGuitarsPrice } from './utils';
 
 describe('Util funtions', () => {
   it('should getImagenData work is success', () => {
@@ -87,5 +87,13 @@ describe('Util funtions', () => {
     bodyElement.style.overflow = 'hidden';
     addStyleBodyWithCloseModal();
     expect(bodyElement).toHaveStyle('overflow: visible');
+  });
+
+  it('should getMinGuitarsPrice work is succes', () => {
+    expect(getMinGuitarsPrice(testGuitars)).toBe(500);
+  });
+
+  it('should getMaxGuitarsPrice work is succes', () => {
+    expect(getMaxGuitarsPrice(testGuitars)).toBe(30000);
   });
 });

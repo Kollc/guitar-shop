@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { GuitarType } from '../../types/types';
-import { GuitarTabsList } from '../../consts';
+import { GuitarTabsList, GuitarTypeList } from '../../consts';
 
 type GuitarTabsProps = {
   guitar: GuitarType,
@@ -35,7 +35,7 @@ function GuitarTabs({guitar}: GuitarTabsProps): JSX.Element {
             </tr>
             <tr className="tabs__table-row">
               <td className="tabs__title">Тип:</td>
-              <td className="tabs__value">Электрогитара</td>
+              <td className="tabs__value">{GuitarTypeList.get(guitar.type)}</td>
             </tr>
             <tr className="tabs__table-row">
               <td className="tabs__title">Количество струн:</td>
