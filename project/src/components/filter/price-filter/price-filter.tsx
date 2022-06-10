@@ -4,12 +4,16 @@ import { useAppSelector, useUpdateUrlWithParams } from '../../../hooks/hooks';
 import { getMaxGuitarsPrice, getMinGuitarsPrice } from '../../../store/guitars-process/selector';
 
 function PriceFilter(): JSX.Element {
-  const minPriceInGuitars = useAppSelector(getMaxGuitarsPrice);
-  const maxPriceInGuitars = useAppSelector(getMinGuitarsPrice);
-
-  const [minPrice, setMinPrice] = useState<number | ''>('');
-  const [maxPrice, setMaxPrice] = useState<number | ''>('');
+  const minPriceInGuitars = useAppSelector(getMinGuitarsPrice);
+  const maxPriceInGuitars = useAppSelector(getMaxGuitarsPrice);
   const {queryParams, updateUrlWithParams} = useUpdateUrlWithParams();
+
+  const intialMinPrice = Number(queryParams.get(QueryParamsList.PriceStart)) || '';
+  const intialMaxPrice = Number(queryParams.get(QueryParamsList.PriceEnd)) || '';
+
+  const [minPrice, setMinPrice] = useState<number | ''>(intialMinPrice);
+  const [maxPrice, setMaxPrice] = useState<number | ''>(intialMaxPrice);
+
 
   const handleMinPriceFilterChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const minPriceValue = Number(evt.target.value);
@@ -61,11 +65,11 @@ function PriceFilter(): JSX.Element {
       <div className="catalog-filter__price-range">
         <div className="form-input">
           <label className="visually-hidden">Минимальная цена</label>
-          <input id="priceMin" name="от" placeholder={String(minPriceInGuitars)} value={minPrice ?? queryParams.get(QueryParamsList.PriceStart)} onChange={handleMinPriceFilterChange} onBlur={handleMinPriceFilterBlur}/>
+          <input id="priceMin" name="от" placeholder={String(minPriceInGuitars)} value={minPrice} onChange={handleMinPriceFilterChange} onBlur={handleMinPriceFilterBlur}/>
         </div>
         <div className="form-input">
           <label className="visually-hidden">Максимальная цена</label>
-          <input id="priceMax" name="до" placeholder={String(maxPriceInGuitars)} value={maxPrice ?? queryParams.get(QueryParamsList.PriceEnd)} onChange={handleMaxPriceFilterChange} onBlur={handleMaxPriceFilterBlur}/>
+          <input id="priceMax" name="до" placeholder={String(maxPriceInGuitars)} value={maxPrice} onChange={handleMaxPriceFilterChange} onBlur={handleMaxPriceFilterBlur}/>
         </div>
       </div>
     </fieldset>

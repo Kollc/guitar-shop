@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/hooks';
 import { getGuitars, getStatusLoaded } from '../../store/guitars-process/selector';
@@ -9,6 +9,17 @@ function SearchForm(): JSX.Element {
   const loaded = useAppSelector(getStatusLoaded);
   const [searchQuery, setSearchQuery] = useState('');
   const history = useHistory();
+  const [hiddenCloseButton, setHiddenCloseButton] = useState(true);
+
+  const handleCloseSearchButtonClick = () => {
+    setHiddenCloseButton(true);
+    setSearchQuery('');
+  };
+
+  const handleSearchInputChange = (evt: ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(evt.target.value);
+    setHiddenCloseButton(false);
+  };
 
   if(!loaded) {
     return <LoadingScreen/>;
@@ -29,14 +40,14 @@ function SearchForm(): JSX.Element {
           autoComplete="off"
           placeholder="что вы ищите?"
           value={searchQuery}
-          onChange={(evt) => setSearchQuery(evt.target.value)}
+          onChange={handleSearchInputChange}
         />
         <label className="visually-hidden" htmlFor="search">Поиск</label>
       </form>
       <ul className={`form-search__select-list ${!searchQuery && 'hidden'}`}>
         {allGuitars.filter((item) => item.name.includes(searchQuery)).map((guitar) => (<li key={guitar.id} className="form-search__select-item" tabIndex={0} onClick={() => history.push(`/guitar/${guitar.id}`)}>{guitar.name}</li>))}
       </ul>
-      <button className="form-search__reset" type="reset" form="form-search">
+      <button style={{display: hiddenCloseButton ? 'none' : 'block'}} className="form-search__reset" type="reset" form="form-search" onClick={handleCloseSearchButtonClick}>
         <svg className="form-search__icon" width="14" height="15" aria-hidden="true">
           <use xlinkHref="#icon-close"></use>
         </svg><span className="visually-hidden">Сбросить поиск</span>
