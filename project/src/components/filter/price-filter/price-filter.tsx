@@ -1,11 +1,12 @@
 import { ChangeEvent, useEffect, useState } from 'react';
 import { QueryParamsList } from '../../../consts';
 import { useAppSelector, useUpdateUrlWithParams } from '../../../hooks/hooks';
-import { getGuitars } from '../../../store/guitars-process/selector';
+import { getGuitars, getOriginalGuitars } from '../../../store/guitars-process/selector';
 import { calcMaxGuitarsPrice, calcMinGuitarsPrice } from '../../../utils/utils';
 
 function PriceFilter(): JSX.Element {
   const guitars = useAppSelector(getGuitars);
+  const originalGuitars = useAppSelector(getOriginalGuitars);
 
   const minPriceInGuitars = calcMinGuitarsPrice(guitars);
   const maxPriceInGuitars = calcMaxGuitarsPrice(guitars);
@@ -20,7 +21,7 @@ function PriceFilter(): JSX.Element {
   useEffect(() => {
     setMinPrice(intialMinPrice);
     setMaxPrice(intialMaxPrice);
-  }, [intialMinPrice, intialMaxPrice]);
+  }, [guitars]);
 
 
   const handleMinPriceFilterChange = (evt: ChangeEvent<HTMLInputElement>) => {
@@ -32,7 +33,11 @@ function PriceFilter(): JSX.Element {
   };
 
   const handleMinPriceFilterBlur = () => {
-    if(minPrice) {
+    if(guitars.length <= 0) {
+      const originalMinPrice = calcMinGuitarsPrice(originalGuitars);
+      setMinPrice(originalMinPrice);
+      updateUrlWithParams(QueryParamsList.PriceStart, String(originalMinPrice));
+    } else if(minPrice) {
       const currentMaxPrice = maxPrice || maxPriceInGuitars;
 
       if(minPrice < minPriceInGuitars || minPrice >= currentMaxPrice) {
@@ -57,7 +62,11 @@ function PriceFilter(): JSX.Element {
   };
 
   const handleMaxPriceFilterBlur = () => {
-    if(maxPrice) {
+    if(guitars.length <= 0) {
+      const originalMaxPrice = calcMaxGuitarsPrice(originalGuitars);
+      setMaxPrice(originalMaxPrice);
+      updateUrlWithParams(QueryParamsList.PriceEnd, String(originalMaxPrice));
+    } else if(maxPrice) {
       if(maxPrice <= minPrice || maxPrice >= maxPriceInGuitars) {
         setMaxPrice(maxPriceInGuitars);
         updateUrlWithParams(QueryParamsList.PriceEnd, String(maxPriceInGuitars));
