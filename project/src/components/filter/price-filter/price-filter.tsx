@@ -1,11 +1,14 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { QueryParamsList } from '../../../consts';
 import { useAppSelector, useUpdateUrlWithParams } from '../../../hooks/hooks';
-import { getMaxGuitarsPrice, getMinGuitarsPrice } from '../../../store/guitars-process/selector';
+import { getGuitars } from '../../../store/guitars-process/selector';
+import { calcMaxGuitarsPrice, calcMinGuitarsPrice } from '../../../utils/utils';
 
 function PriceFilter(): JSX.Element {
-  const minPriceInGuitars = useAppSelector(getMinGuitarsPrice);
-  const maxPriceInGuitars = useAppSelector(getMaxGuitarsPrice);
+  const guitars = useAppSelector(getGuitars);
+
+  const minPriceInGuitars = calcMinGuitarsPrice(guitars);
+  const maxPriceInGuitars = calcMaxGuitarsPrice(guitars);
   const {queryParams, updateUrlWithParams} = useUpdateUrlWithParams();
 
   const intialMinPrice = Number(queryParams.get(QueryParamsList.PriceStart)) || '';
@@ -13,6 +16,11 @@ function PriceFilter(): JSX.Element {
 
   const [minPrice, setMinPrice] = useState<number | ''>(intialMinPrice);
   const [maxPrice, setMaxPrice] = useState<number | ''>(intialMaxPrice);
+
+  useEffect(() => {
+    setMinPrice(intialMinPrice);
+    setMaxPrice(intialMaxPrice);
+  }, [intialMinPrice, intialMaxPrice]);
 
 
   const handleMinPriceFilterChange = (evt: ChangeEvent<HTMLInputElement>) => {
@@ -24,17 +32,19 @@ function PriceFilter(): JSX.Element {
   };
 
   const handleMinPriceFilterBlur = () => {
-    const currentMaxPrice = maxPrice || maxPriceInGuitars;
+    if(minPrice) {
+      const currentMaxPrice = maxPrice || maxPriceInGuitars;
 
-    if(minPrice < minPriceInGuitars || minPrice >= currentMaxPrice) {
-      setMinPrice(minPriceInGuitars);
-      updateUrlWithParams(QueryParamsList.PriceStart, String(minPriceInGuitars));
-    } else {
-      updateUrlWithParams(QueryParamsList.PriceStart, String(minPrice));
-    }
+      if(minPrice < minPriceInGuitars || minPrice >= currentMaxPrice) {
+        setMinPrice(minPriceInGuitars);
+        updateUrlWithParams(QueryParamsList.PriceStart, String(minPriceInGuitars));
+      } else {
+        updateUrlWithParams(QueryParamsList.PriceStart, String(minPrice));
+      }
 
-    if(!maxPrice) {
-      updateUrlWithParams(QueryParamsList.PriceEnd, String(maxPriceInGuitars));
+      if(!maxPrice) {
+        updateUrlWithParams(QueryParamsList.PriceEnd, String(maxPriceInGuitars));
+      }
     }
   };
 
@@ -47,15 +57,17 @@ function PriceFilter(): JSX.Element {
   };
 
   const handleMaxPriceFilterBlur = () => {
-    if(maxPrice <= minPrice || maxPrice >= maxPriceInGuitars) {
-      setMaxPrice(maxPriceInGuitars);
-      updateUrlWithParams(QueryParamsList.PriceEnd, String(maxPriceInGuitars));
-    } else {
-      updateUrlWithParams(QueryParamsList.PriceEnd, String(maxPrice));
-    }
+    if(maxPrice) {
+      if(maxPrice <= minPrice || maxPrice >= maxPriceInGuitars) {
+        setMaxPrice(maxPriceInGuitars);
+        updateUrlWithParams(QueryParamsList.PriceEnd, String(maxPriceInGuitars));
+      } else {
+        updateUrlWithParams(QueryParamsList.PriceEnd, String(maxPrice));
+      }
 
-    if(!minPrice) {
-      updateUrlWithParams(QueryParamsList.PriceStart, String(minPriceInGuitars));
+      if(!minPrice) {
+        updateUrlWithParams(QueryParamsList.PriceStart, String(minPriceInGuitars));
+      }
     }
   };
 

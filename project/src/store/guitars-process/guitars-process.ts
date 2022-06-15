@@ -8,8 +8,6 @@ const initialState: GuitarsProcessType = {
   isLoadedGuitars: false,
   countGuitars: 0,
   errorMessage: '',
-  maxPriceGuitar: 0,
-  minPriceGuitar: 0,
 };
 
 export const guitarsProcess = createSlice({
@@ -33,13 +31,7 @@ export const guitarsProcess = createSlice({
     resetErrorMessage: (state) => {
       state.errorMessage ='';
     },
-    setMaxPriceGuitar: (state, action) => {
-      state.maxPriceGuitar = action.payload;
-    },
-    setMinPriceGuitar: (state, action) => {
-      state.minPriceGuitar = action.payload;
-    },
   },
 });
 
-export const {setGuitars, setCountGuitars, setErrorMessage, resetErrorMessage, setMinPriceGuitar, setMaxPriceGuitar, setOriginalGuitars} = guitarsProcess.actions;
+export const {setGuitars, setCountGuitars, setErrorMessage, resetErrorMessage, setOriginalGuitars} = guitarsProcess.actions;

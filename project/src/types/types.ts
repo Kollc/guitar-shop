@@ -36,8 +36,6 @@ export type GuitarsProcessType = {
   isLoadedGuitars: boolean,
   countGuitars: number,
   errorMessage: string,
-  maxPriceGuitar: number,
-  minPriceGuitar: number,
 }
 
 export type ReviewsProcessType = {

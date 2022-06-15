@@ -23,7 +23,6 @@ function CountStringsFilterCheckbox({title, id}: CountStringsFilterCheckboxProps
 
     setDisabledCheckboxCountStrings(countStringsList);
     setCheckedCheckboxCountStrings();
-
   }, [queryParams.getAll(QueryParamsList.Type)]);
 
   const setCheckedCheckboxCountStrings = (): void => {
@@ -44,10 +43,6 @@ function CountStringsFilterCheckbox({title, id}: CountStringsFilterCheckboxProps
     if(!queryParams.has(QueryParamsList.Type)) {
       setDisabledCheckbox(false);
     }
-
-    if(queryParams.getAll(QueryParamsList.Count).includes(title)) {
-      setCheckedCheckbox(true);
-    }
   };
 
   const handleCheckboxGuitarsCountStringsChange = (evt: ChangeEvent<HTMLInputElement>) => {
@@ -57,6 +52,12 @@ function CountStringsFilterCheckbox({title, id}: CountStringsFilterCheckboxProps
       deleteUrlParam(QueryParamsList.Count, title);
     }
   };
+
+  useEffect(() => {
+    if(disabledCheckbox && queryParams.getAll(QueryParamsList.Count).includes(title)) {
+      deleteUrlParam(QueryParamsList.Count, title);
+    }
+  }, [disabledCheckbox]);
 
   return (
     <div className="form-checkbox catalog-filter__block-item" data-testid='strings-coutn-filter-item'>

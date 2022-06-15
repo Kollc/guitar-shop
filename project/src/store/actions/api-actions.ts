@@ -8,7 +8,6 @@ import * as guitarProcess from '../guitars-process/guitars-process';
 import { errorHandler } from '../../services/error-handler';
 import * as guitarDetailProcess from '../guitar-detail-process/guitar-detail-process';
 import * as reviewsProcess from '../reviews-process/reviews-process';
-import { calcMinGuitarsPrice, calcMaxGuitarsPrice } from '../../utils/utils';
 
 export const fetchGuitarsWithoutParams = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch,
@@ -20,8 +19,6 @@ export const fetchGuitarsWithoutParams = createAsyncThunk<void, undefined, {
     try {
       const { data } = await api.get<GuitarType[]>(APIRoutes.Guitars);
       dispatch(guitarProcess.setOriginalGuitars(data));
-      dispatch(guitarProcess.setMaxPriceGuitar(calcMaxGuitarsPrice(data)));
-      dispatch(guitarProcess.setMinPriceGuitar(calcMinGuitarsPrice(data)));
     } catch (error) {
       dispatch(guitarProcess.setErrorMessage(errorHandler(error)));
       setTimeout(() => {

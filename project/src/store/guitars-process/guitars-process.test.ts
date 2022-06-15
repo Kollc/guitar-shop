@@ -1,5 +1,5 @@
 import { testGuitars } from './../../mock/mock';
-import { guitarsProcess, resetErrorMessage, setCountGuitars, setErrorMessage, setGuitars, setMaxPriceGuitar, setMinPriceGuitar, setOriginalGuitars } from './guitars-process';
+import { guitarsProcess, resetErrorMessage, setCountGuitars, setErrorMessage, setGuitars, setOriginalGuitars } from './guitars-process';
 
 describe('Reducer: guitar process', () => {
   it('without additional parameters should return initial state', () => {
@@ -10,8 +10,6 @@ describe('Reducer: guitar process', () => {
         isLoadedGuitars: false,
         countGuitars: 0,
         errorMessage: '',
-        maxPriceGuitar: 0,
-        minPriceGuitar: 0,
       });
   });
 
@@ -22,8 +20,6 @@ describe('Reducer: guitar process', () => {
       isLoadedGuitars: false,
       countGuitars: 0,
       errorMessage: '',
-      maxPriceGuitar: 0,
-      minPriceGuitar: 0,
     };
 
     expect(guitarsProcess.reducer(state, setGuitars(testGuitars))).toEqual({
@@ -32,8 +28,6 @@ describe('Reducer: guitar process', () => {
       isLoadedGuitars: true,
       countGuitars: 0,
       errorMessage: '',
-      maxPriceGuitar: 0,
-      minPriceGuitar: 0,
     });
   });
 
@@ -44,8 +38,6 @@ describe('Reducer: guitar process', () => {
       isLoadedGuitars: false,
       countGuitars: 0,
       errorMessage: '',
-      maxPriceGuitar: 0,
-      minPriceGuitar: 0,
     };
 
     expect(guitarsProcess.reducer(state, setCountGuitars(20))).toEqual({
@@ -54,8 +46,6 @@ describe('Reducer: guitar process', () => {
       isLoadedGuitars: false,
       countGuitars: 20,
       errorMessage: '',
-      maxPriceGuitar: 0,
-      minPriceGuitar: 0,
     });
   });
 
@@ -66,8 +56,6 @@ describe('Reducer: guitar process', () => {
       isLoadedGuitars: false,
       countGuitars: 0,
       errorMessage: '',
-      maxPriceGuitar: 0,
-      minPriceGuitar: 0,
     };
 
     expect(guitarsProcess.reducer(state, setErrorMessage('Some Error'))).toEqual({
@@ -76,8 +64,6 @@ describe('Reducer: guitar process', () => {
       isLoadedGuitars: true,
       countGuitars: 0,
       errorMessage: 'Some Error',
-      maxPriceGuitar: 0,
-      minPriceGuitar: 0,
     });
   });
 
@@ -88,8 +74,6 @@ describe('Reducer: guitar process', () => {
       isLoadedGuitars: false,
       countGuitars: 0,
       errorMessage: 'Some Error',
-      maxPriceGuitar: 0,
-      minPriceGuitar: 0,
     };
 
     expect(guitarsProcess.reducer(state, resetErrorMessage())).toEqual({
@@ -98,52 +82,6 @@ describe('Reducer: guitar process', () => {
       isLoadedGuitars: false,
       countGuitars: 0,
       errorMessage: '',
-      maxPriceGuitar: 0,
-      minPriceGuitar: 0,
-    });
-  });
-
-  it('Add max price work is success', () => {
-    const state = {
-      originalGuitars: [],
-      guitars: [],
-      isLoadedGuitars: false,
-      countGuitars: 0,
-      errorMessage: '',
-      maxPriceGuitar: 0,
-      minPriceGuitar: 0,
-    };
-
-    expect(guitarsProcess.reducer(state, setMaxPriceGuitar(1000))).toEqual({
-      originalGuitars: [],
-      guitars: [],
-      isLoadedGuitars: false,
-      countGuitars: 0,
-      errorMessage: '',
-      maxPriceGuitar: 1000,
-      minPriceGuitar: 0,
-    });
-  });
-
-  it('Add min price work is success', () => {
-    const state = {
-      originalGuitars: [],
-      guitars: [],
-      isLoadedGuitars: false,
-      countGuitars: 0,
-      errorMessage: '',
-      maxPriceGuitar: 0,
-      minPriceGuitar: 0,
-    };
-
-    expect(guitarsProcess.reducer(state, setMinPriceGuitar(1000))).toEqual({
-      originalGuitars: [],
-      guitars: [],
-      isLoadedGuitars: false,
-      countGuitars: 0,
-      errorMessage: '',
-      maxPriceGuitar: 0,
-      minPriceGuitar: 1000,
     });
   });
 
@@ -154,8 +92,6 @@ describe('Reducer: guitar process', () => {
       isLoadedGuitars: false,
       countGuitars: 0,
       errorMessage: '',
-      maxPriceGuitar: 0,
-      minPriceGuitar: 0,
     };
 
     expect(guitarsProcess.reducer(state, setOriginalGuitars(testGuitars))).toEqual({
@@ -164,8 +100,6 @@ describe('Reducer: guitar process', () => {
       isLoadedGuitars: false,
       countGuitars: 0,
       errorMessage: '',
-      maxPriceGuitar: 0,
-      minPriceGuitar: 0,
     });
   });
 });

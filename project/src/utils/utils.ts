@@ -81,6 +81,10 @@ export const addStyleBodyWithCloseModal = () => {
 };
 
 export const calcMinGuitarsPrice = (guitars: GuitarType[]): number => {
+  if(guitars.length <= 0) {
+    return 0;
+  }
+
   let min = guitars[0].price;
 
   guitars.forEach((guitar) => {
@@ -93,6 +97,10 @@ export const calcMinGuitarsPrice = (guitars: GuitarType[]): number => {
 };
 
 export const calcMaxGuitarsPrice = (guitars: GuitarType[]): number => {
+  if(guitars.length <= 0) {
+    return 0;
+  }
+
   let max = guitars[0].price;
 
   guitars.forEach((guitar) => {
