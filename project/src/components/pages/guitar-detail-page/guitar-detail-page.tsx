@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { TypeRequests } from '../../../consts';
+import { ESCAPE_BUTTON_KEY, TypeRequests } from '../../../consts';
 import { ImagenDataType } from '../../../types/types';
 import { getImagenData } from '../../../utils/utils';
 import Breadcrumbs from '../../breadcrumbs/breadcrumbs';
@@ -16,6 +16,8 @@ import { getGuitarDetail, getStatusLoadedGuitarDetail, getErrorGuitarDetail } fr
 import LoadingScreen from '../../loading-screen/loading-sceen';
 import { getDetailReviews } from '../../../store/reviews-process/selector';
 import GuitarRatingDetail from './guitar-rating-detail/guitar-rating-detail';
+import AddGuitarToCart from '../../add-guitar-to-cart/add-guitar-to-cart';
+import AddGuitarToCartSuccess from '../../add-guitar-to-cart/add-guitar-to-cart-success/add-guitar-to-cart-success';
 
 function GuitarDetailPage(): JSX.Element {
   const {id} = useParams<{id?: string}>();
@@ -25,6 +27,35 @@ function GuitarDetailPage(): JSX.Element {
   const loaded = useSelector(getStatusLoadedGuitarDetail);
   const error = useSelector(getErrorGuitarDetail);
   const reviews = useAppSelector(getDetailReviews);
+  const [openModalAddToCart, setOpenModalAddToCart] = useState(false);
+  const [openModalAddToCartSuccess, setOpenModalAddToCartSuccess] = useState(false);
+
+  const handleKeydownEscCloseModal = (evt: KeyboardEvent): void => {
+    if(evt.key === ESCAPE_BUTTON_KEY) {
+      setOpenModalAddToCart(false);
+      setOpenModalAddToCartSuccess(false);
+    }
+  };
+
+  const handleClickOpenModalAddToCart = () => {
+    setOpenModalAddToCart(true);
+    document.addEventListener('keydown', handleKeydownEscCloseModal);
+  };
+
+  const handleClickCloseModalAddToCart = () => {
+    setOpenModalAddToCart(false);
+    document.removeEventListener('keydown', handleKeydownEscCloseModal);
+  };
+
+  const handleClickOpenModalSuccessAdded = () => {
+    setOpenModalAddToCartSuccess(true);
+    document.addEventListener('keydown', handleKeydownEscCloseModal);
+  };
+
+  const handleClickClosenModalSuccessAdded = () => {
+    setOpenModalAddToCartSuccess(false);
+    document.removeEventListener('keydown', handleKeydownEscCloseModal);
+  };
 
   useEffect(() => {
     dispatch(fetchReviewsGuitarByIdAction(Number(id)));
@@ -50,7 +81,7 @@ function GuitarDetailPage(): JSX.Element {
       <main className="page-content">
         <div className="container">
           <h1 data-testid='guitar-title-detail' className="page-content__title title title--bigger">{guitar.name}</h1>
-          <Breadcrumbs guitarName={guitar.name}/>
+          <Breadcrumbs pageName={guitar.name}/>
           <div className="product-container">
             <img
               className="product-container__img"
@@ -67,13 +98,15 @@ function GuitarDetailPage(): JSX.Element {
             </div>
             <div className="product-container__price-wrapper">
               <p className="product-container__price-info product-container__price-info--title">Цена:</p>
-              <p className="product-container__price-info product-container__price-info--value">{guitar.price} ₽</p>
-              <a className="button button--red button--big product-container__button" href="#">Добавить в корзину</a>
+              <p className="product-container__price-info product-container__price-info--value">{guitar.price.toLocaleString()} ₽</p>
+              <a className="button button--red button--big product-container__button" href="#" onClick={handleClickOpenModalAddToCart}>Добавить в корзину</a>
             </div>
           </div>
           <GuitarReview guitar={guitar} reviews={reviews}/>
         </div>
         {error && <ErrorMessage error={error} type={TypeRequests.Guitars}/>}
+        <AddGuitarToCart onCloseClick={handleClickCloseModalAddToCart} open={openModalAddToCart} data={guitar} onSuccessAddedToCart={handleClickOpenModalSuccessAdded}/>
+        <AddGuitarToCartSuccess open={openModalAddToCartSuccess} onClose={handleClickClosenModalSuccessAdded}/>
       </main>
     </MainLayout>
   );

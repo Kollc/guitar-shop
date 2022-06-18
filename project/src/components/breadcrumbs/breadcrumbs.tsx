@@ -1,12 +1,13 @@
 import { Link } from 'react-router-dom';
 
 type BreadcrumbsProps = {
-  guitarName?: string,
+  pageName?: string,
+  addClassName?: string,
 }
 
-function Breadcrumbs({guitarName}: BreadcrumbsProps): JSX.Element {
+function Breadcrumbs({pageName, addClassName}: BreadcrumbsProps): JSX.Element {
   return (
-    <ul className="breadcrumbs page-content__breadcrumbs">
+    <ul className={`breadcrumbs page-content__breadcrumbs ${addClassName}`}>
       <li className="breadcrumbs__item">
         <Link className="link" to="/">Главная</Link>
       </li>
@@ -14,10 +15,10 @@ function Breadcrumbs({guitarName}: BreadcrumbsProps): JSX.Element {
         <Link className="link" to="/">Каталог</Link>
       </li>
       {
-        guitarName
+        pageName
       &&
         <li className="breadcrumbs__item">
-          <Link className="link" to="">{guitarName}</Link>
+          <Link className="link" to="">{pageName}</Link>
         </li>
       }
     </ul>

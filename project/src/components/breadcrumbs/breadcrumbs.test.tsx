@@ -6,7 +6,7 @@ describe('Breadcrumbs component', () => {
   it('should breadcrumbs render is success', () => {
     render(
       <BrowserRouter>
-        <Breadcrumbs guitarName={'test name'}/>
+        <Breadcrumbs pageName={'test name'}/>
       </BrowserRouter>);
 
     expect(screen.getByText('Главная')).toBeInTheDocument();

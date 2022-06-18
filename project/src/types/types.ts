@@ -38,6 +38,17 @@ export type GuitarsProcessType = {
   errorMessage: string,
 }
 
+export type GuitarInCart = {
+  guitar: GuitarType,
+  count: number,
+}
+
+export type CartProcessType = {
+  guitarsInCart: {
+    [id: number]: GuitarInCart
+  },
+}
+
 export type ReviewsProcessType = {
   reviews: ReviewType[],
   isLoadedReviews: boolean,

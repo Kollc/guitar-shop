@@ -2,6 +2,7 @@ export enum AppRoutes {
   Main = '/',
   CatalogPage = '/catalog/page/:page',
   Guitar = '/guitar/:id',
+  Cart = '/cart',
 }
 
 export enum APIRoutes {
@@ -16,6 +17,7 @@ export enum NameSpace {
   Guitars = 'GUITARS',
   GuitarDetail = 'GUITAR_DETAIL',
   Reviews = 'REVIEWS',
+  Cart = 'CART',
 }
 
 export enum ErrorTypeList {
@@ -28,6 +30,7 @@ export const COUNT_SHOW_GUITARS_IN_PAGE = 9;
 export const COUNT_SHOW_REVIEWS = 3;
 
 export const FIRST_PAGE_INDEX = 1;
+export const DEFAULT_ADD_COUNT_GUITAR_TO_CART = 1;
 
 export const COUNT_RATING_STARS = 5;
 export const DEFAULT_RATING_VALUE = 0;
