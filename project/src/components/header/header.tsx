@@ -1,7 +1,22 @@
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useAppSelector } from '../../hooks/hooks';
+import { getGuitarsInCart } from '../../store/cart-process/selector';
 import SearchForm from '../search-form/search-from';
 
 function Header(): JSX.Element {
+  const guitarsInCart = useAppSelector(getGuitarsInCart);
+  const [countGuitarsInCart, setCountGuitarsInCart] = useState(0);
+
+  useEffect(() => {
+    let count = 0;
+    Object.values(guitarsInCart).forEach((guitarData) => {
+      count += guitarData.count;
+    });
+
+    setCountGuitarsInCart(count);
+  }, [guitarsInCart]);
+
   return (
     <header className="header" id="header">
       <div className="container header__wrapper">
@@ -22,11 +37,13 @@ function Header(): JSX.Element {
           </ul>
         </nav>
         <SearchForm/>
-        <a className="header__cart-link" href="#" aria-label="Корзина">
+        <Link className="header__cart-link" to="/cart" aria-label="Корзина">
           <svg className="header__cart-icon" width="14" height="14" aria-hidden="true">
             <use xlinkHref="#icon-basket"></use>
-          </svg><span className="visually-hidden">Перейти в корзину</span><span className="header__cart-count">2</span>
-        </a>
+          </svg>
+          <span className="visually-hidden">Перейти в корзину</span>
+          {countGuitarsInCart > 0 && <span className="header__cart-count">{countGuitarsInCart}</span>}
+        </Link>
       </div>
     </header>
   );

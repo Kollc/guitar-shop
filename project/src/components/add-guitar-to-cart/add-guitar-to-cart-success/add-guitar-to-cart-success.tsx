@@ -7,7 +7,7 @@ type AddGuitarToCartSuccessProps = {
 
 function AddGuitarToCartSuccess({open, onClose}: AddGuitarToCartSuccessProps): JSX.Element {
   return (
-    <div style={{position: 'fixed', width: '550px', height: '410px', marginBottom: '50px', display: open ? 'flex' : 'none'}}>
+    <div style={{position: 'fixed', width: '550px', height: '410px', marginBottom: '50px', display: open ? 'flex' : 'none', zIndex: 100}}>
       <div className="modal is-active modal--success modal-for-ui-kit">
         <div className="modal__wrapper">
           <div className="modal__overlay" data-close-modal onClick={onClose}></div>

@@ -27,7 +27,7 @@ function CartItem({guitarData}: CartItemProps): JSX.Element {
             <use xlinkHref="#icon-minus"></use>
           </svg>
         </button>
-        <input className="quantity__input" type="number" placeholder={String(count)} id="2-count" name="2-count" max="99"/>
+        <input className="quantity__input" type="number" placeholder={String(count)} id="2-count" name="2-count" max="99" value={count}/>
         <button className="quantity__button" aria-label="Увеличить количество">
           <svg width="8" height="8" aria-hidden="true">
             <use xlinkHref="#icon-plus"></use>

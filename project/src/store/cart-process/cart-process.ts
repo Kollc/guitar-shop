@@ -11,7 +11,12 @@ export const CartProcess = createSlice({
   name: NameSpace.Cart,
   reducers: {
     setGuitarInCart: (state, action) => {
-      state.guitarsInCart[action.payload.id] = {guitar: action.payload, count: DEFAULT_ADD_COUNT_GUITAR_TO_CART};
+      if(state.guitarsInCart[action.payload.id]) {
+        state.guitarsInCart[action.payload.id].count += 1;
+      } else {
+        state.guitarsInCart[action.payload.id] = {guitar: action.payload, count: DEFAULT_ADD_COUNT_GUITAR_TO_CART};
+      }
+
       localStorage.setItem('guitarsInCart', JSON.stringify(state.guitarsInCart));
     },
     checkSaveCart: (state) => {
