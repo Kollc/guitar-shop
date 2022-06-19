@@ -24,7 +24,23 @@ export const CartProcess = createSlice({
         state.guitarsInCart = JSON.parse(localStorage.getItem('guitarsInCart') || '');
       }
     },
+    increaseProductCount: (state, action) => {
+      state.guitarsInCart[action.payload.id].count += 1;
+      localStorage.setItem('guitarsInCart', JSON.stringify(state.guitarsInCart));
+    },
+    decreaseProductCount: (state, action) => {
+      state.guitarsInCart[action.payload.id].count -= 1;
+      localStorage.setItem('guitarsInCart', JSON.stringify(state.guitarsInCart));
+    },
+    setCountGuitarInCart: (state, action) => {
+      state.guitarsInCart[action.payload.guitar.id].count = action.payload.count;
+      localStorage.setItem('guitarsInCart', JSON.stringify(state.guitarsInCart));
+    },
+    deleteGuitarInCart: (state, action) => {
+      delete state.guitarsInCart[action.payload.id];
+      localStorage.setItem('guitarsInCart', JSON.stringify(state.guitarsInCart));
+    },
   },
 });
 
-export const { setGuitarInCart, checkSaveCart } = CartProcess.actions;
+export const { setGuitarInCart, checkSaveCart, decreaseProductCount, increaseProductCount, setCountGuitarInCart, deleteGuitarInCart } = CartProcess.actions;
