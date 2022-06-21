@@ -19,31 +19,31 @@ function CardItem({guitar}: CardItemProps): JSX.Element {
   const [openModalAddToCart, setOpenModalAddToCart] = useState(false);
   const [openModalAddToCartSuccess, setOpenModalAddToCartSuccess] = useState(false);
 
-  const handleKeydownEscCloseModal = (evt: KeyboardEvent): void => {
+  const handleEscCloseModalKeydown = (evt: KeyboardEvent): void => {
     if(evt.key === ESCAPE_BUTTON_KEY) {
       setOpenModalAddToCart(false);
       setOpenModalAddToCartSuccess(false);
     }
   };
 
-  const handleClickOpenModalAddToCart = () => {
+  const handleOpenModalAddToCartClick = () => {
     setOpenModalAddToCart(true);
-    document.addEventListener('keydown', handleKeydownEscCloseModal);
+    document.addEventListener('keydown', handleEscCloseModalKeydown);
   };
 
-  const handleClickCloseModalAddToCart = () => {
+  const handleCloseModalAddToCartClick = () => {
     setOpenModalAddToCart(false);
-    document.removeEventListener('keydown', handleKeydownEscCloseModal);
+    document.removeEventListener('keydown', handleEscCloseModalKeydown);
   };
 
-  const handleClickOpenModalSuccessAdded = () => {
+  const handleOpenModalSuccessAddedClick = () => {
     setOpenModalAddToCartSuccess(true);
-    document.addEventListener('keydown', handleKeydownEscCloseModal);
+    document.addEventListener('keydown', handleEscCloseModalKeydown);
   };
 
-  const handleClickClosenModalSuccessAdded = () => {
+  const handleClosenModalSuccessAddedClick = () => {
     setOpenModalAddToCartSuccess(false);
-    document.removeEventListener('keydown', handleKeydownEscCloseModal);
+    document.removeEventListener('keydown', handleEscCloseModalKeydown);
   };
 
   return (
@@ -74,14 +74,14 @@ function CardItem({guitar}: CardItemProps): JSX.Element {
                 В Корзине
               </Link>
               :
-              <button className="button button--red button--mini button--add-to-cart" onClick={handleClickOpenModalAddToCart}>
+              <button className="button button--red button--mini button--add-to-cart" onClick={handleOpenModalAddToCartClick}>
                 Купить
               </button>
           }
         </div>
       </div>
-      <AddGuitarToCart onCloseClick={handleClickCloseModalAddToCart} open={openModalAddToCart} data={guitar} onSuccessAddedToCart={handleClickOpenModalSuccessAdded}/>
-      <AddGuitarToCartSuccess open={openModalAddToCartSuccess} onClose={handleClickClosenModalSuccessAdded}/>
+      <AddGuitarToCart onCloseClick={handleCloseModalAddToCartClick} open={openModalAddToCart} data={guitar} onSuccessAddedToCart={handleOpenModalSuccessAddedClick}/>
+      <AddGuitarToCartSuccess open={openModalAddToCartSuccess} onClose={handleClosenModalSuccessAddedClick}/>
     </>
   );
 }

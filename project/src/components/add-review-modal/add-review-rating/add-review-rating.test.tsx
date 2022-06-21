@@ -7,12 +7,12 @@ import AddReviewRating from './add-review-rating';
 
 describe('AddReviewRating component', () => {
   it('AddReviewRating render is success without error', () => {
-    const handleChangeRating = jest.fn();
+    const handleRatingChange = jest.fn();
 
     render(
       <Provider store={store}>
         <BrowserRouter>
-          <AddReviewRating ratingError={null} handleChangeRating={handleChangeRating}/>
+          <AddReviewRating ratingError={null} handleRatingChange={handleRatingChange}/>
         </BrowserRouter>
       </Provider>);
 
@@ -20,12 +20,12 @@ describe('AddReviewRating component', () => {
   });
 
   it('AddReviewRating render is success with error', () => {
-    const handleChangeRating = jest.fn();
+    const handleRatingChange = jest.fn();
 
     render(
       <Provider store={store}>
         <BrowserRouter>
-          <AddReviewRating ratingError={ErrorTypeList.NotChangeRating} handleChangeRating={handleChangeRating}/>
+          <AddReviewRating ratingError={ErrorTypeList.NotChangeRating} handleRatingChange={handleRatingChange}/>
         </BrowserRouter>
       </Provider>);
 

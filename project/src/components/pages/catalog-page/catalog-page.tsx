@@ -14,6 +14,7 @@ import LoadingScreen from '../../loading-screen/loading-sceen';
 import MainLayout from '../../main-layout/main-layout';
 import Pagination from '../../pagination/pagination';
 import Sort from '../../sort/sort';
+import EmptyCatalog from './empty-catalog/empty-catalog';
 
 function CatalogPage(): JSX.Element {
   const history = useHistory();
@@ -75,7 +76,13 @@ function CatalogPage(): JSX.Element {
           <div className="catalog">
             <Filter/>
             <Sort/>
-            <CardsList guitars={showerGuitars}/>
+            {
+              showerGuitars.length > 0
+                ?
+                <CardsList guitars={showerGuitars}/>
+                :
+                <EmptyCatalog/>
+            }
             <Pagination currentPage={Number(page)}/>
           </div>
         </div>

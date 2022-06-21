@@ -30,31 +30,31 @@ function GuitarDetailPage(): JSX.Element {
   const [openModalAddToCart, setOpenModalAddToCart] = useState(false);
   const [openModalAddToCartSuccess, setOpenModalAddToCartSuccess] = useState(false);
 
-  const handleKeydownEscCloseModal = (evt: KeyboardEvent): void => {
+  const handleEscCloseModalKeydown = (evt: KeyboardEvent): void => {
     if(evt.key === ESCAPE_BUTTON_KEY) {
       setOpenModalAddToCart(false);
       setOpenModalAddToCartSuccess(false);
     }
   };
 
-  const handleClickOpenModalAddToCart = () => {
+  const handleOpenModalAddToCartClick = () => {
     setOpenModalAddToCart(true);
-    document.addEventListener('keydown', handleKeydownEscCloseModal);
+    document.addEventListener('keydown', handleEscCloseModalKeydown);
   };
 
-  const handleClickCloseModalAddToCart = () => {
+  const handleCloseModalAddToCartClick = () => {
     setOpenModalAddToCart(false);
-    document.removeEventListener('keydown', handleKeydownEscCloseModal);
+    document.removeEventListener('keydown', handleEscCloseModalKeydown);
   };
 
-  const handleClickOpenModalSuccessAdded = () => {
+  const handleOpenModalSuccessAddedClick = () => {
     setOpenModalAddToCartSuccess(true);
-    document.addEventListener('keydown', handleKeydownEscCloseModal);
+    document.addEventListener('keydown', handleEscCloseModalKeydown);
   };
 
-  const handleClickClosenModalSuccessAdded = () => {
+  const handleClosenModalSuccessAddedClick = () => {
     setOpenModalAddToCartSuccess(false);
-    document.removeEventListener('keydown', handleKeydownEscCloseModal);
+    document.removeEventListener('keydown', handleEscCloseModalKeydown);
   };
 
   useEffect(() => {
@@ -99,14 +99,14 @@ function GuitarDetailPage(): JSX.Element {
             <div className="product-container__price-wrapper">
               <p className="product-container__price-info product-container__price-info--title">Цена:</p>
               <p className="product-container__price-info product-container__price-info--value">{guitar.price.toLocaleString()} ₽</p>
-              <a className="button button--red button--big product-container__button" href="#" onClick={handleClickOpenModalAddToCart}>Добавить в корзину</a>
+              <a className="button button--red button--big product-container__button" href="#" onClick={handleOpenModalAddToCartClick}>Добавить в корзину</a>
             </div>
           </div>
           <GuitarReview guitar={guitar} reviews={reviews}/>
         </div>
         {error && <ErrorMessage error={error} type={TypeRequests.Guitars}/>}
-        <AddGuitarToCart onCloseClick={handleClickCloseModalAddToCart} open={openModalAddToCart} data={guitar} onSuccessAddedToCart={handleClickOpenModalSuccessAdded}/>
-        <AddGuitarToCartSuccess open={openModalAddToCartSuccess} onClose={handleClickClosenModalSuccessAdded}/>
+        <AddGuitarToCart onCloseClick={handleCloseModalAddToCartClick} open={openModalAddToCart} data={guitar} onSuccessAddedToCart={handleOpenModalSuccessAddedClick}/>
+        <AddGuitarToCartSuccess open={openModalAddToCartSuccess} onClose={handleClosenModalSuccessAddedClick}/>
       </main>
     </MainLayout>
   );

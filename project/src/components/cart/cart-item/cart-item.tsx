@@ -28,7 +28,7 @@ function CartItem({guitarData}: CartItemProps): JSX.Element {
     }
   };
 
-  const handleKeydownEscCloseModal = (evt: KeyboardEvent): void => {
+  const handleEscCloseModalKeydown = (evt: KeyboardEvent): void => {
     if(evt.key === ESCAPE_BUTTON_KEY) {
       setOpenDeleteModal(false);
     }
@@ -36,18 +36,18 @@ function CartItem({guitarData}: CartItemProps): JSX.Element {
 
   const handleDeleteModalOpenClick = () => {
     setOpenDeleteModal(true);
-    document.addEventListener('keydown', handleKeydownEscCloseModal);
+    document.addEventListener('keydown', handleEscCloseModalKeydown);
   };
 
   const handleDeleteModalCloseClick = () => {
     setOpenDeleteModal(false);
-    document.removeEventListener('keydown', handleKeydownEscCloseModal);
+    document.removeEventListener('keydown', handleEscCloseModalKeydown);
   };
 
   const handleDecreaseCountButtonClick = () => {
     if(count <= MIN_GUITAR_COUNT_IN_CART) {
       setOpenDeleteModal(true);
-      document.addEventListener('keydown', handleKeydownEscCloseModal);
+      document.addEventListener('keydown', handleEscCloseModalKeydown);
     } else {
       dispatch(decreaseProductCount(guitar));
     }

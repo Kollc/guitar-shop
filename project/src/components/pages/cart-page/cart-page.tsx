@@ -1,20 +1,29 @@
+import { useAppSelector } from '../../../hooks/hooks';
+import { getGuitarsInCart } from '../../../store/cart-process/selector';
 import Breadcrumbs from '../../breadcrumbs/breadcrumbs';
 import Cart from '../../cart/cart';
-import Footer from '../../footer/footer';
-import Header from '../../header/header';
+import MainLayout from '../../main-layout/main-layout';
+import EmptyCart from './empty-cart/empty-cart';
 
 function CartPage(): JSX.Element {
+  const guitarsInCart = useAppSelector(getGuitarsInCart);
   return (
     <div className="wrapper">
-      <Header/>
-      <main className="page-content">
-        <div className="container">
-          <h1 className="title title--bigger page-content__title">Корзина</h1>
-          <Breadcrumbs pageName={'Корзина'} addClassName={'age-content__breadcrumbs--on-cart-page'}/>
-          <Cart/>
-        </div>
-      </main>
-      <Footer/>
+      <MainLayout>
+        <main className="page-content">
+          <div className="container">
+            <h1 className="title title--bigger page-content__title">Корзина</h1>
+            <Breadcrumbs pageName={'Корзина'} addClassName={'age-content__breadcrumbs--on-cart-page'}/>
+            {
+              Object.values(guitarsInCart).length <= 0
+                ?
+                <EmptyCart/>
+                :
+                <Cart guitarsInCart={guitarsInCart}/>
+            }
+          </div>
+        </main>
+      </MainLayout>
     </div>
   );
 }

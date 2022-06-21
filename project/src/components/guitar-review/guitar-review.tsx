@@ -26,35 +26,35 @@ function GuitarReview({guitar, reviews}: GuitarReviewProps): JSX.Element {
   const loaded = useAppSelector(getStatusLoadedDetailReviews);
   const error = useAppSelector(getErrorReviews);
 
-  const handleKeydownEscCloseModal = (evt: KeyboardEvent): void => {
+  const handleEscCloseModalKeydown = (evt: KeyboardEvent): void => {
     if(evt.key === ESCAPE_BUTTON_KEY) {
-      handleClickCloseModalAddReview();
-      handleClickCloseModalSuccessAddReview();
+      handleCloseModalAddReviewClick();
+      handleCloseModalSuccessAddReviewClick();
     }
   };
 
-  const handleClickOpenModalAddReview = () => {
+  const handleOpenModalAddReviewClick = () => {
     setOpenModalAddReview(true);
     addStyleBodyWithOpenModal();
-    document.addEventListener('keydown', handleKeydownEscCloseModal);
+    document.addEventListener('keydown', handleEscCloseModalKeydown);
   };
 
-  const handleClickCloseModalAddReview = () => {
+  const handleCloseModalAddReviewClick = () => {
     setOpenModalAddReview(false);
     addStyleBodyWithCloseModal();
-    document.removeEventListener('keydown', handleKeydownEscCloseModal);
+    document.removeEventListener('keydown', handleEscCloseModalKeydown);
   };
 
-  const handleClickOpenModalSuccessAddReview = () => {
+  const handleOpenModalSuccessAddReviewClick = () => {
     setIsAddedReview(true);
     addStyleBodyWithOpenModal();
-    document.addEventListener('keydown', handleKeydownEscCloseModal);
+    document.addEventListener('keydown', handleEscCloseModalKeydown);
   };
 
-  const handleClickCloseModalSuccessAddReview = () => {
+  const handleCloseModalSuccessAddReviewClick = () => {
     setIsAddedReview(false);
     addStyleBodyWithCloseModal();
-    document.removeEventListener('keydown', handleKeydownEscCloseModal);
+    document.removeEventListener('keydown', handleEscCloseModalKeydown);
   };
 
   useEffect(() => {
@@ -84,7 +84,7 @@ function GuitarReview({guitar, reviews}: GuitarReviewProps): JSX.Element {
     <>
       <section className="reviews">
         <h3 className="reviews__title title title--bigger">Отзывы</h3>
-        <button className="button button--red-border button--big reviews__sumbit-button" onClick={handleClickOpenModalAddReview}>Оставить отзыв</button>
+        <button className="button button--red-border button--big reviews__sumbit-button" onClick={handleOpenModalAddReviewClick}>Оставить отзыв</button>
         {sortReviewsByDate(reviews).slice(0, countShowReviews).map((review) => (
           <div className="review" key={review.id}>
             <div className="review__wrapper">
@@ -106,8 +106,8 @@ function GuitarReview({guitar, reviews}: GuitarReviewProps): JSX.Element {
         {countShowReviews < reviews.length && <button className="button button--medium reviews__more-button" ref={showMoreButtonRef} onClick={() => SetCountShowReviews((count) => count + COUNT_SHOW_REVIEWS)}>Показать еще отзывы</button>}
         <a className="button button--up button--red-border button--big reviews__up-button" href="#header">Наверх</a>
       </section>
-      <AddReviewModal guitar={guitar} open={openModalAddReview} onClose={handleClickCloseModalAddReview} onOpenSuccessAddReview={handleClickOpenModalSuccessAddReview}/>
-      <AddReviewSuccess open={isAddedReview} onClose={handleClickCloseModalSuccessAddReview}/>
+      <AddReviewModal guitar={guitar} open={openModalAddReview} onClose={handleCloseModalAddReviewClick} onOpenSuccessAddReview={handleOpenModalSuccessAddReviewClick}/>
+      <AddReviewSuccess open={isAddedReview} onClose={handleCloseModalSuccessAddReviewClick}/>
       {error && <ErrorMessage error={error} type={TypeRequests.Reviews}/>}
     </>
   );

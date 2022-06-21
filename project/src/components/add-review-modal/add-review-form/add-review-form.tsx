@@ -25,7 +25,7 @@ function AddReviewForm({guitar, onOpenSuccessAddReview}: AddReviewFormProps): JS
   const [disadvantagesError, setDisadvantagesError] = useState<ErrorTypeList | null>(null);
   const [commentError, setCommentError] = useState<ErrorTypeList | null>(null);
 
-  const handleChangeRating = (evt: ChangeEvent<HTMLInputElement>) => {
+  const handleRatingChange = (evt: ChangeEvent<HTMLInputElement>) => {
     setRating(Number(evt.target.value));
     setRatingError(null);
   };
@@ -57,7 +57,7 @@ function AddReviewForm({guitar, onOpenSuccessAddReview}: AddReviewFormProps): JS
     return isInvalid.includes(true);
   };
 
-  const handleClickSubmitButton = (evt: FormEvent) => {
+  const handleSubmitButtonClick = (evt: FormEvent) => {
     evt.preventDefault();
     if(nameRef.current && advantagesRef.current && disadvantagesRef.current && commentRef.current) {
       const isInvalid = checkValidateElementsField();
@@ -88,7 +88,7 @@ function AddReviewForm({guitar, onOpenSuccessAddReview}: AddReviewFormProps): JS
             <input style={{marginBottom: nameError ? 0 : MARGIN_BOTTOM_WITHOUT_ERROR_MESSAGE}} className="form-review__input form-review__input--name" id="user-name" type="text" autoComplete="off" ref={nameRef} onChange={() => setNameError(null)}/>
             {nameError && <p className="form-review__warning">{nameError}</p>}
           </div>
-          <AddReviewRating handleChangeRating={handleChangeRating} ratingError={ratingError}/>
+          <AddReviewRating handleRatingChange={handleRatingChange} ratingError={ratingError}/>
         </div>
         <label className="form-review__label form-review__label--required" htmlFor="adv">Достоинства</label>
         <input style={{marginBottom: advantagesError ? 0 : MARGIN_BOTTOM_WITHOUT_ERROR_MESSAGE}} className="form-review__input" id="adv" type="text" autoComplete="off" ref={advantagesRef} onChange={() => setAdvantagesError(null)}/>
@@ -102,7 +102,7 @@ function AddReviewForm({guitar, onOpenSuccessAddReview}: AddReviewFormProps): JS
         <textarea style={{marginBottom: commentError ? 0 : MARGIN_BOTTOM_WITHOUT_ERROR_MESSAGE}} className="form-review__input form-review__input--textarea" id="comment" ref={commentRef} rows={COUNT_ROWS_IN_TEXT_AREA} autoComplete="off" onChange={() => setCommentError(null)}></textarea>
         {commentError && <p className="form-review__warning">{commentError}</p>}
 
-        <button data-testid='submit-button' className="button button--medium-20 form-review__button" type="submit" onClick={handleClickSubmitButton}>Отправить отзыв</button>
+        <button data-testid='submit-button' className="button button--medium-20 form-review__button" type="submit" onClick={handleSubmitButtonClick}>Отправить отзыв</button>
       </form>
       {errorRequest && <ErrorMessage error={errorRequest} type={TypeRequests.Reviews}/>}
     </>
