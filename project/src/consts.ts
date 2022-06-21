@@ -33,7 +33,6 @@ export const COUNT_SHOW_REVIEWS = 3;
 
 export const FIRST_PAGE_INDEX = 1;
 export const DEFAULT_ADD_COUNT_GUITAR_TO_CART = 1;
-export const MIN_GUITAR_COUNT_IN_CART = 1;
 
 export const COUNT_RATING_STARS = 5;
 export const DEFAULT_RATING_VALUE = 0;
@@ -154,4 +153,9 @@ export enum HttpCode {
   BadRequest = 400,
   Unauthorized = 401,
   NotFound = 404,
+}
+
+export enum CartCountGuitars {
+  Min = 1,
+  Max = 99,
 }

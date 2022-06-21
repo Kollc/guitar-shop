@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { ESCAPE_BUTTON_KEY, TypeRequests } from '../../../consts';
 import { ImagenDataType } from '../../../types/types';
-import { getImagenData } from '../../../utils/utils';
+import { addStyleBodyWithCloseModal, addStyleBodyWithOpenModal, getImagenData } from '../../../utils/utils';
 import Breadcrumbs from '../../breadcrumbs/breadcrumbs';
 import ErrorMessage from '../../error-message/error-message';
 import GuitarReview from '../../guitar-review/guitar-review';
@@ -29,6 +29,7 @@ function GuitarDetailPage(): JSX.Element {
   const reviews = useAppSelector(getDetailReviews);
   const [openModalAddToCart, setOpenModalAddToCart] = useState(false);
   const [openModalAddToCartSuccess, setOpenModalAddToCartSuccess] = useState(false);
+  const history = useHistory();
 
   const handleEscCloseModalKeydown = (evt: KeyboardEvent): void => {
     if(evt.key === ESCAPE_BUTTON_KEY) {
@@ -39,22 +40,27 @@ function GuitarDetailPage(): JSX.Element {
 
   const handleOpenModalAddToCartClick = () => {
     setOpenModalAddToCart(true);
+    addStyleBodyWithOpenModal();
     document.addEventListener('keydown', handleEscCloseModalKeydown);
   };
 
   const handleCloseModalAddToCartClick = () => {
     setOpenModalAddToCart(false);
+    addStyleBodyWithCloseModal();
     document.removeEventListener('keydown', handleEscCloseModalKeydown);
   };
 
   const handleOpenModalSuccessAddedClick = () => {
     setOpenModalAddToCartSuccess(true);
+    addStyleBodyWithOpenModal();
     document.addEventListener('keydown', handleEscCloseModalKeydown);
   };
 
-  const handleClosenModalSuccessAddedClick = () => {
+  const handleCloseModalSuccessAddedClick = () => {
     setOpenModalAddToCartSuccess(false);
+    addStyleBodyWithCloseModal();
     document.removeEventListener('keydown', handleEscCloseModalKeydown);
+    history.push('/');
   };
 
   useEffect(() => {
@@ -106,7 +112,7 @@ function GuitarDetailPage(): JSX.Element {
         </div>
         {error && <ErrorMessage error={error} type={TypeRequests.Guitars}/>}
         <AddGuitarToCart onCloseClick={handleCloseModalAddToCartClick} open={openModalAddToCart} data={guitar} onSuccessAddedToCart={handleOpenModalSuccessAddedClick}/>
-        <AddGuitarToCartSuccess open={openModalAddToCartSuccess} onClose={handleClosenModalSuccessAddedClick}/>
+        <AddGuitarToCartSuccess open={openModalAddToCartSuccess} onClose={handleCloseModalSuccessAddedClick}/>
       </main>
     </MainLayout>
   );

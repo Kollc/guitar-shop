@@ -3,9 +3,10 @@ import { Link } from 'react-router-dom';
 type AddGuitarToCartSuccessProps = {
   open: boolean,
   onClose: () => void,
+  isDetailPage?: boolean,
 }
 
-function AddGuitarToCartSuccess({open, onClose}: AddGuitarToCartSuccessProps): JSX.Element {
+function AddGuitarToCartSuccess({open, onClose, isDetailPage = false}: AddGuitarToCartSuccessProps): JSX.Element {
   return (
     <div style={{position: 'fixed', width: '550px', height: '410px', marginBottom: '50px', display: open ? 'flex' : 'none', zIndex: 100}}>
       <div className="modal is-active modal--success modal-for-ui-kit">

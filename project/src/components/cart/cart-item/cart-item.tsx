@@ -1,9 +1,9 @@
 import { ChangeEvent, useState } from 'react';
-import { ESCAPE_BUTTON_KEY, GuitarTypeList, MIN_GUITAR_COUNT_IN_CART } from '../../../consts';
+import { ESCAPE_BUTTON_KEY, GuitarTypeList, CartCountGuitars } from '../../../consts';
 import { useAppDispatch } from '../../../hooks/hooks';
 import { decreaseProductCount, increaseProductCount, setCountGuitarInCart } from '../../../store/cart-process/cart-process';
 import { GuitarInCart, ImagenDataType } from '../../../types/types';
-import { getImagenData } from '../../../utils/utils';
+import { addStyleBodyWithCloseModal, addStyleBodyWithOpenModal, getImagenData } from '../../../utils/utils';
 import DeleteGuitarInCartModal from '../../delete-guitar-in-cart/delete-guitar-in-cart';
 
 type CartItemProps = {
@@ -19,11 +19,14 @@ function CartItem({guitarData}: CartItemProps): JSX.Element {
   const handleInputCountGuitarsChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const newGuitarData = {...guitarData};
 
-    if(Number(evt.target.value) > 0) {
+    if(Number(evt.target.value) >= CartCountGuitars.Min && Number(evt.target.value) <= CartCountGuitars.Max) {
       newGuitarData.count = Number(evt.target.value);
       dispatch(setCountGuitarInCart(newGuitarData));
+    } else if(Number(evt.target.value) < CartCountGuitars.Min) {
+      newGuitarData.count = CartCountGuitars.Min;
+      dispatch(setCountGuitarInCart(newGuitarData));
     } else {
-      newGuitarData.count = MIN_GUITAR_COUNT_IN_CART;
+      newGuitarData.count = CartCountGuitars.Max;
       dispatch(setCountGuitarInCart(newGuitarData));
     }
   };
@@ -36,17 +39,20 @@ function CartItem({guitarData}: CartItemProps): JSX.Element {
 
   const handleDeleteModalOpenClick = () => {
     setOpenDeleteModal(true);
+    addStyleBodyWithOpenModal();
     document.addEventListener('keydown', handleEscCloseModalKeydown);
   };
 
   const handleDeleteModalCloseClick = () => {
     setOpenDeleteModal(false);
+    addStyleBodyWithCloseModal();
     document.removeEventListener('keydown', handleEscCloseModalKeydown);
   };
 
   const handleDecreaseCountButtonClick = () => {
-    if(count <= MIN_GUITAR_COUNT_IN_CART) {
+    if(count <= CartCountGuitars.Min) {
       setOpenDeleteModal(true);
+      addStyleBodyWithOpenModal();
       document.addEventListener('keydown', handleEscCloseModalKeydown);
     } else {
       dispatch(decreaseProductCount(guitar));
@@ -54,7 +60,13 @@ function CartItem({guitarData}: CartItemProps): JSX.Element {
   };
 
   const handleIncreaseCountButtonClick = () => {
-    dispatch(increaseProductCount(guitar));
+    if(count + 1 > CartCountGuitars.Max) {
+      const newGuitarData = {...guitarData};
+      newGuitarData.count = CartCountGuitars.Max;
+      dispatch(setCountGuitarInCart(newGuitarData));
+    } else {
+      dispatch(increaseProductCount(guitar));
+    }
   };
 
   return (

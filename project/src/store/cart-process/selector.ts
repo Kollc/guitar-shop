@@ -6,4 +6,4 @@ export const getGuitarsInCart = (state: State): {[id: number]: GuitarInCart} => 
 export const getCartLoadedStatus = (state: State): boolean => state[NameSpace.Cart].isLoadedCart;
 export const getCartErrorMessage = (state: State): string => state[NameSpace.Cart].errorMessage;
 export const getCartDiscountPercents = (state: State): number => state[NameSpace.Cart].discount;
-export const getCoupon = (state: State): null | string => state[NameSpace.Cart].coupon;
+export const getCoupon = (state: State): string => state[NameSpace.Cart].coupon;

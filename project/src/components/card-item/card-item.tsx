@@ -4,7 +4,7 @@ import { ESCAPE_BUTTON_KEY } from '../../consts';
 import { useAppSelector } from '../../hooks/hooks';
 import { getGuitarsInCart } from '../../store/cart-process/selector';
 import { GuitarType, ImagenDataType } from '../../types/types';
-import { getImagenData } from '../../utils/utils';
+import { addStyleBodyWithCloseModal, addStyleBodyWithOpenModal, getImagenData } from '../../utils/utils';
 import AddGuitarToCart from '../add-guitar-to-cart/add-guitar-to-cart';
 import AddGuitarToCartSuccess from '../add-guitar-to-cart/add-guitar-to-cart-success/add-guitar-to-cart-success';
 import GuitarRatingCard from './guitar-rating-card/guitar-rating-card';
@@ -28,21 +28,25 @@ function CardItem({guitar}: CardItemProps): JSX.Element {
 
   const handleOpenModalAddToCartClick = () => {
     setOpenModalAddToCart(true);
+    addStyleBodyWithOpenModal();
     document.addEventListener('keydown', handleEscCloseModalKeydown);
   };
 
   const handleCloseModalAddToCartClick = () => {
     setOpenModalAddToCart(false);
+    addStyleBodyWithCloseModal();
     document.removeEventListener('keydown', handleEscCloseModalKeydown);
   };
 
   const handleOpenModalSuccessAddedClick = () => {
     setOpenModalAddToCartSuccess(true);
+    addStyleBodyWithOpenModal();
     document.addEventListener('keydown', handleEscCloseModalKeydown);
   };
 
   const handleClosenModalSuccessAddedClick = () => {
     setOpenModalAddToCartSuccess(false);
+    addStyleBodyWithCloseModal();
     document.removeEventListener('keydown', handleEscCloseModalKeydown);
   };
 

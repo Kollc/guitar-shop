@@ -7,7 +7,7 @@ const initialState: CartProcessType = {
   isLoadedCart: false,
   errorMessage: '',
   discount: 0,
-  coupon: null,
+  coupon: '',
 };
 
 export const CartProcess = createSlice({
