@@ -8,6 +8,8 @@ export enum AppRoutes {
 export enum APIRoutes {
   Guitars = '/guitars',
   Comments = '/comments',
+  Coupons = '/coupons',
+  Orders  = '/orders ',
 }
 
 export const BASE_URL = 'https://guitar-shop.accelerator.pages.academy';
@@ -73,8 +75,9 @@ export const ESCAPE_BUTTON_KEY = 'Escape';
 export const TIMEOUT_RESET_ERROR = 5000;
 
 export enum TypeRequests {
-  Guitars = 'guitars request',
-  Reviews = 'reviews request',
+  Guitars = 'Guitars request',
+  Reviews = 'Reviews request',
+  Cart = 'Cart request',
 }
 
 export const MOCK_IMG = {index: 1, format: 'jpg', path: 'img/content/'};
@@ -82,6 +85,7 @@ export const MOCK_IMG = {index: 1, format: 'jpg', path: 'img/content/'};
 export const MIN_COUNT_STARS = 1;
 export const FETCH_GUITARS_LIMIT = 27;
 export const MARGIN_BOTTOM_WITHOUT_ERROR_MESSAGE = '15px';
+export const MAX_COUNT_PERCENTS = 100;
 
 
 export enum QueryParamsList {
@@ -144,3 +148,10 @@ export const GuitarTypeList = new Map([
   ['electric', 'Электрогитара'],
   ['ukulele', 'Укулеле'],
 ]);
+
+export enum HttpCode {
+  Ok = 201,
+  BadRequest = 400,
+  Unauthorized = 401,
+  NotFound = 404,
+}

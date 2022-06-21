@@ -8,6 +8,7 @@ import * as guitarProcess from '../guitars-process/guitars-process';
 import { errorHandler } from '../../services/error-handler';
 import * as guitarDetailProcess from '../guitar-detail-process/guitar-detail-process';
 import * as reviewsProcess from '../reviews-process/reviews-process';
+import * as CartProcess from '../cart-process/cart-process';
 
 export const fetchGuitarsWithoutParams = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch,
@@ -93,6 +94,23 @@ export const fetchReviewsGuitarByIdAction = createAsyncThunk<void, number, {
       setTimeout(() => {
         dispatch(reviewsProcess.resetErrorMessage());
       }, TIMEOUT_RESET_ERROR);
+    }
+  },
+);
+
+export const postPromocodeDiscrountAction = createAsyncThunk<void, {coupon: string}, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'dataCart/postPromocodeDiscrount',
+  async ({coupon}, {dispatch, extra: api}) => {
+    try {
+      const { data } = await api.post<number>(`${APIRoutes.Coupons}`, {coupon});
+      dispatch(CartProcess.setDiscount(data));
+      dispatch(CartProcess.resetErrorMessage());
+    } catch (error) {
+      dispatch(CartProcess.setErrorMessage(errorHandler(error)));
     }
   },
 );

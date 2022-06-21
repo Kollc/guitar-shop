@@ -1,3 +1,4 @@
+import { OrderSendType } from './../types/types';
 import { TIMEOUT_SERVER, BASE_URL, APIRoutes } from './../consts';
 import axios, { AxiosInstance } from 'axios';
 import { AddReviewType } from '../types/types';
@@ -33,4 +34,11 @@ export const addNewReview = async (review: AddReviewType, setError: (value: stri
   } catch (error) {
     setError(errorHandler(error));
   }
+};
+
+export const sendOrder = async (orderData: OrderSendType) => {
+  const api = createAPI();
+
+  const { data } = await api.post<number>(`${APIRoutes.Orders}`, orderData);
+  return data;
 };

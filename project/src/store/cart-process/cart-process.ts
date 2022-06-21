@@ -4,6 +4,10 @@ import { CartProcessType } from '../../types/types';
 
 const initialState: CartProcessType = {
   guitarsInCart: {},
+  isLoadedCart: false,
+  errorMessage: '',
+  discount: 0,
+  coupon: null,
 };
 
 export const CartProcess = createSlice({
@@ -40,7 +44,25 @@ export const CartProcess = createSlice({
       delete state.guitarsInCart[action.payload.id];
       localStorage.setItem('guitarsInCart', JSON.stringify(state.guitarsInCart));
     },
+    setErrorMessage: (state, action) => {
+      state.errorMessage = action.payload;
+      state.isLoadedCart = true;
+    },
+    resetErrorMessage: (state) => {
+      state.errorMessage ='';
+    },
+    setDiscount: (state, action) => {
+      state.discount = action.payload;
+      state.isLoadedCart = true;
+    },
+    setCoupon: (state, action) => {
+      state.coupon = action.payload;
+    },
+    clearCart: (state) => {
+      Object.assign(state, initialState);
+      localStorage.removeItem('guitarsInCart');
+    },
   },
 });
 
-export const { setGuitarInCart, checkSaveCart, decreaseProductCount, increaseProductCount, setCountGuitarInCart, deleteGuitarInCart } = CartProcess.actions;
+export const { clearCart, setCoupon, setDiscount, setGuitarInCart, checkSaveCart, decreaseProductCount, increaseProductCount, setCountGuitarInCart, deleteGuitarInCart, setErrorMessage, resetErrorMessage } = CartProcess.actions;

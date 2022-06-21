@@ -19,7 +19,7 @@ function DeleteGuitarInCartModal({guitar, open, onClose}: DeleteGuitarInCartModa
   };
 
   return (
-    <div style={{position: 'relative', width: '550px', height: '440px', marginBottom: '50px', display: open ? 'flex' : 'none', zIndex: 100}}>
+    <div style={{position: 'fixed', width: '550px', height: '440px', marginBottom: '50px', display: open ? 'flex' : 'none', zIndex: 100}}>
       <div className="modal is-active modal-for-ui-kit">
         <div className="modal__wrapper">
           <div className="modal__overlay" data-close-modal onClick={onClose}></div>

@@ -47,6 +47,10 @@ export type CartProcessType = {
   guitarsInCart: {
     [id: number]: GuitarInCart
   },
+  isLoadedCart: boolean,
+  errorMessage: string,
+  discount: number,
+  coupon: null | string,
 }
 
 export type ReviewsProcessType = {
@@ -91,4 +95,9 @@ export type SortParams = {
   priceEnd?: string,
   count?: string[],
   type?: string[],
+}
+
+export type OrderSendType = {
+  guitarsIds: number[],
+  coupon: string,
 }
