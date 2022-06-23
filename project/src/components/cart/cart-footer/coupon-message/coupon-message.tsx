@@ -9,7 +9,7 @@ function CouponMessage({isLoaded, error}: CouponMessageProps): JSX.Element | nul
   }
 
   if(error) {
-    return <p className="form-input__message form-input__message--error">неверный промокод</p>;
+    return <p className="form-input__message form-input__message--error">Неверный промокод</p>;
   }
 
   return <p className="form-input__message form-input__message--success">Промокод принят</p>;

@@ -2,10 +2,10 @@ import { configureMockStore } from '@jedmao/redux-mock-store';
 import { render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
-import { testComments, testGuitars } from '../../mock/mock';
-import CardItem from './card-item';
+import { mockGuitarsInCartData, testGuitars } from '../../../mock/mock';
+import CartPage from './cart-page';
 
-describe('CardItem component', () => {
+describe('CartPage component', () => {
   const mockStore = configureMockStore();
 
   const fakeStore = mockStore({
@@ -16,18 +16,8 @@ describe('CardItem component', () => {
       countGuitars: 18,
       errorMessage: '',
     },
-    GUITAR_DETAIL: {
-      errorMessage: '',
-      isLoadedGuitarDetail: true,
-      guitarDetail: testGuitars[0],
-    },
-    REVIEWS: {
-      reviews: testComments,
-      isLoadedReviews: true,
-      errorMessage: '',
-    },
     CART: {
-      guitarsInCart: {},
+      guitarsInCart: mockGuitarsInCartData,
       isLoadedCartCoupon: false,
       errorMessage: '',
       discount: 0,
@@ -35,14 +25,15 @@ describe('CardItem component', () => {
     },
   });
 
-  it('should CardItem render is success', () => {
+  it('should CartPage render is success', () => {
     render(
       <Provider store={fakeStore}>
         <BrowserRouter>
-          <CardItem guitar={testGuitars[0]}/>
+          <CartPage/>
         </BrowserRouter>
       </Provider>);
 
-    expect(screen.getAllByText(/Честер Bass/i)[0]).toBeInTheDocument();
+    expect(screen.getByTestId(/cart-title/i)).toBeInTheDocument();
+    expect(screen.getAllByAltText(/Честер Bass/i)[0]).toBeInTheDocument();
   });
 });

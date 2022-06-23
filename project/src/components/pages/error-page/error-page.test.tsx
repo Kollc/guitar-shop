@@ -28,7 +28,7 @@ describe('ErrorPage component', () => {
     },
     CART: {
       guitarsInCart: {},
-      isLoadedCart: false,
+      isLoadisLoadedCartCouponedCart: false,
       errorMessage: '',
       discount: 0,
       coupon: '',

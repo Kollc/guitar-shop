@@ -47,7 +47,7 @@ export type CartProcessType = {
   guitarsInCart: {
     [id: number]: GuitarInCart
   },
-  isLoadedCart: boolean,
+  isLoadedCartCoupon: boolean,
   errorMessage: string,
   discount: number,
   coupon: string,

@@ -12,7 +12,7 @@ function CartPage(): JSX.Element {
       <MainLayout>
         <main className="page-content">
           <div className="container">
-            <h1 className="title title--bigger page-content__title">Корзина</h1>
+            <h1 className="title title--bigger page-content__title" data-testid='cart-title'>Корзина</h1>
             <Breadcrumbs pageName={'Корзина'} addClassName={'age-content__breadcrumbs--on-cart-page'}/>
             {
               Object.values(guitarsInCart).length <= 0

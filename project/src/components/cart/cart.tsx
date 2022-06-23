@@ -8,7 +8,7 @@ type CartProps = {
 
 function Cart({guitarsInCart}: CartProps): JSX.Element {
   return (
-    <div className="cart">
+    <div className="cart" data-testid='cart'>
       <CartList guitarsInCart={guitarsInCart}/>
       <CartFooter/>
     </div>

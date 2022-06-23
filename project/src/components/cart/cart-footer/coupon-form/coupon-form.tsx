@@ -2,12 +2,12 @@ import { ChangeEvent, FormEvent } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../../hooks/hooks';
 import { postPromocodeDiscrountAction } from '../../../../store/actions/api-actions';
 import { setCoupon } from '../../../../store/cart-process/cart-process';
-import { getCartErrorMessage, getCartLoadedStatus, getCoupon } from '../../../../store/cart-process/selector';
+import { getCartErrorMessage, getCartLoadedCouponStatus, getCoupon } from '../../../../store/cart-process/selector';
 import CouponMessage from '../coupon-message/coupon-message';
 
 
 function CouponForm(): JSX.Element {
-  const isLoaded = useAppSelector(getCartLoadedStatus);
+  const isLoaded = useAppSelector(getCartLoadedCouponStatus);
   const dispatch = useAppDispatch();
   const error = useAppSelector(getCartErrorMessage);
   const coupon = useAppSelector(getCoupon);

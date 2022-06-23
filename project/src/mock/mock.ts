@@ -258,3 +258,24 @@ export const testSortedComments: ReviewType[] = [
     'guitarId': 1,
   },
 ];
+
+
+export const mockGuitarsInCartData = {
+  1: {guitar: testGuitars[1], count: 1},
+};
+
+export const mockGuitarsInCartDataDecrease = {
+  1: {guitar: testGuitars[1], count: 0},
+};
+
+export const mockGuitarsInCartDataIncrease = {
+  1: {guitar: testGuitars[1], count: 2},
+};
+
+export const mockGuitarsInCartSetCount = {
+  guitar: testGuitars[1], count: 2,
+};
+
+export const mockGuitarsInCartSetCountExpected = {
+  1: {guitar: testGuitars[1], count: 2},
+};

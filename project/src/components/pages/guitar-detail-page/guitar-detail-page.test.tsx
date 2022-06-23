@@ -35,7 +35,7 @@ describe('GuitarDetailPage component', () => {
     },
     CART: {
       guitarsInCart: {},
-      isLoadedCart: false,
+      isLoadedCartCoupon: false,
       errorMessage: '',
       discount: 0,
       coupon: '',

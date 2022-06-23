@@ -4,7 +4,7 @@ import { CartProcessType } from '../../types/types';
 
 const initialState: CartProcessType = {
   guitarsInCart: {},
-  isLoadedCart: false,
+  isLoadedCartCoupon: false,
   errorMessage: '',
   discount: 0,
   coupon: '',
@@ -46,14 +46,14 @@ export const CartProcess = createSlice({
     },
     setErrorMessage: (state, action) => {
       state.errorMessage = action.payload;
-      state.isLoadedCart = true;
+      state.isLoadedCartCoupon = true;
     },
     resetErrorMessage: (state) => {
       state.errorMessage ='';
     },
     setDiscount: (state, action) => {
       state.discount = action.payload;
-      state.isLoadedCart = true;
+      state.isLoadedCartCoupon = true;
     },
     setCoupon: (state, action) => {
       state.coupon = action.payload;

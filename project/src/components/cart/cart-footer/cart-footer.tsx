@@ -3,7 +3,7 @@ import CouponForm from './coupon-form/coupon-form';
 
 function CartFooter(): JSX.Element {
   return (
-    <div className="cart__footer">
+    <div className="cart__footer" data-testid='cart-footer'>
       <CouponForm/>
       <CartTotalPriceForm/>
     </div>

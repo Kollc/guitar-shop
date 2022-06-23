@@ -1,4 +1,4 @@
-import { fetchGuitarsWithParamsAction } from './api-actions';
+import { fetchGuitarsWithParamsAction, postPromocodeDiscrountAction } from './api-actions';
 import { testGuitars } from './../../mock/mock';
 import { Action } from 'redux';
 import thunk, { ThunkDispatch } from 'redux-thunk';
@@ -8,6 +8,7 @@ import { State } from '../../types/state';
 import { createAPI } from '../../services/api';
 import { APIRoutes } from '../../consts';
 import { setCountGuitars, setErrorMessage, setGuitars } from '../guitars-process/guitars-process';
+import { setDiscount, setErrorMessage as setErrorMessageCart } from '../cart-process/cart-process';
 
 describe('Async actions', () => {
   const api = createAPI();
@@ -51,4 +52,30 @@ describe('Async actions', () => {
 
     expect(actions).toContain(setErrorMessage.toString());
   });
+
+  it('should set discount when POST /coupon', async () => {
+    mockAPI.onPost(APIRoutes.Coupons).reply(201, {discount: 15});
+
+    const store = mockStore();
+
+    await store.dispatch(postPromocodeDiscrountAction({coupon: 'light-333'}));
+
+    const actions = store.getActions().map(({type}) => type);
+
+    expect(actions).toContain(setDiscount.toString());
+  });
+
+  it('should set error when POST /coupon', async () => {
+    mockAPI.onPost(APIRoutes.Coupons).reply(400, {discount: 0});
+
+    const store = mockStore();
+
+    await store.dispatch(postPromocodeDiscrountAction({coupon: 'light-3333'}));
+
+    const actions = store.getActions().map(({type}) => type);
+
+    expect(actions).toContain(setErrorMessageCart.toString());
+  });
 });
+
+
