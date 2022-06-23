@@ -85,7 +85,7 @@ function CardItem({guitar}: CardItemProps): JSX.Element {
         </div>
       </div>
       <AddGuitarToCart onCloseClick={handleCloseModalAddToCartClick} open={openModalAddToCart} data={guitar} onSuccessAddedToCart={handleOpenModalSuccessAddedClick}/>
-      <AddGuitarToCartSuccess open={openModalAddToCartSuccess} onClose={handleClosenModalSuccessAddedClick}/>
+      <AddGuitarToCartSuccess open={openModalAddToCartSuccess} onClose={handleClosenModalSuccessAddedClick} onContinueShoping={handleClosenModalSuccessAddedClick}/>
     </>
   );
 }

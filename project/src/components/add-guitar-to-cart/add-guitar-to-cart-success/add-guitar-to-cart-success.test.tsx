@@ -22,7 +22,7 @@ describe('CartModalSuccess component', () => {
     render(
       <Provider store={fakeStore}>
         <BrowserRouter>
-          <AddGuitarToCartSuccess open={false} onClose={jest.fn()}/>
+          <AddGuitarToCartSuccess open={false} onClose={jest.fn()} onContinueShoping={jest.fn()}/>
         </BrowserRouter>
       </Provider>);
 

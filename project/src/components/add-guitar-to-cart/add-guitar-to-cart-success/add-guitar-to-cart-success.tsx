@@ -5,9 +5,10 @@ import { addStyleBodyWithCloseModal } from '../../../utils/utils';
 type AddGuitarToCartSuccessProps = {
   open: boolean,
   onClose: () => void,
+  onContinueShoping: () => void,
 }
 
-function AddGuitarToCartSuccess({open, onClose}: AddGuitarToCartSuccessProps): JSX.Element {
+function AddGuitarToCartSuccess({open, onClose, onContinueShoping}: AddGuitarToCartSuccessProps): JSX.Element {
   const history = useHistory();
 
   const handleButtonToCartClick = () => {
@@ -28,7 +29,7 @@ function AddGuitarToCartSuccess({open, onClose}: AddGuitarToCartSuccessProps): J
               <p className="modal__message">Товар успешно добавлен в корзину</p>
               <div className="modal__button-container modal__button-container--add">
                 <button className="button button--small modal__button" onClick={handleButtonToCartClick}>Перейти в корзину</button>
-                <button className="button button--black-border button--small modal__button modal__button--right" onClick={onClose}>Продолжить покупки</button>
+                <button className="button button--black-border button--small modal__button modal__button--right" onClick={onContinueShoping}>Продолжить покупки</button>
               </div>
               <button className="modal__close-btn button-cross" type="button" aria-label="Закрыть" onClick={onClose}>
                 <span className="button-cross__icon"></span>

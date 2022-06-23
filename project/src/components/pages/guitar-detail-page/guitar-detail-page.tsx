@@ -60,6 +60,12 @@ function GuitarDetailPage(): JSX.Element {
     setOpenModalAddToCartSuccess(false);
     addStyleBodyWithCloseModal();
     document.removeEventListener('keydown', handleEscCloseModalKeydown);
+  };
+
+  const handleСontinueShoppingClick = () => {
+    setOpenModalAddToCartSuccess(false);
+    addStyleBodyWithCloseModal();
+    document.removeEventListener('keydown', handleEscCloseModalKeydown);
     history.push('/');
   };
 
@@ -112,7 +118,7 @@ function GuitarDetailPage(): JSX.Element {
         </div>
         {error && <ErrorMessage error={error} type={TypeRequests.Guitars}/>}
         <AddGuitarToCart onCloseClick={handleCloseModalAddToCartClick} open={openModalAddToCart} data={guitar} onSuccessAddedToCart={handleOpenModalSuccessAddedClick}/>
-        <AddGuitarToCartSuccess open={openModalAddToCartSuccess} onClose={handleCloseModalSuccessAddedClick}/>
+        <AddGuitarToCartSuccess open={openModalAddToCartSuccess} onClose={handleCloseModalSuccessAddedClick} onContinueShoping={handleСontinueShoppingClick}/>
       </main>
     </MainLayout>
   );
