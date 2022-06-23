@@ -64,7 +64,8 @@ function CardItem({guitar}: CardItemProps): JSX.Element {
         <div className="product-card__info">
           <GuitarRatingCard guitar={guitar}/>
           <p className="product-card__title">{guitar.name}</p>
-          <p className="product-card__price"><span className="visually-hidden">Цена:</span>{guitar.price.toLocaleString()} ₽
+          <p className="product-card__price">
+            <span className="visually-hidden">Цена:</span>{guitar.price.toLocaleString()} ₽
           </p>
         </div>
         <div className="product-card__buttons">
@@ -84,8 +85,17 @@ function CardItem({guitar}: CardItemProps): JSX.Element {
           }
         </div>
       </div>
-      <AddGuitarToCart onCloseClick={handleCloseModalAddToCartClick} open={openModalAddToCart} guitar={guitar} onSuccessAddedToCart={handleOpenModalSuccessAddedClick}/>
-      <AddGuitarToCartSuccess open={openModalAddToCartSuccess} onClose={handleClosenModalSuccessAddedClick} onContinueShoping={handleClosenModalSuccessAddedClick}/>
+      <AddGuitarToCart
+        onCloseClick={handleCloseModalAddToCartClick}
+        open={openModalAddToCart}
+        guitar={guitar}
+        onSuccessAddedToCart={handleOpenModalSuccessAddedClick}
+      />
+      <AddGuitarToCartSuccess
+        open={openModalAddToCartSuccess}
+        onClose={handleClosenModalSuccessAddedClick}
+        onContinueShoping={handleClosenModalSuccessAddedClick}
+      />
     </>
   );
 }

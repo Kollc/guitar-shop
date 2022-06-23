@@ -45,12 +45,33 @@ function Sort(): JSX.Element {
     <div className="catalog-sort">
       <h2 className="catalog-sort__title">Сортировать:</h2>
       <div className="catalog-sort__type">
-        <button className={`catalog-sort__type-button ${queryParams.get(QueryParamsList.Sort) === SortTypes.Price && 'catalog-sort__type-button--active'}`} aria-label="по цене" onClick={handlePriceSortClick}>по цене</button>
-        <button className={`catalog-sort__type-button ${queryParams.get(QueryParamsList.Sort) === SortTypes.Rating && 'catalog-sort__type-button--active'}`} aria-label="по популярности" onClick={handleRatingSortClick}>по популярности</button>
+        <button
+          className={`catalog-sort__type-button ${queryParams.get(QueryParamsList.Sort) === SortTypes.Price && 'catalog-sort__type-button--active'}`}
+          aria-label="по цене"
+          onClick={handlePriceSortClick}
+        >
+          по цене
+        </button>
+        <button
+          className={`catalog-sort__type-button ${queryParams.get(QueryParamsList.Sort) === SortTypes.Rating && 'catalog-sort__type-button--active'}`}
+          aria-label="по популярности"
+          onClick={handleRatingSortClick}
+        >
+          по популярности
+        </button>
       </div>
       <div className="catalog-sort__order">
-        <button className={`catalog-sort__order-button catalog-sort__order-button--up ${queryParams.get(QueryParamsList.Order) === OrderTypes.Asc && 'catalog-sort__order-button--active'}`} aria-label="По возрастанию" onClick={handleAscOrderClick}></button>
-        <button className={`catalog-sort__order-button catalog-sort__order-button--down ${queryParams.get(QueryParamsList.Order) === OrderTypes.Desc && 'catalog-sort__order-button--active'}`} aria-label="По убыванию" onClick={handleDescOrderClick}></button>
+        <button
+          className={`catalog-sort__order-button catalog-sort__order-button--up ${queryParams.get(QueryParamsList.Order) === OrderTypes.Asc && 'catalog-sort__order-button--active'}`}
+          aria-label="По возрастанию" onClick={handleAscOrderClick}
+        >
+        </button>
+        <button
+          className={`catalog-sort__order-button catalog-sort__order-button--down ${queryParams.get(QueryParamsList.Order) === OrderTypes.Desc && 'catalog-sort__order-button--active'}`}
+          aria-label="По убыванию"
+          onClick={handleDescOrderClick}
+        >
+        </button>
       </div>
     </div>
   );

@@ -111,14 +111,29 @@ function GuitarDetailPage(): JSX.Element {
             <div className="product-container__price-wrapper">
               <p className="product-container__price-info product-container__price-info--title">Цена:</p>
               <p className="product-container__price-info product-container__price-info--value">{guitar.price.toLocaleString()} ₽</p>
-              <a className="button button--red button--big product-container__button" href="#" onClick={handleOpenModalAddToCartClick}>Добавить в корзину</a>
+              <a
+                className="button button--red button--big product-container__button"
+                href="#"
+                onClick={handleOpenModalAddToCartClick}
+              >
+                Добавить в корзину
+              </a>
             </div>
           </div>
           <GuitarReview guitar={guitar} reviews={reviews}/>
         </div>
         {error && <ErrorMessage error={error} type={TypeRequests.Guitars}/>}
-        <AddGuitarToCart onCloseClick={handleCloseModalAddToCartClick} open={openModalAddToCart} guitar={guitar} onSuccessAddedToCart={handleOpenModalSuccessAddedClick}/>
-        <AddGuitarToCartSuccess open={openModalAddToCartSuccess} onClose={handleCloseModalSuccessAddedClick} onContinueShoping={handleСontinueShoppingClick}/>
+        <AddGuitarToCart
+          onCloseClick={handleCloseModalAddToCartClick}
+          open={openModalAddToCart}
+          guitar={guitar}
+          onSuccessAddedToCart={handleOpenModalSuccessAddedClick}
+        />
+        <AddGuitarToCartSuccess
+          open={openModalAddToCartSuccess}
+          onClose={handleCloseModalSuccessAddedClick}
+          onContinueShoping={handleСontinueShoppingClick}
+        />
       </main>
     </MainLayout>
   );

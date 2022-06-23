@@ -72,7 +72,12 @@ function CartItem({shoppingPosition}: CartItemProps): JSX.Element {
   return (
     <>
       <div className="cart-item">
-        <button className="cart-item__close-button button-cross" type="button" aria-label="Удалить" onClick={handleDeleteModalOpenClick}>
+        <button
+          className="cart-item__close-button button-cross"
+          type="button"
+          aria-label="Удалить"
+          onClick={handleDeleteModalOpenClick}
+        >
           <span className="button-cross__icon"></span>
           <span className="cart-item__close-button-interactive-area"></span>
         </button>

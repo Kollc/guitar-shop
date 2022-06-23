@@ -31,7 +31,15 @@ function CouponForm(): JSX.Element {
       <form className="coupon__form" id="coupon-form" method="post" action="/" onSubmit={handleCouponFormSubmit}>
         <div className="form-input coupon__input">
           <label className="visually-hidden">Промокод</label>
-          <input type="text" placeholder="Введите промокод" id="coupon" name="coupon" value={coupon.replace(/\s/g, '')} onChange={handleCouponInputChange} required/>
+          <input
+            type="text"
+            placeholder="Введите промокод"
+            id="coupon"
+            name="coupon"
+            value={coupon.replace(/\s/g, '')}
+            onChange={handleCouponInputChange}
+            required
+          />
           <CouponMessage isLoaded={isLoaded} error={error}/>
         </div>
         <button className="button button--big coupon__button">Применить</button>
