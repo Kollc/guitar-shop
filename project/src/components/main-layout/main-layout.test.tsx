@@ -26,6 +26,13 @@ describe('MainLayout component', () => {
       isLoadedReviews: true,
       errorMessage: '',
     },
+    CART: {
+      guitarsInCart: {},
+      isLoadedCart: false,
+      errorMessage: '',
+      discount: 0,
+      coupon: '',
+    },
   });
 
   it('should MainLayout render is succes', () => {

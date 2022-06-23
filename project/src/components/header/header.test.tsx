@@ -26,6 +26,13 @@ describe('Header component', () => {
       isLoadedReviews: true,
       errorMessage: '',
     },
+    CART: {
+      guitarsInCart: {},
+      isLoadedCart: false,
+      errorMessage: '',
+      discount: 0,
+      coupon: '',
+    },
   });
 
   it('should Header render is success', async () => {

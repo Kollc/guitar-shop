@@ -33,6 +33,13 @@ describe('GuitarDetailPage component', () => {
       isLoadedReviews: true,
       errorMessage: '',
     },
+    CART: {
+      guitarsInCart: {},
+      isLoadedCart: false,
+      errorMessage: '',
+      discount: 0,
+      coupon: '',
+    },
   });
 
   const history = createMemoryHistory();

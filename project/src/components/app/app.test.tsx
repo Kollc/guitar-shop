@@ -32,6 +32,13 @@ describe('App compoennt', () => {
       isLoadedReviews: true,
       errorMessage: '',
     },
+    CART: {
+      guitarsInCart: {},
+      isLoadedCart: false,
+      errorMessage: '',
+      discount: 0,
+      coupon: '',
+    },
   });
 
   const history = createMemoryHistory();
@@ -69,5 +76,12 @@ describe('App compoennt', () => {
     render(fakeApp);
 
     expect(screen.getByTestId('guitar-title-detail')).toBeInTheDocument();
+  });
+
+  it('should render CartPage when user navigate to "/cart"', async () => {
+    history.push('/cart');
+    render(fakeApp);
+
+    expect(screen.getByText(/Корзина пустая/i)).toBeInTheDocument();
   });
 });

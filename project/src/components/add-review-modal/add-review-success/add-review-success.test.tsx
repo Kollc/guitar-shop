@@ -11,7 +11,7 @@ describe('AddReviewSuccess component', () => {
     render(
       <Provider store={store}>
         <BrowserRouter>
-          <AddReviewSuccess open onClose={onClose}/>
+          <AddReviewSuccess open={false} onClose={onClose}/>
         </BrowserRouter>
       </Provider>);
 
@@ -24,7 +24,7 @@ describe('AddReviewSuccess component', () => {
     render(
       <Provider store={store}>
         <BrowserRouter>
-          <AddReviewSuccess open onClose={onClose}/>
+          <AddReviewSuccess open={false} onClose={onClose}/>
         </BrowserRouter>
       </Provider>);
 

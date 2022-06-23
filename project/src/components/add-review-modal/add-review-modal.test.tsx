@@ -13,19 +13,19 @@ describe('AddReviewModal component', () => {
     render(
       <Provider store={store}>
         <BrowserRouter>
-          <AddReviewModal guitar={testGuitars[0]} open onClose={onClose} onOpenSuccessAddReview={onOpenSuccessAddReview}/>
+          <AddReviewModal guitar={testGuitars[0]} open={false} onClose={onClose} onOpenSuccessAddReview={onOpenSuccessAddReview}/>
         </BrowserRouter>
       </Provider>);
 
     expect(screen.getByText('Оставить отзыв')).toBeInTheDocument();
-    expect(screen.getByTestId('modal')).toHaveClass('is-active');
+    expect(screen.getByTestId('modal')).not.toHaveClass('is-active');
   });
 
   it('AddReviewModal events work is success', () => {
     render(
       <Provider store={store}>
         <BrowserRouter>
-          <AddReviewModal guitar={testGuitars[0]} open onClose={onClose} onOpenSuccessAddReview={onOpenSuccessAddReview}/>
+          <AddReviewModal guitar={testGuitars[0]} open={false} onClose={onClose} onOpenSuccessAddReview={onOpenSuccessAddReview}/>
         </BrowserRouter>
       </Provider>);
 

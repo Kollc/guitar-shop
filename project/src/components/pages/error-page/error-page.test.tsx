@@ -26,6 +26,13 @@ describe('ErrorPage component', () => {
       isLoadedReviews: true,
       errorMessage: '',
     },
+    CART: {
+      guitarsInCart: {},
+      isLoadedCart: false,
+      errorMessage: '',
+      discount: 0,
+      coupon: '',
+    },
   });
 
   it('should ErrorPage render is succes', () => {
