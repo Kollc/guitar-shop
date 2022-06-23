@@ -7,7 +7,7 @@ import { getCartDiscountPercents, getCoupon, getGuitarsInCart } from '../../../.
 
 function CartTotalPriceForm(): JSX.Element {
   const dispatch = useAppDispatch();
-  const guitarsDataInCart = useAppSelector(getGuitarsInCart);
+  const shoppingPositions = useAppSelector(getGuitarsInCart);
   const discountPercents = useAppSelector(getCartDiscountPercents);
 
   const [allPriceValue, setAllPriceValue] = useState(0);
@@ -16,7 +16,7 @@ function CartTotalPriceForm(): JSX.Element {
   const coupon = useAppSelector(getCoupon);
 
   const handleSendOrderClick = () => {
-    const guitarsIds = Object.keys(guitarsDataInCart).map((id) => Number(id));
+    const guitarsIds = Object.keys(shoppingPositions).map((id) => Number(id));
     sendOrder({guitarsIds, coupon: coupon || null}).then((res) => {
 
       if(res === HttpCode.Ok) {
@@ -28,12 +28,12 @@ function CartTotalPriceForm(): JSX.Element {
   useEffect(() => {
     let allPrice = 0;
 
-    Object.values(guitarsDataInCart).forEach((guitarData) => {
-      allPrice += guitarData.guitar.price * guitarData.count;
+    Object.values(shoppingPositions).forEach((shoppingPosition) => {
+      allPrice += shoppingPosition.guitar.price * shoppingPosition.count;
     });
 
     setAllPriceValue(allPrice);
-  }, [guitarsDataInCart]);
+  }, [shoppingPositions]);
 
   useEffect(() => {
     const currentDiscountValue = allPriceValue * discountPercents / MAX_COUNT_PERCENTS;

@@ -1,4 +1,4 @@
-import { mockGuitarsInCartData, testGuitars, mockGuitarsInCartDataDecrease, mockGuitarsInCartDataIncrease, mockGuitarsInCartSetCount, mockGuitarsInCartSetCountExpected } from './../../mock/mock';
+import { mockGuitarsInCart, testGuitars, mockGuitarsInCartDecrease, mockGuitarsInCartIncrease, mockGuitarsInCartSetCount, mockGuitarsInCartSetCountExpected } from './../../mock/mock';
 import { clearCart, setCoupon, setDiscount, setGuitarInCart, checkSaveCart, decreaseProductCount, increaseProductCount, setCountGuitarInCart, deleteGuitarInCart, setErrorMessage, resetErrorMessage, CartProcess } from './cart-process';
 
 describe('Reducer: cart process', () => {
@@ -23,7 +23,7 @@ describe('Reducer: cart process', () => {
     };
 
     expect(CartProcess.reducer(state, setGuitarInCart(testGuitars[1]))).toEqual({
-      guitarsInCart: mockGuitarsInCartData,
+      guitarsInCart: mockGuitarsInCart,
       isLoadedCartCoupon: false,
       errorMessage: '',
       discount: 0,
@@ -33,7 +33,7 @@ describe('Reducer: cart process', () => {
 
   it('Add clearCart work is success', () => {
     const state = {
-      guitarsInCart: mockGuitarsInCartData,
+      guitarsInCart: mockGuitarsInCart,
       isLoadedCartCoupon: false,
       errorMessage: '',
       discount: 0,
@@ -87,7 +87,7 @@ describe('Reducer: cart process', () => {
 
   it('Add checkSaveCart work is success', () => {
     const state = {
-      guitarsInCart: mockGuitarsInCartData,
+      guitarsInCart: mockGuitarsInCart,
       isLoadedCartCoupon: false,
       errorMessage: '',
       discount: 0,
@@ -95,7 +95,7 @@ describe('Reducer: cart process', () => {
     };
 
     expect(CartProcess.reducer(state, checkSaveCart())).toEqual({
-      guitarsInCart: mockGuitarsInCartData,
+      guitarsInCart: mockGuitarsInCart,
       isLoadedCartCoupon: false,
       errorMessage: '',
       discount: 0,
@@ -105,7 +105,7 @@ describe('Reducer: cart process', () => {
 
   it('Add decreaseProductCount work is success', () => {
     const state = {
-      guitarsInCart: mockGuitarsInCartData,
+      guitarsInCart: mockGuitarsInCart,
       isLoadedCartCoupon: false,
       errorMessage: '',
       discount: 0,
@@ -113,7 +113,7 @@ describe('Reducer: cart process', () => {
     };
 
     expect(CartProcess.reducer(state, decreaseProductCount(testGuitars[1]))).toEqual({
-      guitarsInCart: mockGuitarsInCartDataDecrease,
+      guitarsInCart: mockGuitarsInCartDecrease,
       isLoadedCartCoupon: false,
       errorMessage: '',
       discount: 0,
@@ -123,7 +123,7 @@ describe('Reducer: cart process', () => {
 
   it('Add increaseProductCount work is success', () => {
     const state = {
-      guitarsInCart: mockGuitarsInCartData,
+      guitarsInCart: mockGuitarsInCart,
       isLoadedCartCoupon: false,
       errorMessage: '',
       discount: 0,
@@ -131,7 +131,7 @@ describe('Reducer: cart process', () => {
     };
 
     expect(CartProcess.reducer(state, increaseProductCount(testGuitars[1]))).toEqual({
-      guitarsInCart: mockGuitarsInCartDataIncrease,
+      guitarsInCart: mockGuitarsInCartIncrease,
       isLoadedCartCoupon: false,
       errorMessage: '',
       discount: 0,
@@ -141,7 +141,7 @@ describe('Reducer: cart process', () => {
 
   it('Add setCountGuitarInCart work is success', () => {
     const state = {
-      guitarsInCart: mockGuitarsInCartData,
+      guitarsInCart: mockGuitarsInCart,
       isLoadedCartCoupon: false,
       errorMessage: '',
       discount: 0,
@@ -159,7 +159,7 @@ describe('Reducer: cart process', () => {
 
   it('Add deleteGuitarInCart work is success', () => {
     const state = {
-      guitarsInCart: mockGuitarsInCartData,
+      guitarsInCart: mockGuitarsInCart,
       isLoadedCartCoupon: false,
       errorMessage: '',
       discount: 0,

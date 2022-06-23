@@ -117,7 +117,7 @@ function GuitarDetailPage(): JSX.Element {
           <GuitarReview guitar={guitar} reviews={reviews}/>
         </div>
         {error && <ErrorMessage error={error} type={TypeRequests.Guitars}/>}
-        <AddGuitarToCart onCloseClick={handleCloseModalAddToCartClick} open={openModalAddToCart} data={guitar} onSuccessAddedToCart={handleOpenModalSuccessAddedClick}/>
+        <AddGuitarToCart onCloseClick={handleCloseModalAddToCartClick} open={openModalAddToCart} guitar={guitar} onSuccessAddedToCart={handleOpenModalSuccessAddedClick}/>
         <AddGuitarToCartSuccess open={openModalAddToCartSuccess} onClose={handleCloseModalSuccessAddedClick} onContinueShoping={handleСontinueShoppingClick}/>
       </main>
     </MainLayout>

@@ -10,8 +10,8 @@ function Header(): JSX.Element {
 
   useEffect(() => {
     let count = 0;
-    Object.values(guitarsInCart).forEach((guitarData) => {
-      count += guitarData.count;
+    Object.values(guitarsInCart).forEach((guitarInCart) => {
+      count += guitarInCart.count;
     });
 
     setCountGuitarsInCart(count);

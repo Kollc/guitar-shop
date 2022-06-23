@@ -2,7 +2,7 @@ import { configureMockStore } from '@jedmao/redux-mock-store';
 import { render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
-import { mockGuitarsInCartData } from '../../../mock/mock';
+import { mockGuitarsInCart } from '../../../mock/mock';
 import CartItem from './cart-item';
 
 describe('CartItem component', () => {
@@ -22,7 +22,7 @@ describe('CartItem component', () => {
     render(
       <Provider store={fakeStore}>
         <BrowserRouter>
-          <CartItem guitarData={mockGuitarsInCartData[1]}/>
+          <CartItem shoppingPosition={mockGuitarsInCart[1]}/>
         </BrowserRouter>
       </Provider>);
 

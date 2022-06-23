@@ -7,7 +7,7 @@ import { getCountGuitars, getGuitars, getGuitarsError, getStatusLoaded } from '.
 import { GuitarType, SortParams } from '../../../types/types';
 import { getCountStartShowGuitars } from '../../../utils/utils';
 import Breadcrumbs from '../../breadcrumbs/breadcrumbs';
-import CardsList from '../../cards-list/cards-list';
+import CardList from '../../cards-list/cards-list';
 import ErrorMessage from '../../error-message/error-message';
 import Filter from '../../filter/filter';
 import LoadingScreen from '../../loading-screen/loading-sceen';
@@ -79,7 +79,7 @@ function CatalogPage(): JSX.Element {
             {
               showerGuitars.length > 0
                 ?
-                <CardsList guitars={showerGuitars}/>
+                <CardList guitars={showerGuitars}/>
                 :
                 <EmptyCatalog/>
             }

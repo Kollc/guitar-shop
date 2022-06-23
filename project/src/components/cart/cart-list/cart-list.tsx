@@ -8,7 +8,7 @@ type CartListProps = {
 function CartList({guitarsInCart}: CartListProps): JSX.Element {
   return (
     <>
-      {Object.values(guitarsInCart).map((guitarInCart) => <CartItem key={guitarInCart.guitar.id} guitarData={guitarInCart}/>)}
+      {Object.values(guitarsInCart).map((guitarInCart) => <CartItem key={guitarInCart.guitar.id} shoppingPosition={guitarInCart}/>)}
     </>
   );
 }

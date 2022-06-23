@@ -1,33 +1,33 @@
 import { useState } from 'react';
 import { GuitarType } from '../../types/types';
-import { GuitarTabsList, GuitarTypeList } from '../../consts';
+import { GuitarTabList, GuitarTypeDictionary } from '../../consts';
 
 type GuitarTabsProps = {
   guitar: GuitarType,
 };
 
 function GuitarTabs({guitar}: GuitarTabsProps): JSX.Element {
-  const [activeTab, setActiveTab] = useState(GuitarTabsList.Characteristics);
+  const [activeTab, setActiveTab] = useState(GuitarTabList.Characteristics);
 
   return (
     <div className="tabs">
       <button
-        className={`button button--medium tabs__button ${activeTab !== GuitarTabsList.Characteristics && 'button--black-border'}`}
-        onClick={() => setActiveTab(GuitarTabsList.Characteristics)}
+        className={`button button--medium tabs__button ${activeTab !== GuitarTabList.Characteristics && 'button--black-border'}`}
+        onClick={() => setActiveTab(GuitarTabList.Characteristics)}
       >
         Характеристики
       </button>
 
       <button
         data-testid='description-button'
-        className={`button button--medium tabs__button ${activeTab !== GuitarTabsList.Description && 'button--black-border'}`}
-        onClick={() => setActiveTab(GuitarTabsList.Description)}
+        className={`button button--medium tabs__button ${activeTab !== GuitarTabList.Description && 'button--black-border'}`}
+        onClick={() => setActiveTab(GuitarTabList.Description)}
       >
         Описание
       </button>
 
       <div className="tabs__content" id="characteristics">
-        <table data-testid='characteristics' className={`tabs__table ${activeTab !== GuitarTabsList.Characteristics && 'hidden'}`}>
+        <table data-testid='characteristics' className={`tabs__table ${activeTab !== GuitarTabList.Characteristics && 'hidden'}`}>
           <tbody>
             <tr className="tabs__table-row">
               <td className="tabs__title">Артикул:</td>
@@ -35,7 +35,7 @@ function GuitarTabs({guitar}: GuitarTabsProps): JSX.Element {
             </tr>
             <tr className="tabs__table-row">
               <td className="tabs__title">Тип:</td>
-              <td className="tabs__value">{GuitarTypeList.get(guitar.type)}</td>
+              <td className="tabs__value">{GuitarTypeDictionary.get(guitar.type)}</td>
             </tr>
             <tr className="tabs__table-row">
               <td className="tabs__title">Количество струн:</td>
@@ -43,7 +43,7 @@ function GuitarTabs({guitar}: GuitarTabsProps): JSX.Element {
             </tr>
           </tbody>
         </table>
-        <p data-testid='description' className={`tabs__product-description ${activeTab !== GuitarTabsList.Description && 'hidden'}`}>{guitar.description}</p>
+        <p data-testid='description' className={`tabs__product-description ${activeTab !== GuitarTabList.Description && 'hidden'}`}>{guitar.description}</p>
       </div>
     </div>
   );

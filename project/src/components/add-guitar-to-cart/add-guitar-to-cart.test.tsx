@@ -22,7 +22,7 @@ describe('AddGuitarToCart component', () => {
     render(
       <Provider store={fakeStore}>
         <BrowserRouter>
-          <AddGuitarToCart data={testGuitars[0]} onCloseClick={jest.fn()} open={false} onSuccessAddedToCart={jest.fn()}/>
+          <AddGuitarToCart guitar={testGuitars[0]} onCloseClick={jest.fn()} open={false} onSuccessAddedToCart={jest.fn()}/>
         </BrowserRouter>
       </Provider>);
 

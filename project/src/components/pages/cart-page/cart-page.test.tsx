@@ -2,7 +2,7 @@ import { configureMockStore } from '@jedmao/redux-mock-store';
 import { render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
-import { mockGuitarsInCartData, testGuitars } from '../../../mock/mock';
+import { mockGuitarsInCart, testGuitars } from '../../../mock/mock';
 import CartPage from './cart-page';
 
 describe('CartPage component', () => {
@@ -17,7 +17,7 @@ describe('CartPage component', () => {
       errorMessage: '',
     },
     CART: {
-      guitarsInCart: mockGuitarsInCartData,
+      guitarsInCart: mockGuitarsInCart,
       isLoadedCartCoupon: false,
       errorMessage: '',
       discount: 0,

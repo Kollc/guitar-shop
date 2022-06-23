@@ -2,7 +2,7 @@ import { configureMockStore } from '@jedmao/redux-mock-store';
 import { render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
-import { mockGuitarsInCartData } from '../../../mock/mock';
+import { mockGuitarsInCart } from '../../../mock/mock';
 import AddGuitarToCartSuccess from './add-guitar-to-cart-success';
 
 describe('CartModalSuccess component', () => {
@@ -10,7 +10,7 @@ describe('CartModalSuccess component', () => {
 
   const fakeStore = mockStore({
     CART: {
-      guitarsInCart: mockGuitarsInCartData,
+      guitarsInCart: mockGuitarsInCart,
       isLoadedCartCoupon: false,
       errorMessage: '',
       discount: 0,

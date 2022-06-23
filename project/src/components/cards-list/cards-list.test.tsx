@@ -3,9 +3,9 @@ import { render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { testComments, testGuitars } from '../../mock/mock';
-import CardsList from './cards-list';
+import CardList from './cards-list';
 
-describe('CardsList component', () => {
+describe('CardList component', () => {
   const mockStore = configureMockStore();
 
   const fakeStore = mockStore({
@@ -35,11 +35,11 @@ describe('CardsList component', () => {
     },
   });
 
-  it('should CardsList render is success', () => {
+  it('should CardList render is success', () => {
     render(
       <Provider store={fakeStore}>
         <BrowserRouter>
-          <CardsList guitars={testGuitars}/>
+          <CardList guitars={testGuitars}/>
         </BrowserRouter>
       </Provider>);
 

@@ -1,5 +1,5 @@
 import FocusTrap from 'focus-trap-react';
-import { GuitarTypeList } from '../../consts';
+import { GuitarTypeDictionary } from '../../consts';
 import { useAppDispatch } from '../../hooks/hooks';
 import { setGuitarInCart } from '../../store/cart-process/cart-process';
 import { GuitarType } from '../../types/types';
@@ -8,16 +8,16 @@ import { getImagenData } from '../../utils/utils';
 type AddGuitarToCartProps = {
   onCloseClick: () => void,
   open:  boolean,
-  data: GuitarType,
+  guitar: GuitarType,
   onSuccessAddedToCart: () => void,
 }
 
-function AddGuitarToCart({open, data, onCloseClick, onSuccessAddedToCart}: AddGuitarToCartProps): JSX.Element {
+function AddGuitarToCart({open, guitar, onCloseClick, onSuccessAddedToCart}: AddGuitarToCartProps): JSX.Element {
   const dispatch = useAppDispatch();
-  const imagenData = getImagenData(data.previewImg);
+  const imagenData = getImagenData(guitar.previewImg);
 
   const handleAddCartClick = () => {
-    dispatch(setGuitarInCart(data));
+    dispatch(setGuitarInCart(guitar));
     onCloseClick();
     onSuccessAddedToCart();
   };
@@ -39,10 +39,10 @@ function AddGuitarToCart({open, data, onCloseClick, onSuccessAddedToCart}: AddGu
                   alt="Честер bass"
                 />
                 <div className="modal__info-wrapper">
-                  <h3 className="modal__product-name title title--little title--uppercase">{data.name}</h3>
-                  <p className="modal__product-params modal__product-params--margin-11">Артикул: {data.vendorCode}</p>
-                  <p className="modal__product-params">{GuitarTypeList.get(data.type)}, {data.stringCount} струнная</p>
-                  <p className="modal__price-wrapper"><span className="modal__price">Цена:</span><span className="modal__price">{data.price.toLocaleString()} ₽</span></p>
+                  <h3 className="modal__product-name title title--little title--uppercase">{guitar.name}</h3>
+                  <p className="modal__product-params modal__product-params--margin-11">Артикул: {guitar.vendorCode}</p>
+                  <p className="modal__product-params">{GuitarTypeDictionary.get(guitar.type)}, {guitar.stringCount} струнная</p>
+                  <p className="modal__price-wrapper"><span className="modal__price">Цена:</span><span className="modal__price">{guitar.price.toLocaleString()} ₽</span></p>
                 </div>
               </div>
               <div className="modal__button-container">

@@ -1,5 +1,5 @@
 import { ChangeEvent, useState } from 'react';
-import { ESCAPE_BUTTON_KEY, GuitarTypeList, CartCountGuitars } from '../../../consts';
+import { ESCAPE_BUTTON_KEY, GuitarTypeDictionary, CartCountGuitars } from '../../../consts';
 import { useAppDispatch } from '../../../hooks/hooks';
 import { decreaseProductCount, increaseProductCount, setCountGuitarInCart } from '../../../store/cart-process/cart-process';
 import { GuitarInCart, ImagenDataType } from '../../../types/types';
@@ -7,27 +7,27 @@ import { addStyleBodyWithCloseModal, addStyleBodyWithOpenModal, getImagenData } 
 import DeleteGuitarInCartModal from '../../delete-guitar-in-cart/delete-guitar-in-cart';
 
 type CartItemProps = {
-  guitarData: GuitarInCart,
+  shoppingPosition: GuitarInCart,
 }
 
-function CartItem({guitarData}: CartItemProps): JSX.Element {
+function CartItem({shoppingPosition}: CartItemProps): JSX.Element {
   const dispatch = useAppDispatch();
-  const {count, guitar} = guitarData;
+  const {count, guitar} = shoppingPosition;
   const imagenData: ImagenDataType = getImagenData(guitar.previewImg);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
 
   const handleInputCountGuitarsChange = (evt: ChangeEvent<HTMLInputElement>) => {
-    const newGuitarData = {...guitarData};
+    const guitarInCart = {...shoppingPosition};
 
     if(Number(evt.target.value) >= CartCountGuitars.Min && Number(evt.target.value) <= CartCountGuitars.Max) {
-      newGuitarData.count = Number(evt.target.value);
-      dispatch(setCountGuitarInCart(newGuitarData));
+      guitarInCart.count = Number(evt.target.value);
+      dispatch(setCountGuitarInCart(guitarInCart));
     } else if(Number(evt.target.value) < CartCountGuitars.Min) {
-      newGuitarData.count = CartCountGuitars.Min;
-      dispatch(setCountGuitarInCart(newGuitarData));
+      guitarInCart.count = CartCountGuitars.Min;
+      dispatch(setCountGuitarInCart(guitarInCart));
     } else {
-      newGuitarData.count = CartCountGuitars.Max;
-      dispatch(setCountGuitarInCart(newGuitarData));
+      guitarInCart.count = CartCountGuitars.Max;
+      dispatch(setCountGuitarInCart(guitarInCart));
     }
   };
 
@@ -61,9 +61,9 @@ function CartItem({guitarData}: CartItemProps): JSX.Element {
 
   const handleIncreaseCountButtonClick = () => {
     if(count + 1 > CartCountGuitars.Max) {
-      const newGuitarData = {...guitarData};
-      newGuitarData.count = CartCountGuitars.Max;
-      dispatch(setCountGuitarInCart(newGuitarData));
+      const newGuitar = {...shoppingPosition};
+      newGuitar.count = CartCountGuitars.Max;
+      dispatch(setCountGuitarInCart(newGuitar));
     } else {
       dispatch(increaseProductCount(guitar));
     }
@@ -88,7 +88,7 @@ function CartItem({guitarData}: CartItemProps): JSX.Element {
         <div className="product-info cart-item__info">
           <p className="product-info__title">{guitar.name}</p>
           <p className="product-info__info">Артикул: {guitar.vendorCode}</p>
-          <p className="product-info__info">{GuitarTypeList.get(guitar.type)}, {guitar.stringCount} струнная</p>
+          <p className="product-info__info">{GuitarTypeDictionary.get(guitar.type)}, {guitar.stringCount} струнная</p>
         </div>
         <div className="cart-item__price">{guitar.price.toLocaleString()} ₽</div>
         <div className="quantity cart-item__quantity">

@@ -260,15 +260,15 @@ export const testSortedComments: ReviewType[] = [
 ];
 
 
-export const mockGuitarsInCartData = {
+export const mockGuitarsInCart = {
   1: {guitar: testGuitars[1], count: 1},
 };
 
-export const mockGuitarsInCartDataDecrease = {
+export const mockGuitarsInCartDecrease = {
   1: {guitar: testGuitars[1], count: 0},
 };
 
-export const mockGuitarsInCartDataIncrease = {
+export const mockGuitarsInCartIncrease = {
   1: {guitar: testGuitars[1], count: 2},
 };
 

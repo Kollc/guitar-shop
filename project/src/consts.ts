@@ -39,7 +39,7 @@ export const DEFAULT_RATING_VALUE = 0;
 
 export const COUNT_ROWS_IN_TEXT_AREA = 10;
 
-export enum GuitarTabsList {
+export enum GuitarTabList {
   Characteristics = 'characteristics',
   Description = 'description',
 }
@@ -96,28 +96,28 @@ export enum QueryParamsList {
   Count = 'count',
 }
 
-export enum GuitarTypesList {
+export enum GuitarTypes {
   Acoustic = 'acoustic',
   Electric = 'electric',
   Ukulele = 'ukulele',
 }
 
-export const GuitarTypesListData = [
+export const GuitarTypeList = [
   {
     title: 'Акустические гитары',
-    id: GuitarTypesList.Acoustic,
+    id: GuitarTypes.Acoustic,
   },
   {
     title: 'Электрогитары',
-    id: GuitarTypesList.Electric,
+    id: GuitarTypes.Electric,
   },
   {
     title: 'Укулеле',
-    id: GuitarTypesList.Ukulele,
+    id: GuitarTypes.Ukulele,
   },
 ];
 
-export const GuitarCountStringsList = [
+export const GuitarCountStrings = [
   {
     title: '4',
     id: '4-strings',
@@ -142,7 +142,7 @@ export const GuitarsTypeCountStrings = new Map([
   ['ukulele', [4]],
 ]);
 
-export const GuitarTypeList = new Map([
+export const GuitarTypeDictionary = new Map([
   ['acoustic', 'Акустическая гитара'],
   ['electric', 'Электрогитара'],
   ['ukulele', 'Укулеле'],

@@ -1,5 +1,5 @@
 import FocusTrap from 'focus-trap-react';
-import { GuitarTypeList } from '../../consts';
+import { GuitarTypeDictionary } from '../../consts';
 import { useAppDispatch } from '../../hooks/hooks';
 import { deleteGuitarInCart } from '../../store/cart-process/cart-process';
 import { GuitarType, ImagenDataType } from '../../types/types';
@@ -40,7 +40,7 @@ function DeleteGuitarInCartModal({guitar, open, onClose}: DeleteGuitarInCartModa
                 <div className="modal__info-wrapper">
                   <h3 className="modal__product-name title title--little title--uppercase">{guitar.name}</h3>
                   <p className="modal__product-params modal__product-params--margin-11">Артикул: {guitar.vendorCode}</p>
-                  <p className="modal__product-params">{GuitarTypeList.get(guitar.type)}, {guitar.stringCount} струнная</p>
+                  <p className="modal__product-params">{GuitarTypeDictionary.get(guitar.type)}, {guitar.stringCount} струнная</p>
                   <p className="modal__price-wrapper"><span className="modal__price">Цена:</span><span className="modal__price">{guitar.price.toLocaleString()} ₽</span></p>
                 </div>
               </div>
