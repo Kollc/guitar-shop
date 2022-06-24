@@ -50,7 +50,7 @@ function CartTotalPriceForm(): JSX.Element {
       <p className="cart__total-item">
         <span className="cart__total-value-name">Скидка:</span>
         <span className={`cart__total-value ${discountValue > 0 && 'cart__total-value--bonus'}`}>
-          - {discountValue.toLocaleString()} ₽
+          {discountValue > 0 ? `- ${discountValue.toLocaleString()} ₽` : `${discountValue.toLocaleString()} ₽`}
         </span>
       </p>
       <p className="cart__total-item">
